@@ -1,0 +1,112 @@
+<li class="step {{ $user->hasConfirmed()?'':'active' }}">
+            <div class="step-title waves-effect waves-dark">Payment Mode</div>
+                <div class="step-content">
+                    @if($user->hasTeams())
+                        <i class="fa {{ $user->hasConfirmedTeams()?'fa-check':'fa-times' }}"></i> All your team members have confirmed their registration
+                    @endif
+                    @if(!$user->hasPaidForTeams() || !$user->hasPaidAccomdation())
+                        <p><strong>You will be paying for the following!</strong></p>
+                        <table class="bordered highlight responsive-table">     
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Registration Status</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{-- Get all users to pay   --}}
+                                @foreach($user->getUsersToPay() as $userToPay)
+                                    <tr>
+                                        <td>{{ $userToPay->first_name }}{{ $userToPay->last_name }}</td>
+                                        <td>{{ $userToPay->email }}</td>
+                                        <td>
+                                        @if($userToPay->hasConfirmed())
+                                            <span class="green-text">Confirmed</span>
+                                        @else
+                                            <span class="red-text">Not Confirmed</span>
+                                        @endif
+                                        </td>
+                                        <td><i class="fa fa-inr"></i> {{ App\Payment::getAccomodationAmount() }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="3">Total Amount (Includes 4% transaction fee)</th>
+                                <th><i class="fa fa-inr"></i> {{ $user->getAccomodationAmount() }}</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <div class="container">
+                        <p>
+                            <input name="mode_of_payment" type="radio" id="online" />
+                            <label for="online">ONLINE PAYMENT</label>
+                            <input name="mode_of_payment" type="radio" id="DD" />
+                            <label for="DD">DEMAND DRAFT</label>
+                        </p>
+                        </div>
+                        <div id="payu">
+                            @if($user->hasConfirmedTeams())
+                             <button type="button" onclick="$('#frm-payment').submit()" class="btn waves-effect waves-light green"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
+                            @else
+                                <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
+                            @endif
+                        </div>
+                        <div id="draft">
+                            @if($user->hasConfirmedTeams())
+                            <p>
+                                @include('partials.error')                        
+                                    {!! Form::open(['url' => route('user_pages.ticket.upload'), 'files' => true, 'id' => 'form-upload-ticket', 'style' => 'display:inline']) !!}
+                                    {!! Form::file('demand_draft', ['class' => 'hide', 'id' => 'file-ticket']) !!}
+                                    {!! Form::close() !!}
+                                    <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload Ticket</button>
+                            </p>
+                            @endif
+                        </div>
+                    @else
+                        <p class="green-text"><i class="fa fa-check"></i> Hurray! your payment is confirmed, we are excited to see you at Legacy17</p>
+                        <p>
+                        {{ link_to_route('user_pages.payment.reciept', 'Download Payment Reciept', null, ['class' => 'waves-effect waves-light btn green']) }}
+                        </p>
+                        
+                    @endif
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+@if($user->hasConfirmedTeams())
+    <form action="{{ env('PAYU_URL') }}" id="frm-payment" method="post">
+        <input type="hidden" name="key" value="{{ App\Payment::getPaymentKey() }}">
+        <input type="hidden" name="txnid" value="{{ $user->getTransactionId() }}">    
+        <input type="hidden" name="amount" value="{{ $user->getAccomodationAmount() }}">
+        <input type="hidden" name="productinfo" value="{{ App\Payment::getProductInfo() }}">
+        <input type="hidden" name="firstname" value="{{ $user->first_name }}">
+        <input type="hidden" name="email" value="{{ $user->email }}">
+        <input type="hidden" name="phone" value="{{ $user->mobile }}">            
+        <input type="hidden" name="surl" value="{{ route('user_pages.payment.success') }}">   
+        <input type="hidden" name="furl" value="{{ route('user_pages.payment.failure') }}">
+        <input type="hidden" name="hash" value="{{ Auth::user()->getHash(Auth::user()->getAccomodationAmount()) }}">
+    </form>
+@endif
+
+<script>
+$(function(){
+    $('#draft').hide();
+    $('#payu').hide();
+   $('.stepper').activateStepper();
+   $('#online').click(function(){
+      $('#payu').show();
+      $('#draft').hide();
+   });
+   $('#DD').click(function(){
+      $('#draft').show();
+      $('#payu').hide();
+   });
+});
+</script>
+
+
+@endif

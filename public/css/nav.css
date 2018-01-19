@@ -1,0 +1,19 @@
+nav {
+    background-color: #37474f;
+    -webkit-box-shadow: 0 0px;
+    box-shadow: 0 0px;
+}
+
+.nav-warapper {
+    opacity: 0.2;
+}
+
+nav ul li a {
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    font-size: 1rem;
+    color: #fff;
+    display: block;
+    padding: 0 15px;
+    cursor: pointer
+}
