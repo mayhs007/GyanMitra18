@@ -21,8 +21,6 @@ class DepartmentsSeeder extends Seeder
             ['name' => 'BIO-TECH'],
             ['name' => 'MCA'],
             ['name' => 'MATHS']
-            
-            
-                    ]);
+            ]);
     }
 }
