@@ -17,6 +17,7 @@
             <p><i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
             {{$event->amount}}
             <p>
+           
                 @if(Auth::check() && Auth::user()->type == 'student')
                 @if(Auth::user()->hasRegisteredEvent($event->id))
                     @if($event->isGroupEvent())
@@ -38,6 +39,7 @@
                     @endif 
                 @endif
             @endif
+            
             </p>
         </div>
         @if(Auth::check() && Auth::user()->type == 'admin')

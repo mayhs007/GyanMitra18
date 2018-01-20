@@ -226,7 +226,7 @@ class AdminPagesController extends Controller
         $user = User::findOrFail($user_id);
         $team = new Team();
         $Workshop = Event::where('category_id', 1)->pluck('title', 'id')->toArray();
-        $soloEvents = Event::where('max_members', 1)->pluck('title', 'id')->toArray();
+        $soloEvents = Event::where('category_id', 2)->where('max_members', 1)->pluck('title', 'id')->toArray();
         $teamEvents = Event::where('max_members', '>', 1)->pluck('title', 'id')->toArray();        
         return view('admin_pages.edit_registration', ['registration' => $user])->with('soloEvents', $soloEvents)->with('teamEvents', $teamEvents)->with('team', $team)->with('workshop',$Workshop);
     }

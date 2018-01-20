@@ -101,12 +101,20 @@ class User extends Authenticatable
         }
     }
     function hasPaid(){
-        if($this->payment == null){
+        if($this->payment==Null)
+        {
             return false;
         }
-        else{
-            return  true;
+        else
+        {
+            if($this->payment->payment_status == 'notpaid'){
+                return false;
+            }
+            else{
+                return  true;
+            }
         }
+      
     }
     function hasConfirmedDD()
     {
@@ -318,25 +326,41 @@ class User extends Authenticatable
     }
     function getTotalAmount(){
         $category_id=Category::where('name','Workshop')->first()->id;
-        $transactionFee = 0.04;
+        $transactionFee = Payment::getTransactionFee();
         $totalAmount = 0;
         $amount=0;
+        $amounst=0;
         if($this->hasWorkshop())
-        {
-            $workshops=$this->events()->where('category_id',$category_id);
-            foreach($workshops as $workshop){
-                $amount+=$workshop->amount;
-            }  
+        {    
+            $workshop_amounts=$this->events()->where('category_id',1)->get(); 
+            foreach($workshop_amounts as $workshop_amount)
+            {
+               if($this->isPg())
+               {    
+                    if($workshop_amount->pg_amount !=0)
+                    {
+                        $amount+=$workshop_amount->pg_amount;
+                    }
+                    else
+                    {
+                        $amount+=$workshop_amount->amount;
+                    }
+                }
+                else
+                {
+                        $amount+=$workshop_amount->amount;
+                }
+            }
         }
         if($this->hasEvents())
         {
-            $amount+=200;
+            $amount+=Payment::getEventAmount();
         }
-       
-        $totalAmount+=$amount;
+    
+       // $totalAmount+=$amount;
         // Very Very important Add the transaction fee
-        $totalAmount += $totalAmount*$transactionFee;
-        return $totalAmount;
+       // $totalAmount += $amount*$transactionFee;
+        return $amount;
     }
     function getTotalAmountPaid(){
         $transactionFee = Payment::getTransactionFee();
@@ -484,6 +508,16 @@ class User extends Authenticatable
             {
                 return false;
             }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    function isPg(){
+        if($this->level_of_study == 'PG')
+        {
+            return true;
         }
         else
         {

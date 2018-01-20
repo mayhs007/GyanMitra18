@@ -15,7 +15,7 @@
     <li class="collection-header"><h5>Workshop</h5></li>
     @if($registration->events->count() > 0)
         
-        @foreach($registration->events as $event)
+        @foreach($registration->events->where('category_id',1) as $event)
             <li class="collection-item">
                 {{ $event->title }}---->REGISTERED
                 <span class="right">
@@ -34,7 +34,7 @@
     </li>
     <li class="collection-header"><h5>Solo Events</h5></li>
     @if($registration->events->count() > 0)
-        @foreach($registration->events as $event)
+        @foreach($registration->events->where('category_id',2) as $event)
             <li class="collection-item">
                 {{ $event->title }}---->REGISTERED
                 <span class="right">

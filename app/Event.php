@@ -125,4 +125,15 @@ class Event extends Model
         }
         return $count;
     }
+    function hasPgAmount($event_id)
+    {
+        if($this->pg_amount)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

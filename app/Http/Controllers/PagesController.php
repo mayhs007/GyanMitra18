@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-
 use App\Team;
 use App\Registration;
 use App\TeamMember;
@@ -20,7 +18,6 @@ use  App\Http\Requests\UploadTicketRequest;
 use Illuminate\Support\Facades\Input;
 use App\Payment;
 use PDF;
-
 class PagesController extends Controller
 {
     
@@ -59,7 +56,6 @@ class PagesController extends Controller
     function about(){
         return view('user_pages.about');
     }
-   
     function event(){
         $departments=Department::all();
         $events=Event::where('deparment_id');
@@ -69,74 +65,37 @@ class PagesController extends Controller
         $events = Event::all()->where('department_id',$department_id)->whereIn('category_id',2);
         return view('user_pages.events')->with('events', $events);
     }
-    function workshop($department_id){
-        
-        /*if(Auth::check()){
-            $events = Event::all()->where('department_id',$department_id)->whereIn('category_id',1)->reject(function($event, $key){          
-                return Auth::user()->hasRegisteredEvent($event->id);
-            });
-        }
-        else{
-            $events = Event::all()->where('department_id',$department_id)->where('category_id',1);                 
-        }
-        //$page = Input::get('page', 1);
-        //$per_page = 10;
-        //$events = $this->paginate($page, $per_page, $events);
-        if(Auth::check())
-        {
-
-            $events = Event::all()->where('department_id',$department_id)->whereIn('category_id',1);
-            $evts=Event::all()->where('department_id',$department_id)->whereIn('category_id',1)->each(function($event, $key){
-               return Auth::user()->hasRegisteredWorkshop($event->id);
-            });
-            //$evts=Auth::user()->hasRegisteredWorkshop($events);
-            echo "above";
-         
-            echo $evts;   <p class="green-text"><i class="fa fa-check"></i> Hurray! your payment is confirmed, we are excited to see you at Legacy17</p>
-                        <p>
-                        {{ link_to_route('user_pages.payment.reciept', 'Download Payment Reciept', null, ['class' => 'waves-effect waves-light btn green']) }}
-                        </p>
-            echo "above";
-            
-              //  $evtid=$event->id;
-                
-                //if( Auth::user()->hasRegisteredWorkshop($id,$evtid))
-               // {
-                    
-                    return view('user_pages.workshop')->with('events', $events)->with('evts',$evts);
-               // }
-             //   else
-              //  {   
-                    return view('user_pages.workshop')->with('events', $events)->with('registered','notok');
-               //}*/
-                $events = Event::all()->where('department_id',$department_id)->whereIn('category_id',1);
-                return view('user_pages.workshop')->with('events', $events);
-                
-
-            
-        }
-        function requestHospitality(){
+    function workshop($department_id)
+    {
+        $events = Event::all()->where('department_id',$department_id)->whereIn('category_id',1);
+        return view('user_pages.workshop')->with('events', $events);
+    }
+    function requestHospitality()
+    {
         $user = Auth::user();
-        if($user->hasConfirmed()){
-            if($user->hasRequestedAccomodation()){
+        if($user->hasConfirmed())
+        {
+            if($user->hasRequestedAccomodation())
+            {
                 Session::flash('success', 'You have already requested accomodation');
             }
-            else{
+            else
+            {
                 $accomodation = new Accomodation();
                 $user->Accomodation_Confirmation=true;
                 $user->accomodation()->save($accomodation);
                 $user->update();
-            
-                Session::flash('success', 'You have confirmed your hospitality!');            
+                Session::flash('success', 'You have confirmed your hospitality!');           
             }
         }
-        else{
+        else
+        {
             Session::flash('success', 'You need to confirm your registrations to request accomodation');
         }
-       
         return redirect()->route('user_pages.hospitality');
     }
-    function register($id){
+    function register($id)
+    {
         $event = Event::find($id);
         $user = Auth::user();                                  
         $response = [];  
@@ -144,17 +103,20 @@ class PagesController extends Controller
         $response['error'] = false;
         return response()->json($response);
     }
-    function unregister($id){
+    function unregister($id)
+    {
         $event = Event::find($id);
         $user = Auth::user();
         $event->users()->detach($user->id);        
         return  redirect()->route('user_pages.dashboard');
     }
-    function createTeam($event_id){
+    function createTeam($event_id)
+    {
         $team = new Team();
         return view('admin_pages.teams.create')->with('team', $team);
     }
-    function registerTeam(Request $request, $event_id){
+    function registerTeam(Request $request, $event_id)
+    {
         $event  = Event::find($event_id);              
         $inputs = $request->all();
         $team  = new Team($inputs);
@@ -189,7 +151,14 @@ class PagesController extends Controller
     function confirm(){
         $user=Auth::user();
         $user->confirmation=true;
-        $user->update();
+        $user->save();
+        $payment=new Payment();
+        $payment->user_id=$user->id;
+        $payment->paid_by=0;
+        $payment->payment_status='notpaid';
+        $payment->status='nack';
+        $payment->mode_of_payment='unknown';
+        $payment->save();
         return redirect()->route('user_pages.dashboard');
     }
     function downloadTicket(){
@@ -228,7 +197,7 @@ class PagesController extends Controller
     function paymentReciept(){
         if(Auth::user()->hasPaid()){
             $user = Auth::user();
-            $pdf = PDF::loadView('user_pages.payment.reciept', ['user' => $user]);
+            $pdf = PDF::loadView('user_pages.payment.reciept', ['user' => $user],['registration' => $user]);
             return $pdf->download('payment-details.pdf');
         }
         else{
@@ -244,7 +213,7 @@ class PagesController extends Controller
         }
         $extension = $request->file('demand_draft')->getClientOriginalExtension();
         $filename = 'demand_draft_' . Auth::user()->id . '.' . $extension;
-        $payment = new Payment();
+        $payment = Auth::user()->payment;
         $request->file('demand_draft')->move('uploads/demand_draft', $filename);
         $payment->file_name = $filename;
         $payment->status='nack';

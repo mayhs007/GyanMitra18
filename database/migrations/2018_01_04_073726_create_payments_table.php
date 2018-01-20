@@ -16,7 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('Payments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('transaction_id')->nullable();
-            $table->string('mode_of_payment');
+            $table->string('mode_of_payment')->nullable();
             $table->string('file_name')->nullable();
             $table->enum('payment_status', ['paid', 'notpaid'])->nullable();
             $table->enum('status', ['ack', 'nack'])->nullable();

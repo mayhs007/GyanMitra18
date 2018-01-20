@@ -23,10 +23,15 @@
       font-size:40px;
       color:white;
 }
+.image{
+      position:relative;
+      text-align:center;
+}
 </style>
-
-<div class="parallax-container">
-      <div class="parallax"><img src="/image/countdown.jpg"></div>
+      <div class='image'>
+      <img src="/image/countdown.jpg">
+      <div class="centered">Centered</div>
+      </div>
       @include('layouts.partials.user_nav')
       @include('layouts.partials.flash')
       <br>
