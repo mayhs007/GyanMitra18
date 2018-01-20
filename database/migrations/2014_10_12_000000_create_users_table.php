@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('college_id')->nullable();
             $table->string('mobile')->nullable();
             $table->enum('type', ['student', 'admin']);
-            $table->string('level_of_study');
+            $table->string('level_of_study')->default('admin');
             $table->boolean('Present')->default(false);
             $table->boolean('confirmation')->default(false);
             $table->boolean('Accomodation_Confirmation')->default(false);
