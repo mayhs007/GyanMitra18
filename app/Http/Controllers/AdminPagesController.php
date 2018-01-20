@@ -266,12 +266,12 @@ class AdminPagesController extends Controller
         $user = User::findOrFail($user_id);
         $type = Input::get('type', '');
         if($type == 'accomodation'){
-            if($user->accomodation && $user->accomodation->status == 'ack'){
-                if($user->accomodation->paid){
+            if($user->accomodation && $user->accomodation->acc_status == 'ack'){
+                if($user->accomodation->acc_paid){
                     Session('success', 'User has already paid for accomodation');                                 
                 }
                 else{
-                    $user->accomodation->paid = true;
+                    $user->accomodation->acc_paid = true;
                     $user->accomodation->save();                    
                 }
             }
@@ -295,13 +295,13 @@ class AdminPagesController extends Controller
         $user = User::findOrFail($user_id);
         $type = Input::get('type', '');        
         if($type == 'accomodation'){
-            if($user->accomodation && $user->accomodation->status == 'ack'){
-                if($user->accomodation->paid){
-                    $user->accomodation->paid = false;                    
+            if($user->accomodation && $user->accomodation->acc_status == 'ack'){
+                if($user->accomodation->acc_paid){
+                    $user->accomodation->acc_paid = false;                    
                     $user->accomodation->save();
                 }
                 else{
-                    $user->accomodation->paid = true;
+                    $user->accomodation->acc_paid = true;
                     Session('success', 'User has not paid for accomodation');                                    
                 }
             }
@@ -579,11 +579,10 @@ class AdminPagesController extends Controller
         $user_id = $inputs['user_id'];
         $user = User::find($user_id);
         if($inputs['submit'] == 'Accept'){
-            $user->accomodation->status = 'ack';
+            $user->accomodation->acc_status = 'ack';
         }
         else if($inputs['submit'] == 'Reject'){
-            $user->accomodation->status = 'nack';
-            $user->accomodation->message = $inputs['message'];
+            $user->accomodation->acc_status = 'nack';
         }
         $user->accomodation->save();
         return redirect()->back();

@@ -214,11 +214,32 @@ class PagesController extends Controller
         $extension = $request->file('demand_draft')->getClientOriginalExtension();
         $filename = 'demand_draft_' . Auth::user()->id . '.' . $extension;
         $payment = Auth::user()->payment;
-        $request->file('demand_draft')->move('uploads/demand_draft', $filename);
+        $request->file('demand_draft')->move('uploads/Event/demand_draft', $filename);
         $payment->file_name = $filename;
         $payment->status='nack';
         $payment->mode_of_payment='dd';
         $payment->payment_status='notpaid';
+        $payment->user_id=Auth::User()->id;
+        $payment->paid_by=Auth::User()->id;
+        $payment->save();
+        Auth::user()->doPaymentDD($filename);
+        Session::flash('success', 'Your demand draft was uploaded');
+        return redirect()->route('user_pages.dashboard');
+    }
+    function uploadAccomodationDemandDraftImage(UploadTicketRequest $request){
+        // Check if the student can upload ticket for approval
+        if(!Auth::user()->needApproval()){
+            Session::flash('success', 'Sorry! Your Payment will be done by one of your team leaders');
+            return redirect()->route('user_pages.dashboard');            
+        }
+        $extension = $request->file('demand_draft')->getClientOriginalExtension();
+        $filename = 'demand_draft_' . Auth::user()->id . '.' . $extension;
+        $payment = Auth::user()->accomodation;
+        $request->file('demand_draft')->move('uploads/Accomodation/demand_draft', $filename);
+        $payment->acc_file_name = $filename;
+        $payment->acc_status='nack';
+        $payment->acc_mode_of_payment='dd';
+        $payment->acc_payment_status='notpaid';
         $payment->user_id=Auth::User()->id;
         $payment->paid_by=Auth::User()->id;
         $payment->save();

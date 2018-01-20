@@ -11,12 +11,6 @@
 |
 */
 
-
-
-
-
-
-
 Route::get('users/{id}/get_college_mates', ['as' => 'users.college_mate', 'uses' => 'PagesController@getCollegeMates'])->middleware('auth');
 Route::group(['middleware' => 'auth.redirect_admin'], function(){
     Route::get( '/', ['as' => 'user_pages.home', 'uses' => 'PagesController@home'])->middleware('guest');
@@ -64,6 +58,7 @@ Route::group(['middleware' => 'auth.redirect_admin'], function(){
         Route::group(['middleware' => 'registrations.confirm:yes'], function(){
             Route::get('download-ticket', ['as' => 'user_pages.ticket.download', 'uses' => 'PagesController@downloadTicket']);
             Route::post('upload-ticket', ['as' => 'user_pages.ticket.upload', 'uses' => 'PagesController@uploadDemandDraftImage']);
+            Route::post('upload-tickets', ['as' => 'user_pages.ticket.uploadaccomodation', 'uses' => 'PagesController@uploadAccomodationDemandDraftImage']);
         });  
         Route::get('/payment/reciept', ['as' => 'user_pages.payment.reciept', 'uses' => 'PagesController@paymentReciept']);        
     });

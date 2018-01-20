@@ -28,7 +28,7 @@
                                 </li>
                             </ul>
                         </p>
-                        @if(!$user->hasConfirmedAccomodation() && !$user->hasRegisteredBoth() )
+                        @if($user->hasConfirmed() && $user->hasRegisteredBoth() && !$user->hasConfirmedAccomodation() )
                         <a class="btn waves-effect waves-light green modal-trigger" href="#modal-confirm">Confirm and generate ticket</a>
                         @else
                         <a class="btn waves-effect waves-light green modal-trigger disabled">Confirm and generate ticket</a>
@@ -56,11 +56,11 @@
                                 <div id="draft">
                                     @if($user->hasConfirmedAccomodation())
                                     <p>
-                                        @include('partials.error')                        
-                                            {!! Form::open(['url' => route('user_pages.ticket.upload'), 'files' => true, 'id' => 'form-upload-ticket', 'style' => 'display:inline']) !!}
-                                            {!! Form::file('demand_draft', ['class' => 'hide', 'id' => 'file-ticket']) !!}
-                                            {!! Form::close() !!}
-                                            <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload Ticket</button>
+                                    @include('partials.error')                        
+                                    {!! Form::open(['url' => route('user_pages.ticket.uploadaccomodation'), 'files' => true, 'id' => 'form-upload-ticket', 'style' => 'display:inline']) !!}
+                                    {!! Form::file('demand_draft', ['class' => 'hide', 'id' => 'file-ticket']) !!}
+                                    {!! Form::close() !!}
+                                    <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload Ticket</button>
                                     </p>
                                     @endif
                                 </div>
@@ -118,7 +118,14 @@ $(function(){
    });
 });
 </script>
-
+<script>
+    $('#btn-upload-ticket').on('click', function(){
+        $('#file-ticket').trigger('click');
+    });
+    $('#file-ticket').on('change', function(){
+        $('#form-upload-ticket').submit();
+    });
+</script>
 
 @endif
 @endsection

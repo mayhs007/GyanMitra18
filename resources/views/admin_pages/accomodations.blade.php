@@ -12,7 +12,7 @@
                     <li>
                         <div class="collapsible-header">
                             <strong>{{ $request->user->first_name }}</strong> From <strong>{{ $request->user->college->name }}</strong>
-                            <a href="{{ env('APP_URL') }}/uploads/tickets/{{ $request->user->confirmation->file_name }}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a>
+                            <a href="/uploads/Accomodation/demand_draft/{{ $request->user->Accomodation->acc_file_name }}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
                         </div>
                         <div class="collapsible-body">
                             @include('admin_pages.partials.student_detail', ['user' => $request->user])
@@ -24,8 +24,8 @@
                                         {!! Form::hidden('user_id', $request->user->id) !!}                            
                                     </div>
                                     <?php 
-                                        $accepted = $request->user->accomodation->status == 'ack'?'disabled':'';
-                                        $rejected = $request->user->accomodation->status == 'nack'?'disabled':'';
+                                        $accepted = $request->user->accomodation->acc_status == 'ack'?'disabled':'';
+                                        $rejected = $request->user->accomodation->acc_status == 'nack'?'disabled':'';
                                     ?>
                                     {!! Form::submit('Accept', ['class' => "btn green $accepted", 'name' => 'submit']) !!}
                                     {!! Form::submit('Reject', ['class' => "btn red $rejected", 'name' => 'submit']) !!}

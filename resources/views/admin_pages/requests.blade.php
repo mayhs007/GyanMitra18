@@ -27,7 +27,7 @@
                             {{ $confirmed }}
                         </span>
                         <strong>{{ $request->user->first_name }}</strong> From <strong>{{ $request->user->college->name }}</strong>
-                        <a href="{{ env('APP_URL') }}/uploads/tickets/{{ $request->user->confirmation->file_name }}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a>
+                        <a href="/uploads/demand_draft/{{ $user->payment->file_name }}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
                     </div>
                     <div class="collapsible-body">
                         @include('admin_pages.partials.student_detail', ['user' => $request->user])

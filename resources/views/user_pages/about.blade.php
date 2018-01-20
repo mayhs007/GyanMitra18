@@ -1,13 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
-
+<div class="container">
 <div class="row">
-    <h4><i class="fa fa-rocket"></i> About Legacy</h4>    
+    <h4><i class="fa fa-rocket"></i> About GyanMitra18</h4>    
     <div class="col s12">
         <div class="divider"></div>
         <p class="flow-text" style="text-align: justify">
-            Legacy’17 an inter college cultural competition is going to be organised by a joint act of Finar arts club, Literary association, Photography club, Readers club, Club Innovative, NSS, Blue Sky, Health Club and Consumer Club of Mepco Schlenk Engineering College, Sivakasi. Legacy’17 following the success of its preceding venture Legacy’15 to accommodate its number of events to 30 spanning for 2 days, the 8th and 9th of September 2017. The event is expecting a participation of about 850 dynamic student artists from about 31 premier institutions in Tamil Nadu. The event is proposed to be conducted at 11 venues inside the campus, with the support of the mammoth audience of more than 2000
+        Mepco Schlenk Engineering college (Autonomous) is organizing a two days National Level Techno Management Symposium, GYAN MITRA’17 during 16th - 17th February 2018. It is a colloquium of 8 technical domains including Bio-Tech, Civil, Computer Science, ECE, EEE, Mechanical, MCA and Maths & Science. It is host by Student’s Professional Societies like The Institution of Engineers (India) of all branches, Institute of Electrical and Electronics Engineers (IEEE), Indian Society for Technical Education (ISTE), Institution of Electronics and Telecommunication Engineers (IETE), International Association of Civil Engineering Students (IACES). CSI Students Chapter, Society of Automobile Engineer, Biotech Association, MCA Association, Science Forum and Graph Theory Research Forum. It also comprises of Microsoft Campus Club, Google Students Club, Renewable Energy Club, Robotics Club and Maths Club. 
+	Workshops on recent technologies, Paper Presentations, Special Lectures on recent topics and many Technical Events would be conducted. It will be a meeting point of students and professionals from various parts of the country. When we organized GYAN MITRA’17 last year 600 students from 40 Technical Institutions have actively participated and won prizes worth Rs. 1.5 lakhs. This year we expect that approximately 800 students from 50 different Technical Institutions across the nation would participate in this symposium GYAN MITRA’18. The last year budget was Rs. 5, 00, 000. I herewith enclose the Brochure of GYAN MITRA’17. 
+
         </p>
     </div>
 </div>
@@ -16,7 +18,9 @@
     <div class="col s12">
         <div class="divider"></div>
         <p class="flow-text" style="text-align: justify">
-            <strong>Mepco Schlenk Engineering College (Autonomous), Sivakasi</strong> is a leading Technical Institution,affiliated to Anna University, Chennai. All eligible UG courses are accredited by NBA and the institution has received ISO 9001:2008 Certification. Our College has become an Autonomous Institution with effect from the Academic Year 2013-2014. The college offers seven UG and twelve PG courses besides Ph.D. Programmes.The college has under taken 92 projects worth of 9.57 crores from various Govt.and Quasi Govt. Organizations like DRDL, ISRO, DST, MSME , etc. Our College got 14th Rank in the Ranking of Top Emerging Engineering Colleges of Super Excellence at National-level category in the CSR-GHRDC Engineering Colleges Survey 2014 - Competition success Review magazine, July 2014 (CSR). Our College was already approved as "Scientific and Industrial Research Organisations (SIROS)" by Dept. of Scientific and Industrial Research, Ministry of Science and Technology, Govt. of India, New Delhi..
+            <strong>Mepco Schlenk Engineering College (Autonomous), Sivakasi</strong> is organizing a two days National Level Techno Management Symposium, GYAN MITRA’17 during 16th - 17th February 2018. It is a colloquium of 8 technical domains including Bio-Tech, Civil, Computer Science, ECE, EEE, Mechanical, MCA and Maths & Science. It is host by Student’s Professional Societies like The Institution of Engineers (India) of all branches, Institute of Electrical and Electronics Engineers (IEEE), Indian Society for Technical Education (ISTE), Institution of Electronics and Telecommunication Engineers (IETE), International Association of Civil Engineering Students (IACES). CSI Students Chapter, Society of Automobile Engineer, Biotech Association, MCA Association, Science Forum and Graph Theory Research Forum. It also comprises of Microsoft Campus Club, Google Students Club, Renewable Energy Club, Robotics Club and Maths Club. 
+	Workshops on recent technologies, Paper Presentations, Special Lectures on recent topics and many Technical Events would be conducted. It will be a meeting point of students and professionals from various parts of the country. When we organized GYAN MITRA’17 last year 600 students from 40 Technical Institutions have actively participated and won prizes worth Rs. 1.5 lakhs. This year we expect that approximately 800 students from 50 different Technical Institutions across the nation would participate in this symposium GYAN MITRA’18. The last year budget was Rs. 5, 00, 000. I herewith enclose the Brochure of GYAN MITRA’17. 
+
         </p>
     </div>
 </div>
@@ -38,5 +42,6 @@
             <i class="fa fa-2x fa-mobile"></i><span> 04562 – 235601, 235660, 9677913395, 9442090272</span>                          
         </p>
     </div>
+</div>
 </div>
 @endsection

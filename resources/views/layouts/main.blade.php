@@ -21,49 +21,47 @@
 }
 .word{
       font-size:40px;
-      color:white;
 }
-.image{
-      position:relative;
-      text-align:center;
-}
+
 </style>
-      <div class='image'>
-      <img src="/image/countdown.jpg">
-      <div class="centered">Centered</div>
+      <div class="parallax-container">
+            <div class="parallax"><img src="/image/countdown.jpg">
+            </div>        
+            @include('layouts.partials.user_nav')
+            @include('layouts.partials.flash')
+            <div class="row">
+                  <div class="container">
+                        <div col s12 m12>
+                              <div class="time">
+                                    <span id=days class="header red-text"></span>
+                                    &nbsp
+                                    <span id=hours class="header yellow-text"></span>
+                                    &nbsp
+                                    &nbsp
+                                    &nbsp
+                                    <span id=minutes class="header blue-text"></span>
+                                    &nbsp
+                                    &nbsp
+                                    &nbsp
+                                    <span id=seconds class="header green-text"></span>
+                              </div>
+                              <div class="word">
+                                    <span class="header red-text">DAYS</span>
+                                    &nbsp
+                                    &nbsp
+                                    <span class="header yellow-text">HOURS </span>
+                                    &nbsp
+                                    &nbsp
+                                    <span class="header blue-text">MINUTES</span>
+                                    &nbsp
+                                    &nbsp
+                                    <span class="header green-text">SECONDS</span>
+                              </div>
+                        </div>
+                  </div>
+            </div>
       </div>
-      @include('layouts.partials.user_nav')
-      @include('layouts.partials.flash')
-      <br>
-      <div class="container">
-      <div class="col m1 s6">
-      <div class="time">
-      <span id=days class="header red-text"></span>
-      &nbsp
-      <span id=hours class="header yellow-text"></span>
-      &nbsp
-      &nbsp
-      <span id=minutes class="header blue-text"></span>
-      &nbsp
-      &nbsp
-      <span id=seconds class="header green-text"></span>
-      </div>
-      </div>
-      <br>
-      <div class="word">
-      <span class="header red-text">DAYS</span>
-      &nbsp
-      &nbsp
-      <span class="header yellow-text">HOURS </span>
-      &nbsp
-      &nbsp
-      <span class="header blue-text">MINUTES</span>
-      &nbsp
-      &nbsp
-      <span class="header green-text">SECONDS</span>
-      </div>
-      </div>
-</div>
+
  @yield('content')
 </body>
 </html>

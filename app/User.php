@@ -33,9 +33,6 @@ class User extends Authenticatable
     function events(){
         return $this->morphToMany('\App\Event', 'registration');
     }
-    function confirmation(){
-        return $this->hasOne('App\Confirmation');
-    }
     function payment(){
         return $this->hasOne('App\Payment');
     }
@@ -139,13 +136,13 @@ class User extends Authenticatable
     }
     function hasConfirmedAccomodation()
     {
-        if($this->Accomodation== null)
+        if($this->Accomodation_Confirmation == true)
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
  
@@ -307,7 +304,7 @@ class User extends Authenticatable
         return false;
     }
     function isConfirmed(){
-      if($this->confirmation)
+      if($this->confirmation==true)
       {
           return true;
       }
