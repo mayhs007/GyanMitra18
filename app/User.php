@@ -354,10 +354,10 @@ class User extends Authenticatable
             $amount+=Payment::getEventAmount();
         }
     
-       // $totalAmount+=$amount;
+       $totalAmount+=$amount;
         // Very Very important Add the transaction fee
-       // $totalAmount += $amount*$transactionFee;
-        return $amount;
+       $totalAmount += $amount*$transactionFee;
+        return $totalAmount;
     }
     function getTotalAmountPaid(){
         $transactionFee = Payment::getTransactionFee();
@@ -372,7 +372,6 @@ class User extends Authenticatable
     }
     function doPayment($txnid){
         foreach($this->getUsersToPay() as $user){
-            $payment = new Payment();
             $payment->paid_by = $this->id;
             $payment->user_id = $user->id;
             $payment->transaction_id = $txnid;
@@ -406,7 +405,6 @@ class User extends Authenticatable
         $txnid = $this->getTransactionId();
         $productInfo = Payment::getProductInfo();
         $firstname = $this->first_name;
-        $lastname = $this->last_name;
         $email = $this->email;
         $hashFormat = "$key|$txnid|$amount|$productInfo|$firstname|$email|||||||||||$salt";
         $hash = strtolower(hash('sha512', $hashFormat));

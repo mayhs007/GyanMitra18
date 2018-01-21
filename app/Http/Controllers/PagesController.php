@@ -172,12 +172,21 @@ class PagesController extends Controller
         if(strtolower($inputs['status']) == 'success' || strtolower($inputs['status']) == 'captured' ){
             $user = User::where('email', $inputs['email'])->first();
             if(isset($inputs['type']) && $inputs['type'] == 'accomodation'){
-                $user->accomodation->transaction_id = $inputs['txnid'];
-                $user->accomodation->paid = true;
+                $payment = Auth::user()->accomodation;
+                $payment->acc_status='ack';
+                $payment->acc_mode_of_payment='online';
+                $payment->acc_payment_status='paid'; 
+                $payment->acc_transaction_id =$inputs['txnid'];     
                 $user->accomodation->save();
             }
             else{
+                $payment = Auth::user()->payment;
+                $payment->status='ack';
+                $payment->mode_of_payment='online';
+                $payment->payment_status='paid'; 
+                $payment->transaction_id =$inputs['txnid'];     
                 $user->doPayment($inputs['txnid']);
+                $user->save();
                 $this->rejectOtherRegistrations($user->id);
             }
             return view('user_pages.payment.success')->with('info', 'Your payment was successful!');
@@ -233,7 +242,7 @@ class PagesController extends Controller
             return redirect()->route('user_pages.dashboard');            
         }
         $extension = $request->file('demand_draft')->getClientOriginalExtension();
-        $filename = 'demand_draft_' . Auth::user()->id . '.' . $extension;
+        $filename = 'demand_draft_acc_' . Auth::user()->id . '.' . $extension;
         $payment = Auth::user()->accomodation;
         $request->file('demand_draft')->move('uploads/Accomodation/demand_draft', $filename);
         $payment->acc_file_name = $filename;

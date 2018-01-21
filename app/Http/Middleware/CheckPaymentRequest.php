@@ -38,7 +38,7 @@ class CheckPaymentRequest
             }
         }
         else{
-            return view('user_spages.payment.failure')->with('info', 'Invalid transaction!');
+            return view('user_pages.payment.failure')->with('info', 'Invalid transaction!');
         }
     }
 }
