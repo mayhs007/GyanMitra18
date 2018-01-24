@@ -12,15 +12,19 @@
                                     <p>
                                         <ul>
                                             <li>
-                                                YOU MUST HAVE REGISTERED BOTH WORKSHOP AND EVENTS
+                                                YOU MUST HAVE PAID BOTH WORKSHOP AND EVENTS
                                             </li>
                                             <br>
                                             <li>
-                                                IT IS BASED ON FIRST COME FIRST SERVER
+                                                GENERAL REFRESHMENT WILL BE PROVIDED ON 16/2/2018 MORNING ONWARDS
                                             </li>
                                             <br>
                                             <li>
-                                                You need to pay 100 rupees per head per day
+                                                IT IS BASED ON FIRST COME FIRST SERVE
+                                            </li>
+                                            <br>
+                                            <li>
+                                               THE ACCOMODATION FEE IS :<i class="fa fa-inr">100</i> PER HEAD
                                             </li>
                                             <br>
                                             <li>
@@ -28,7 +32,7 @@
                                             </li>
                                         </ul>
                                     </p>
-                                    @if($user->hasConfirmed() && $user->hasRegisteredBoth() && !$user->hasConfirmedAccomodation() )
+                                    @if(!$user->hasConfirmedAccomodation() && $user->hasPaid() )
                                         <a class="btn waves-effect waves-light green modal-trigger" href="#modal-confirm">Confirm and generate ticket</a>
                                     @else
                                         <a class="btn waves-effect waves-light green modal-trigger disabled">Confirm and generate ticket</a>
