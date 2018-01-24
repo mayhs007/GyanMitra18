@@ -144,7 +144,11 @@
                                         </tr>
                                 </tbody>
                                 <tfoot>
-                                   
+                                   <tr>
+                                       <th>DD DETAILS</th>
+                                       <th>IN FAVOUR OF "THE PRINCIPAL,MEPCO SCHLENK ENGINEERING COLLEGE"</th>
+                                       <th>PAYABLE AT SIVAKSI</th>
+                                   </tr>
                                 </tfoot>
                             </table>
                             @if($user->hasConfirmedTeams())
