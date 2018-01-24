@@ -70,34 +70,31 @@
               <div class="col l6 s12">
                 <h5 class="white-text">CONTACT US</h5>
                 <ul>
-                  <li><p>CIVIL:97862 78347     MAILID:gyanmitra18.civil@mepcoeng.ac.in</p></li>
-                  <li><p>EEE:75980 11050       MAILID:gyanmitra18.eee@mepcoeng.ac.in</p></li>
-                  <li><p>ECE:94424 46593       MAILID:gyanmitra18.ece@mepcoeng.ac.in</p> </li>
-                  <li><p>CSE/IT:99945 40905    MAILID:gyanmitra18.cse.it@mepcoeng.ac.in</p></li>
-                  <li><p>MECH:96779 13395      MAILID:gyanmitra18.mech@mepcoeng.ac.in</p></li>
-                  <li><p>BIO-TECH:74023 89414  MAILID:gyanmitra18.biotech@mepcoeng.ac.in</p></li>
-                  <li><p>MCA:99408 40671       MAILID:gyanmitra18.mca@mepcoeng.ac.in</p></li>
-                  <li><p>MATHS/SCI:94860 26054 MAILID:gyanmitra18.maths@mepcoeng.ac.in</p></li>
+                  <li><p>CIVIL: <i class="material-icons prefix">local_phone</i>97862 78347    <i class="material-icons prefix">mail</i>gyanmitra18.civil@mepcoeng.ac.in</p></li>
+                  <li><p>EEE:<i class="material-icons prefix">local_phone</i>75980 11050    <i class="material-icons prefix">mail</i>gyanmitra18.eee@mepcoeng.ac.in</p></li>
+                  <li><p>ECE: <i class="material-icons prefix">local_phone</i>94424 46593       <i class="material-icons prefix">mail</i>gyanmitra18.ece@mepcoeng.ac.in</p> </li>
+                  <li><p>CSE/IT:<i class="material-icons prefix">local_phone</i>99945 40905   <i class="material-icons prefix">mail</i>gyanmitra18.cse.it@mepcoeng.ac.in</p></li>
+                  <li><p>MECH:<i class="material-icons prefix">local_phone</i>96779 13395     <i class="material-icons prefix">mail</i>gyanmitra18.mech@mepcoeng.ac.in</p></li>
+                  <li><p>BIO-TECH:<i class="material-icons prefix">local_phone</i>74023 89414  <i class="material-icons prefix">mail</i>gyanmitra18.biotech@mepcoeng.ac.in</p></li>
+                  <li><p>MCA:<i class="material-icons prefix">local_phone</i>99408 40671       <i class="material-icons prefix">mail</i>gyanmitra18.mca@mepcoeng.ac.in</p></li>
+                  <li><p>MATHS/SCI:<i class="material-icons prefix">local_phone</i>94860 26054 <i class="material-icons prefix">mail</i>gyanmitra18.maths@mepcoeng.ac.in</p></li>
                 </ul>
                
               </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">STUDENTS PROFESSIONAL SOCIETIES</h5>
               
-
-<div class="row">
-<div class="card">
-    <div class="card-image">
-    {!! HTML::image('image/logo.png') !!}
-    </div>
-               
-              </div>
+                <h5 class="white-text">STUDENTS PROFESSIONAL SOCIETIES</h5>
+                  <div class="row"> 
+                        <div class="col s12 m6 push-m2">
+                        <div class="card">
+                              <div class="card-image">
+                                    {!! HTML::image('image/logo.png') !!}
+                              </div>
+                        </div>
+                  </div>
             </div>
-          </div>
           <div class="footer-copyright">
             <div class="container">
             © 2018 MEPCO SCHLENK ENGG COLLEGE,SIVAKASI
-            
             </div>
           </div>
         </footer>
