@@ -19,15 +19,16 @@
               <img class="activator" src="{{ url($department->getImageUrl()) }}" >
             </div>
             <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">{{$department->name}}<i class="material-icons right">more_vert</i></span>
+              <span class="card-title activator grey-text text-darken-4">{{$department->original_name}}<i class="material-icons right">more_vert</i></span>
             </div>
             <div class="card-action">
               <a href="{{route('user_pages.workshop', ['department_id' => $department->id])}}">WORKSHOP</a>
               <a href="{{route('user_pages.events',['department_id' => $department->id]) }}" >EVENTS</a> 
             </div>
             <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            hi
+              <span class="card-title grey-text text-darken-4">{{$department->original_name}}<i class="material-icons right">close</i></span>
+              <p>Number of Workshop:{{$department->events()->where('category_id',1)->count()}}</p>
+              <p>Number of Events:{{$department->events()->where('category_id',2)->count()}}</p>
             </div>
           </div>
         </div>
