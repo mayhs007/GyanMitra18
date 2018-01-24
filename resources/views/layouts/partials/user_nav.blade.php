@@ -8,6 +8,7 @@
       <li><a href="{{ route('user_pages.home')}}">Home</a></li>
       <li><a href="{{ route('user_pages.about')}}">About</a></li>
       <li><a href="{{ route('user_pages.event')}}">Domain</a></li>
+      <li><a href="{{ route('user_pages.schedule')}}">Schedule</a></li>
 @if(!Auth::Check())
       <li><a href="{{ route('auth.login') }}">Login</a></li>
       <li><a href="{{ route('auth.register') }}">Register</a></li>

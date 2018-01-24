@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth.redirect_admin'], function(){
     Route::get('about', ['as' => 'user_pages.about', 'uses' => 'PagesController@about']);
     Route::get('home', ['as' => 'user_pages.home', 'uses' => 'PagesController@home']);
     Route::get('event', ['as' => 'user_pages.event', 'uses' => 'PagesController@event']);
+    Route::get('schedule', ['as' => 'user_pages.schedule', 'uses' => 'PagesController@schedule']);
     Route::get('events/{department_id}', ['as' => 'user_pages.events', 'uses' => 'PagesController@events']);
     Route::get('workshop/{department_id}', ['as' => 'user_pages.workshop', 'uses' => 'PagesController@workshop']);
     Route::get('help', ['as' => 'user_pages.help', 'uses' => 'PagesController@help']);  

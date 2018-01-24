@@ -263,5 +263,11 @@ class PagesController extends Controller
         Session::flash('success', 'Your demand draft was uploaded');
         return redirect()->route('user_pages.hospitality');
     }
+    function schedule()
+    {
+        $workshops=Event::all()->where('category_id',1);
+        $events=Event::all()->where('category_id',2);
+        return view('user_pages.schedule')->with('workshops',$workshops)->with('events', $events);
+    }
     
 }
