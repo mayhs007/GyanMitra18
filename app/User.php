@@ -424,7 +424,7 @@ class User extends Authenticatable
        
         // Very Very important Add the transaction fee
         $totalAmount += $totalAmount*$transactionFee;
-        return $totalAmount;
+        return 1;
     }
     function getTotalAmount(){
         $category_id=Category::where('name','Workshop')->first()->id;
@@ -525,7 +525,7 @@ class User extends Authenticatable
     function getAccomodationAmount(){
         $amount = Payment::getAccomodationAmount();
         $totalAmount = $amount + $amount * Payment::getTransactionFee();
-        return $totalAmount;
+        return 1;
     }
     function getHash($amount){
         $key = Payment::getPaymentKey();
