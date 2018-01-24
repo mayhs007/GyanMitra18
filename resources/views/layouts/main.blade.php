@@ -25,7 +25,7 @@
 
 </style>
       <div class="parallax-container">
-            <div class="parallax"><img src="/image/countdown.jpg">
+            <div class="parallax">{!! Html::image('image/countdown.jpg') !!}
             </div>        
             @include('layouts.partials.user_nav')
             @include('layouts.partials.flash')

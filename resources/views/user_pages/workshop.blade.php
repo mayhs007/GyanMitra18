@@ -45,7 +45,7 @@
     </div>
 </div>
 <div class="parallax-container">
-      <div class="parallax"><img src="/images/3.jpeg"></div>
+      <div class="parallax">{!! Html::image('images/3.jpg') !!}</div>
 </div>      
 @endforeach
 
