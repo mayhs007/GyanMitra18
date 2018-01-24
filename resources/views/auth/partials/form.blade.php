@@ -89,4 +89,4 @@
         {!! Form::submit('Register', ['class' => 'btn waves-effect waves-light green']) !!}
     </div>
 </div>
-*optional
+<p class="red-text">*optional</p>
