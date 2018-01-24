@@ -47,7 +47,7 @@
                 @if($user->isParticipating())
                     <p class="red-text">After clicking on confirm and generate ticket you wont be able to further add or remove any other events</p>
                 @endif
-                <a class="btn waves-effect waves-light green modal-trigger {{ ($user->hasConfirmed()|| !$user->canConfirm())?'disabled':'' }}" href="#modal-confirm">Confirm and generate ticket</a>
+                <a class="btn waves-effect waves-light green modal-trigger {{ ($user->hasConfirmed()|| !$user->canConfirm())?'disabled':'' }}" href="#modal-confirm">Confirm and Procced to Payment</a>
             </div>
         </li>
         <li class="step {{ $user->hasConfirmed()?'active':'' }}">
@@ -153,7 +153,7 @@
                                     {!! Form::open(['url' => route('user_pages.ticket.upload'), 'files' => true, 'id' => 'form-upload-ticket', 'style' => 'display:inline']) !!}
                                     {!! Form::file('demand_draft', ['class' => 'hide', 'id' => 'file-ticket']) !!}
                                     {!! Form::close() !!}
-                                    <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload Ticket</button>
+                                    <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload PhotoCopy Of DD</button>
                             </p>
                             @endif
                         </div>
@@ -188,7 +188,7 @@
     <form action="{{ env('PAYU_URL') }}" id="frm-payment" method="post">
         <input type="hidden" name="key" value="{{ App\Payment::getPaymentKey() }}">
         <input type="hidden" name="txnid" value="{{ $user->getTransactionId() }}">    
-        <input type="hidden" name="amount" value="{{ $user->getTotalAmount() }}">
+        <input type="hidden" name="amount" value="{{ $user->getTotalAmountForOnline() }}">
         <input type="hidden" name="productinfo" value="{{ App\Payment::getProductInfo() }}">
         <input type="hidden" name="firstname" value="{{ $user->first_name }}">
         <input type="hidden" name="email" value="{{ $user->email }}">
