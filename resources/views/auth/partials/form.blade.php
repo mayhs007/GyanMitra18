@@ -52,7 +52,7 @@
     <div class="col s12 input-field">
         <i class="fa fa-2x fa-graduation-cap prefix"></i>                     
         {!! Form::select('college_id', $college_list) !!}
-        <p class="red-text"><i class="fa fa-question-circle"></i> Is your college not listed? contact us 9677913395</p>
+        <p class="red-text"><i class="fa fa-question-circle"></i> Is your college not listed? contact us gyanmitra18@mepcoeng.ac.in</p>
     </div>
 </div>
 <div class="row">
@@ -67,13 +67,13 @@
 <div class="row">
     <div class="col s6 input-field">
         <i class="material-icons prefix">account_circle</i>
-        {!! Form::label('SAE ID(if your a memeber fill this)') !!}
+        {!! Form::label('SAE ID*(SAE MEMEBER ID IF APPILCABLE)') !!}
         {!! Form::text('sae') !!}
     </div>
 
     <div class="col s6 input-field">
         <i class="material-icons prefix">account_circle</i>
-        {!! Form::label('IE ID(if your a memeber fill this)') !!}
+        {!! Form::label('IE ID*(IE MEMEBER ID IF APPILCABLE)') !!}
         {!! Form::text('ie') !!}
     </div>
 </div>
@@ -89,3 +89,4 @@
         {!! Form::submit('Register', ['class' => 'btn waves-effect waves-light green']) !!}
     </div>
 </div>
+*optional
