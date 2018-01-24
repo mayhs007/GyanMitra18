@@ -30,18 +30,23 @@
     </div>
 </div>
 <div class="row">
+    <h4><i class="fa fa-graduation-cap"></i>Students</h4>    
     <div class="col s12">
-        <h4><i class="fa fa-user"></i> Contact US</h4>
         <div class="divider"></div>
-        <p class="flow-text">
-            Dr T.Prabaharan,<br>
-            Professor/ Mechanical Engineering,<br>
-            Mepco Schlenk Engineering College, Sivakasi,<br>
-            Mepco Engineering College Post - 626 005,<br>
-            Virudhunagar District<br>
-            <i class="fa fa-2x fa-mobile"></i><span> 04562 – 235601, 235660, 9677913395, 9442090272</span>                          
-        </p>
     </div>
+</div>
+<div class="container">
+
+<div class="row">
+<div class="col s12 m8 offset-m1">
+<div class="card">
+    <div class="card-image">
+            <img src="/image/logo1.png">
+    </div>
+  
+</div>
+</div>
+</div>
 </div>
 </div>
 @endsection

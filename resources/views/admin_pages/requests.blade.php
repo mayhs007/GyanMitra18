@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="input-field">
                                         <?php 
-                                            $accepted = $request->user->isConfirmed()?'disabled':'';
+                                            $accepted = $request->user->hasConfirmed()?'disabled':'';
                                             $rejected = $request->user->isRejected()?'disabled':'';
                                         ?>
                                         {!! Form::submit('Accept', ['class' => "btn green $accepted", 'name' => 'submit']) !!}

@@ -14,9 +14,7 @@ class Payment extends Model
     function user(){
         return $this->belongsTo('App\User');
     }
-    function paidBy(){
-        return $this->belongsTo('App\User', 'paid_by');
-    }
+   
     static function getPaymentKey(){
         return env('PAYU_KEY');
     }

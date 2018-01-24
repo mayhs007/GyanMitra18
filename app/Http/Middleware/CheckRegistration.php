@@ -30,7 +30,8 @@ class CheckRegistration
         $event_id = $request->route('event_id');
         $event = Event::findOrFail($event_id);
         // Check if team exists
-        if($type == 'team' && $registered == 'yes'){
+        if($type == 'team' && $registered == 'yes')
+        {
             $team_id = $request->route('id');
             $team = Team::find($team_id);
             if(!$team){

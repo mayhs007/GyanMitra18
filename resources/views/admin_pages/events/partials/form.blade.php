@@ -94,6 +94,18 @@
     </div>
     <div class="row">
         <div class="col-s12 input-field">
+            {!! Form::label('SAE Amount') !!}
+            {!! Form::text('sae_amount') !!}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-s12 input-field">
+            {!! Form::label('IE Amount') !!}
+            {!! Form::text('ie_amount') !!}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-s12 input-field">
             {!! Form::label('min_members', 'Minimum Participants') !!}
             {!! Form::text('min_members') !!}
         </div>

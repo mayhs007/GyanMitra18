@@ -174,7 +174,7 @@
             <tfoot>
                 <tr>
                     <th colspan="4">Total Amount Paid (Includes 4% transaction fee)</th>
-                    <th><i class="fa fa-inr"></i> {{ Auth::user()->getTotalAmount() }}</th>
+                    <th><i class="fa fa-inr"></i> {{ Auth::user()->getTotalAmountForOnline() }}</th>
                 </tr>
             </tfoot>
         </table>

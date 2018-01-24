@@ -65,6 +65,19 @@
     </div>
 </div>
 <div class="row">
+    <div class="col s6 input-field">
+        <i class="material-icons prefix">account_circle</i>
+        {!! Form::label('SAE ID(if your a memeber fill this)') !!}
+        {!! Form::text('sae') !!}
+    </div>
+
+    <div class="col s6 input-field">
+        <i class="material-icons prefix">account_circle</i>
+        {!! Form::label('IE ID(if your a memeber fill this)') !!}
+        {!! Form::text('ie') !!}
+    </div>
+</div>
+<div class="row">
     <div class="col s12 input-field">
         <i class="material-icons prefix">call</i>
         {!! Form::label('mobile_number') !!}

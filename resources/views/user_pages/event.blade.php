@@ -1,54 +1,41 @@
 @extends('layouts.main')
 @section('content')
-@foreach($departments as $department)
-<div class="section white">
-  <div class="row">
-    <div class="col m4 s12">
-      <div class="card">
-            <div class="card-image">
-                <img src="{{ url($department->getImageUrl()) }}">
-                <div>
-                  <ul class="divide">
-                    <li class="workshop"><a href="{{route('user_pages.workshop', ['department_id' => $department->id])}}"class="work">WorkShop</a></li>
-                    <li class="event"><a href="{{route('user_pages.events',['department_id' => $department->id]) }}"class="events">Events</a></li>
-                  </ul>
-                </div>
-            </div>
-      </div>
-</div>
-    <div class="col m6 s6 offset-m1 offset-s2">
-        <h2 class="header">{{ $department->name }}</h2>
-    
-      <table class="highlight">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-      <tbody>
-      @foreach($department->events as $event)  
-      <tr>
-            <td>{{ $event->title }}</td>
-            <td><i class="fa fa-calendar"></i> {{ $event->getDate() }}</td>
-            <td><i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</td>
-      </tr>
-      @endforeach
-      </tbody>
-      </table>
+<div class="section  white">
+    <div class="row container">
+      <h2 class="header">DOMAIN</h2>
+      <p class="grey-text text-darken-3 lighten-3">SELECT YOUR DOMAIN FOR WORKSHOP/EVENTS
     </div>
 </div>
-</div>
-</div>
-
-        
 <div class="parallax-container">
-      <div class="parallax"><img src="/images/a.jpg"></div>
+  <div class="parallax"><img src="image/21.png"></div>
 </div>
-
-@endforeach
-
+<div class="section grey lighten-3">
+    <div class="row container">
+      <div class="row">
+      @foreach($departments as $department)          
+        <div class="col s12 m4">  
+          <div class="card sticky-action">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="{{ url($department->getImageUrl()) }}" >
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">{{$department->name}}<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-action">
+              <a href="{{route('user_pages.workshop', ['department_id' => $department->id])}}">WORKSHOP</a>
+              <a href="{{route('user_pages.events',['department_id' => $department->id]) }}" >EVENTS</a> 
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+            hi
+            </div>
+          </div>
+        </div>
+      @endforeach
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 

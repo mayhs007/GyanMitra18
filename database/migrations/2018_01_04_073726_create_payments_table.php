@@ -21,7 +21,7 @@ class CreatePaymentsTable extends Migration
             $table->enum('payment_status', ['paid', 'notpaid'])->nullable();
             $table->enum('status', ['ack', 'nack'])->nullable();
             $table->integer('user_id');
-            $table->integer('paid_by')->nullable();
+          
             $table->timestamps();
         });
     }

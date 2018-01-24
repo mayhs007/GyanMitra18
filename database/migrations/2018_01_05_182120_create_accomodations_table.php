@@ -21,7 +21,7 @@ class CreateAccomodationsTable extends Migration
             $table->enum('acc_payment_status', ['paid', 'notpaid'])->nullable();
             $table->enum('acc_status', ['ack', 'nack'])->nullable();
             $table->integer('user_id');
-            $table->integer('paid_by')->nullable();
+        
             $table->timestamps();
         });
     }

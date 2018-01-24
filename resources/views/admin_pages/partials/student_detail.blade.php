@@ -52,39 +52,21 @@
                         @endif
                     </td>
                 </tr>
-                    <tr>
-                        <th>Mode Of Payment</th>
-                        <td>{{ $user->payment->mode_of_payment}}
-                        @if($user->payment->mode_of_payment == 'dd') 
-                        <a href="/uploads/Event/demand_draft/{{ $user->payment->file_name }}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
-                        @endif
-                    </tr>
-            
                 <tr>
-                    <th>Payment Status</th>
-                    <td>
-                        @if($user->payment->mode_of_payment == 'dd')
-                            @if($user->hasConfirmedDD())
-                             <span class="green-text">Payment Has Been Checked</span>
-                            @else
-                            <span class="red-text">Payment Not Checked</span>
-                            @endif
-                        @else
-                            @if($user->hasPaid())
-                                <span class="green-text">Paid</span>
-                            @else
-                                <span class="red-text">Not Paid</span>
-                            @endif
-                        @endif
-                        
-                    </td>
-                </tr>
-                @if($user->hasPaid())
-                    <tr>
-                        <th>Paid By</th>
-                        <td>{{ $user->payment->paidBy->first_name }} [{{ $user->payment->paidBy->email }}]</td>
-                    </tr>
-                @endif
+                <th>Mode Of Payment</th>
+              
+              
+               <td>
+                {{$user->payment->mode_of_payment}}
+                <a href="/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
+               </td>
+            
+        <tr>
+            <th>Payment Status</th>
+            <td>
+                
+                   
+               
                 @if($user->accomodation)
                     <tr>
                         <th>Accomodation Request</th>
@@ -125,37 +107,6 @@
             <span class="new badge green" data-badge-caption="Total Confirmed">{{   $event->noOfConfirmedRegistration() }}</span>
             <li class="collection-item">
                 {{ $event->title }}
-            </li>
-        @endforeach
-    </ul>
-@endif
-@if($user->teams()->count() > 0 || $user->teamMembers()->count() > 0)
-    <ul class="collection with-header">
-        <li class="collection-header">
-            <h5>Teams Details</h5>
-        </li>
-        @foreach($user->teams as $team)
-            <li class="collection-item">
-                <span class="new badge blue" data-badge-caption="From Same college">{{ $user->college->noOfParticipantsForEvent($team->events->first()->id) }}</span> 
-                <span class="new badge green" data-badge-caption="Total Confirmed">{{ $team->events->first()->noOfConfirmedRegistration() }}</span>
-                <p>
-                    <strong>{{ $team->events->first()->title }}</strong>                         
-                </p>
-                <p>
-                    @include('partials.team_details', ['team' => $team])
-                </p>
-            </li>
-        @endforeach
-        @foreach($user->teamMembers as $teamMember)
-            <li class="collection-item">
-                <span class="new badge blue" data-badge-caption="From Same college">{{ $user->college->noOfParticipantsForEvent($teamMember->team->events->first()->id) }}</span> 
-                <span class="new badge green" data-badge-caption="Total Confirmed">{{ $teamMember->team->events->first()->noOfConfirmedRegistration() }}</span>
-                <p>
-                    <strong>{{ $teamMember->team->events->first()->title }}</strong>                         
-                </p>
-                <p>
-                    @include('partials.team_details', ['team' => $teamMember->team])
-                </p>
             </li>
         @endforeach
     </ul>

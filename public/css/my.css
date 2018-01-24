@@ -18,15 +18,15 @@ nav ul li a {
     cursor: pointer
 }
 
-.card .card-image {
+#image1 #image2 {
     position: relative;
 }
 
-.card .card-image:hover>div {
+#image1 #image2:hover>div {
     opacity: 1;
 }
 
-.card .card-image>div {
+#image1 #image2>div {
     position: absolute;
     top: 0;
     left: 0;
@@ -38,7 +38,7 @@ nav ul li a {
     transition: opacity 400ms;
 }
 
-.card .card-image>div>ul {
+#image1 #image2>div>ul {
     list-style: none;
     display: block;
     margin: 0;
@@ -48,41 +48,64 @@ nav ul li a {
     overflow: hidden;
 }
 
-.card .card-image>div>ul.divide>li.workshop {
+#image1 #image2>div>ul.divide>li.workshop {
     width: 50%;
     height: 100%;
 }
 
-.card .card-image>div>ul.divide>li.event {
+#image1 #image2>div>ul.divide>li.event {
     width: 50%;
     height: 100%;
 }
 
-.card .card-image>div>ul li {
+#image1 #image2>div>ul li {
     display: block;
     float: left;
     text-align: center;
 }
 
-.card .card-image>div>ul li a {
+#image1 #image2>div>ul li a {
     display: block;
     width: 100%;
     height: 100%;
     color: #fff;
 }
 
-.card .card-image>div>ul li a.work {
-    background: rgba(58, 85, 156, 0.8);
+#image1 #image2>div>ul li a.CIVILWORK {
+    background: rgba(247, 198, 0, 0.616);
 }
 
-.card .card-image>div>ul li a.work:hover {
-    background: rgba(58, 85, 156, 0.8);
+#image1 #image2>div>ul li a.CIVILWORK:hover {
+    background: rgba(247, 198, 0, 0.616);
 }
 
-.card .card-image>div>ul li a.events {
-    background: rgba(223, 66, 49, 0.95);
+#image1 #image2>div>ul li a.CIVILEVENT {
+    background: rgba(203, 160, 129, 0.616);
 }
 
-.card .card-image>div>ul li a.events:hover {
-    background: rgba(223, 66, 49, 0.95);
+#image1 #image2>div>ul li a.CIVILEVENT:hover {
+    background: rgba(203, 160, 129, 0.616);
+    ;
+}
+
+#image1 #image2>div>ul li a>i {
+    font-size: 30px;
+    line-height: 1;
+    position: relative;
+    top: 40%;
+    color: black;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#imagebackground #imagebackground2 {
+    position: relative;
+}
+
+#imagebackground #imagebackground2>div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

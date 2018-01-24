@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TeamRequest;
 use App\Team;
 use App\Registration;
 use App\TeamMember;
@@ -18,6 +19,7 @@ use  App\Http\Requests\UploadTicketRequest;
 use Illuminate\Support\Facades\Input;
 use App\Payment;
 use PDF;
+use App\Traits\Utilities;
 class PagesController extends Controller
 {
     
@@ -83,6 +85,12 @@ class PagesController extends Controller
             {
                 $accomodation = new Accomodation();
                 $user->Accomodation_Confirmation=true;
+                $accomodation->user_id=$user->id;
+                $accomodation->acc_status='nack';
+                $accomodation->acc_payment_status='notpaid';
+                $accomodation->acc_file_name='none';
+                $accomodation->acc_mode_of_payment='unkown';
+                $accomodation->acc_amount=0;
                 $user->accomodation()->save($accomodation);
                 $user->update();
                 Session::flash('success', 'You have confirmed your hospitality!');           
@@ -115,7 +123,7 @@ class PagesController extends Controller
         $team = new Team();
         return view('admin_pages.teams.create')->with('team', $team);
     }
-    function registerTeam(Request $request, $event_id)
+    function registerTeam(TeamRequest $request, $event_id)
     {
         $event  = Event::find($event_id);              
         $inputs = $request->all();
@@ -124,9 +132,9 @@ class PagesController extends Controller
         $team->save();
         $team_members_emails = explode(',', $inputs['team_members']);
         $team_members_users = User::all()->whereIn('email', $team_members_emails);
-        foreach($team_members_users as $team_member_user){
+        foreach($team_members_users as $team_member_user)
+        {
             $team_member = new TeamMember();
-            
             $team_member->team_id = $team->id;
             $team_member->user_id = $team_member_user->id;
             $team->teamMembers()->save($team_member);
@@ -145,7 +153,7 @@ class PagesController extends Controller
     }
     function getCollegeMates($user_id){
         $user  = User::find($user_id);
-        $userEmails = User::where('college_id', $user->college_id)->where('id', '<>', $user->id)->where('activated', false)->get(['email']);
+        $userEmails = User::where('college_id', $user->college_id)->where('id', '<>', $user->id)->where('activated', true)->get(['email']);
         return response()->json($userEmails);
     }
     function confirm(){
@@ -154,10 +162,11 @@ class PagesController extends Controller
         $user->save();
         $payment=new Payment();
         $payment->user_id=$user->id;
-        $payment->paid_by=0;
+     
         $payment->payment_status='notpaid';
         $payment->status='nack';
         $payment->mode_of_payment='unknown';
+        $payment->amount=$user->getTotalAmount();
         $payment->save();
         return redirect()->route('user_pages.dashboard');
     }
@@ -185,9 +194,10 @@ class PagesController extends Controller
                 $payment->mode_of_payment='online';
                 $payment->payment_status='paid'; 
                 $payment->transaction_id =$inputs['txnid'];     
-                $user->doPayment($inputs['txnid']);
+                //$user->doPayment($inputs['txnid']);
+                $payment->amount=$user->getTotalAmountForOnline();
                 $user->save();
-                $this->rejectOtherRegistrations($user->id);
+               // $this->rejectOtherRegistrations($user->id);
             }
             return view('user_pages.payment.success')->with('info', 'Your payment was successful!');
         }
@@ -216,10 +226,6 @@ class PagesController extends Controller
     }
     function uploadDemandDraftImage(UploadTicketRequest $request){
         // Check if the student can upload ticket for approval
-        if(!Auth::user()->needApproval()){
-            Session::flash('success', 'Sorry! Your Payment will be done by one of your team leaders');
-            return redirect()->route('user_pages.dashboard');            
-        }
         $extension = $request->file('demand_draft')->getClientOriginalExtension();
         $filename = 'demand_draft_' . Auth::user()->id . '.' . $extension;
         $payment = Auth::user()->payment;
@@ -228,10 +234,11 @@ class PagesController extends Controller
         $payment->status='nack';
         $payment->mode_of_payment='dd';
         $payment->payment_status='notpaid';
+        $payment->amount=Auth::User()->getTotalAmount();
         $payment->user_id=Auth::User()->id;
-        $payment->paid_by=Auth::User()->id;
+       
         $payment->save();
-        Auth::user()->doPaymentDD($filename);
+      //  Auth::user()->doPaymentDD($filename);
         Session::flash('success', 'Your demand draft was uploaded');
         return redirect()->route('user_pages.dashboard');
     }
@@ -250,11 +257,11 @@ class PagesController extends Controller
         $payment->acc_mode_of_payment='dd';
         $payment->acc_payment_status='notpaid';
         $payment->user_id=Auth::User()->id;
-        $payment->paid_by=Auth::User()->id;
+   
         $payment->save();
-        Auth::user()->doPaymentDD($filename);
+       //Auth::user()->doPaymentDD($filename);
         Session::flash('success', 'Your demand draft was uploaded');
-        return redirect()->route('user_pages.dashboard');
+        return redirect()->route('user_pages.hospitality');
     }
     
 }

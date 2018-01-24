@@ -27,6 +27,8 @@
     </ul>
     <p><i class="fa fa-calendar"></i> {{ $event->getDate() }} &nbsp  &nbsp  &nbsp 
    <i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
+   <i class="fa fa-inr"></i> {{ $event->amount}}</p>
+ 
    @if($event->prelims && $event->finals)
    <p><i class="fa fa-clock-o"></i>PRELIMS {{$event->getPrelimsTime()}} &nbsp  &nbsp  &nbsp
    <i class="fa fa-clock-o"></i>FINALS {{$event->getFinalsTime()}}</p>

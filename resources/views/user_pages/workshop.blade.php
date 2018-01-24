@@ -18,7 +18,14 @@
             <p><i class="fa fa-calendar"></i> {{ $event->getDate() }} &nbsp &nbsp &nbsp &nbsp
             <i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
             <p><i class="fa fa-map-marker"></i> {{$event->venue}}</p>
-            <p><i class="fa fa-inr"></i>{{$event->amount}}./-</p>
+            <p>NON-MEMBER:  <i class="fa fa-inr"></i>{{$event->amount}}./-&nbsp &nbsp
+            @if($event->hasSaeAmount())
+                 SAE MEMEBER:  <i class="fa fa-inr"></i> {{ $event->sae_amount}}./-&nbsp &nbsp
+            @endif
+            @if($event->hasIeAmount())
+                 IE MEMEBER:   <i class="fa fa-inr"></i> {{ $event->ie_amount}}./-
+            @endif
+            </p>
             <i class="fa fa-graduation-cap"></i>
             @foreach($event->getResourcePersonList() as $resource)
                     {!! $resource !!}
@@ -32,7 +39,7 @@
                     <a href="#"  data-event="{{ $event->id }}" class="waves-effect waves-light btn btn-register-event green pulse">Register</a>
                 @endif
             @else
-                <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  green pulse">LOGIN TO REGISTER</a>
+                <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  red pulse">LOGIN TO REGISTER</a>
             @endif
         </div>
     </div>

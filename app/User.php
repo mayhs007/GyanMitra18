@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\team;
+use App\TeamMember;
 use App\Event;
 use Auth;
 //use App\Registration;
@@ -51,9 +52,7 @@ class User extends Authenticatable
     function prizes(){
         return $this->hasMany('App\Prize');
     }
-    function payments(){
-        return $this->hasMany('App\Payment', 'paid_by');
-    }
+  
     // Get all the users to be paid by the user eliminating duplicates
     function getUsersToPay(){
         $userIds = [];
@@ -104,12 +103,30 @@ class User extends Authenticatable
         }
         else
         {
-            if($this->payment->payment_status == 'notpaid'){
-                return false;
+            if($this->payment->mode_of_payment=='dd')
+            {
+                if($this->payment->file_name == null){
+                    return false;
+                }
+                else
+                {
+                   return true;
+                   
+                }
             }
-            else{
-                return  true;
+            else
+            {
+                if($this->payment->transaction_id== null){
+                    return false;
+                }
+                else
+                {
+                   return true;
+                   
+                }
             }
+           
+            
         }
       
     }
@@ -125,13 +142,36 @@ class User extends Authenticatable
         }
     }
     function hasPaidAccomodation(){
-        if($this->accomodation->acc_payment_status=='paid')
+        if($this->accomodation==Null)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            if($this->accomodation->acc_mode_of_payment=='dd')
+            {
+                if($this->accomodation->acc_file_name == null){
+                    return false;
+                }
+                else
+                {
+                   return true;
+                   
+                }
+            }
+            else
+            {
+                if($this->accomodation->acc_transaction_id== null){
+                    return false;
+                }
+                else
+                {
+                   return true;
+                   
+                }
+            }
+           
+            
         }
     }
     function hasConfirmedAccomodation()
@@ -304,14 +344,19 @@ class User extends Authenticatable
         return false;
     }
     function isConfirmed(){
-      if($this->confirmation==true)
-      {
-          return true;
-      }
-      else
-      {
-          return false;
-      }
+        if($this->needApproval()){
+            if($this->hasConfirmed()){
+                return true;                
+            }
+        }
+        else{
+            foreach($this->teamMembers as $teamMember){
+                if($teamMember->team->user->isConfirmed()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     function hasPaidForTeams(){
         foreach($this->teams as $team){
@@ -321,42 +366,122 @@ class User extends Authenticatable
         }
         return true;
     }
+    function getTotalAmountForOnline(){
+        $category_id=Category::where('name','Workshop')->first()->id;
+        $transactionFee = Payment::getTransactionFee();
+        $totalAmount = 0;
+        $amount=0;
+        $workshop_amount=0;
+        $event_amount=0;
+        $fee=0;
+        $events=$this->events()->where('category_id',2)->get();
+        if($this->hasWorkshop())
+        {    
+            $workshops=$this->events()->where('category_id',1)->get(); 
+            foreach($workshops as $workshop)
+            {
+               if($workshop->hasPgAmount())
+               {    
+                    if($this->isPg())
+                    {
+                        $amount+=$workshop->pg_amount;
+                    }
+                }
+                else if($workshop->hasSaeAmount())
+                {
+                    if($this->isSaeMemeber())
+                    {
+                        $amount+=$workshop->sae_amount;
+                    }
+                }
+                else if($workshop->hasIeAmount())
+                {
+                    if($this->isIeMemeber())
+                    {
+                        $amount+=$workshop->ie_amount;
+                    }
+                }
+                else{
+                    $amount+=$workshop->amount;
+                }
+                
+            }
+            $workshop_amount+=$amount;
+        }
+            
+       if($this->hasParticipating())
+       {
+           $event_amount+=Payment::getEventAmount();
+       }
+       if($workshop_amount!=0)
+       {
+           $totalAmount+=$workshop_amount;
+       }
+       if($event_amount!=0)
+       {
+           $totalAmount+=$event_amount;
+       }
+       
+        // Very Very important Add the transaction fee
+        $totalAmount += $totalAmount*$transactionFee;
+        return $totalAmount;
+    }
     function getTotalAmount(){
         $category_id=Category::where('name','Workshop')->first()->id;
         $transactionFee = Payment::getTransactionFee();
         $totalAmount = 0;
         $amount=0;
-        $amounst=0;
+        $event_amount=0;
+        $workshop_amount=0;
+        $event_amount=0;
         if($this->hasWorkshop())
         {    
-            $workshop_amounts=$this->events()->where('category_id',1)->get(); 
-            foreach($workshop_amounts as $workshop_amount)
+            $workshops=$this->events()->where('category_id',1)->get(); 
+            foreach($workshops as $workshop)
             {
-               if($this->isPg())
+               if($workshop->hasPgAmount())
                {    
-                    if($workshop_amount->pg_amount !=0)
+                    if($this->isPg())
                     {
-                        $amount+=$workshop_amount->pg_amount;
+                        $amount+=$workshop->pg_amount;
                     }
-                    else
+                }
+                else if($workshop->hasSaeAmount())
+                {
+                    if($this->isSaeMemeber())
                     {
-                        $amount+=$workshop_amount->amount;
+                        $amount+=$workshop->sae_amount;
+                    }
+                }
+                else if($workshop->hasIeAmount())
+                {
+                    if($this->isIeMemeber())
+                    {
+                        $amount+=$workshop->ie_amount;
                     }
                 }
                 else
                 {
-                        $amount+=$workshop_amount->amount;
+                    $amount+=$workshop->amount;
                 }
+                
             }
+            $workshop_amount+=$amount;
         }
-        if($this->hasEvents())
-        {
-            $amount+=Payment::getEventAmount();
-        }
-    
-       $totalAmount+=$amount;
-        // Very Very important Add the transaction fee
-       $totalAmount += $amount*$transactionFee;
+        
+       if($this->hasParticipating())
+       {
+           $event_amount+=Payment::getEventAmount();
+       }
+       if($workshop_amount!=0)
+       {
+           $totalAmount+=$workshop_amount;
+       }
+       if($event_amount!=0)
+       {
+           $totalAmount+=$event_amount;
+       }
+  
         return $totalAmount;
     }
     function getTotalAmountPaid(){
@@ -372,21 +497,24 @@ class User extends Authenticatable
     }
     function doPayment($txnid){
         foreach($this->getUsersToPay() as $user){
-            $payment->paid_by = $this->id;
+           
             $payment->user_id = $user->id;
             $payment->transaction_id = $txnid;
             $user->payment()->save($payment);
         }
     }
     function doPaymentDD($filename){
-        foreach($this->getUsersToPay() as $user){
-            $payment = new Payment();
-            $payment->paid_by = $this->id;
-            $payment->user_id = $user->id;
-            $payment->mode_of_payment='dd';
-            $payment->file_name=$filename;
-            $user->payment()->save($payment);
-        }
+            foreach($this->getUsersToPay() as $user){
+                $payment = new Payment();
+               
+                $payment->user_id = $user->id;
+                $payment->file_name = $filename;
+                $payment->payment_status='notpaid';
+                $payment->status='nack';
+                $payment->amount=$this->getTotalAmount();
+                $user->payment()->save($payment);
+            }
+        
 
     }
     function getTransactionId(){
@@ -495,7 +623,7 @@ class User extends Authenticatable
     {
         if($this->hasWorkshop())
         {
-            if($this->hasEvents())
+            if($this->hasParticipating())
             {
                 return true;
             }
@@ -519,4 +647,51 @@ class User extends Authenticatable
             return false;
         }
     }
+    function isSaeMemeber()
+    {
+        if($this->sae_id!='none')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    function isIeMemeber()
+    {
+        if($this->ie_id!='none')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    function PresentInTeam()
+    {
+        if(TeamMember::find($this->id))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+
+        }
+    }
+    function hasParticipating()
+    {
+        if($this->events()->where('category_id',2)->count() == 0 && $this->teams()->count() == 0 && $this->teamMembers()->count() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+  
 }

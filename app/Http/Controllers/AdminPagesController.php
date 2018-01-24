@@ -32,7 +32,7 @@ class AdminPagesController extends Controller
         $confirmed_registrations = 0;
         $users = User::all()->where('type', 'student')->where('activated', true); 
         foreach($users as $user){
-            if($user->isConfirmed()){
+            if($user->hasConfirmed()){
                 $confirmed_registrations++;
             }
         }
@@ -516,9 +516,8 @@ class AdminPagesController extends Controller
         $search = Input::get('search', '');
         $search = $search . '%';
         $user_ids = User::search($search)->pluck('id')->toArray();
-        $requests = Confirmation::all()->where('status', null)->where('file_name', '<>',  null)->whereIn('user_id', $user_ids)->filter(function($confirmation){
-            return $confirmation->user->needApproval();
-        });
+        $requests = Payment::all();
+      
         $requests_count = $requests->count();        
         $page = Input::get('page', 1);
         $per_page = 10;
