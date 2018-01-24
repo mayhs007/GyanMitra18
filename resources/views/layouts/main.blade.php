@@ -68,24 +68,36 @@
           <div class="container">
             <div class="row">
               <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                <h5 class="white-text">CONTACT US</h5>
+                <ul>
+                  <li><p>CIVIL:97862 78347     MAILID:gyanmitra18.civil@mepcoeng.ac.in</p></li>
+                  <li><p>EEE:75980 11050       MAILID:gyanmitra18.eee@mepcoeng.ac.in</p></li>
+                  <li><p>ECE:94424 46593       MAILID:gyanmitra18.ece@mepcoeng.ac.in</p> </li>
+                  <li><p>CSE/IT:99945 40905    MAILID:gyanmitra18.cse.it@mepcoeng.ac.in</p></li>
+                  <li><p>MECH:96779 13395      MAILID:gyanmitra18.mech@mepcoeng.ac.in</p></li>
+                  <li><p>BIO-TECH:74023 89414  MAILID:gyanmitra18.biotech@mepcoeng.ac.in</p></li>
+                  <li><p>MCA:99408 40671       MAILID:gyanmitra18.mca@mepcoeng.ac.in</p></li>
+                  <li><p>MATHS/SCI:94860 26054 MAILID:gyanmitra18.maths@mepcoeng.ac.in</p></li>
+                </ul>
+               
               </div>
               <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
+                <h5 class="white-text">STUDENTS PROFESSIONAL SOCIETIES</h5>
+              
+
+<div class="row">
+<div class="card">
+    <div class="card-image">
+    {!! HTML::image('image/logo.png') !!}
+    </div>
+               
               </div>
             </div>
           </div>
           <div class="footer-copyright">
             <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            © 2018 MEPCO SCHLENK ENGG COLLEGE,SIVAKASI
+            
             </div>
           </div>
         </footer>

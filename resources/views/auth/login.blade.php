@@ -7,7 +7,7 @@
 <br>
   <div class="row">
         <div class="col offset-m2 m8 s12">
-          
+          @include('partials.error')
             <div class="card z-depth-2 rounded-box">
                 <div class="card-content">
                     <span class="card-title center-align">
