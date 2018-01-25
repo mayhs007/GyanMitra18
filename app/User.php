@@ -540,7 +540,7 @@ class User extends Authenticatable
     function getAccomodationAmount(){
         $amount = Payment::getAccomodationAmount();
         $totalAmount = $amount + $amount * Payment::getTransactionFee();
-        return 1;
+        return $totalAmount;
     }
     function getHash($amount){
         $key = Payment::getPaymentKey();
