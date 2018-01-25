@@ -87,12 +87,6 @@
                         
                     </td>
                 </tr>
-                @if($user->hasPaid())
-                    <tr>
-                        <th>Paid By</th>
-                        <td>{{ $user->payment->paidBy->first_name }} [{{ $user->payment->paidBy->email }}]</td>
-                    </tr>
-                @endif
                 @if($user->accomodation)
                     <tr>
                         <th>Accomodation Request</th>
