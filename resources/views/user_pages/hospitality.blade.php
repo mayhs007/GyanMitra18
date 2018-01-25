@@ -178,7 +178,7 @@
                     </div>
                 
             @else
-            <p>Overed</p>
+            <p class="red-text">ACCOMODATION REGISTERATION WILL BE OPENING SOON </p>
             @endif
 <script>
 $(function(){

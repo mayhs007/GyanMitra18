@@ -18,7 +18,7 @@
                 
                 @if(Auth::Check())
                     <li><a href="{{ route('user_pages.dashboard') }}"><i class="fa fa-2x fa-tachometer"></i> Dashboard</a></li>  
-
+                    <li><a href="{{ route('user_pages.hospitality') }}"><i class="fa fa-2x fa-bed"></i> Hospitality</a></li>
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
@@ -49,7 +49,7 @@
    
                 @if(Auth::Check())
                     <li><a href="{{ route('user_pages.dashboard') }}"> Dashboard</a></li>  
-              
+                    <li><a href="{{ route('user_pages.hospitality') }}"> Hospitality</a></li>
                     <li>
                         <a href="#" class="dropdown-button" data-activates="user-dropdown">Hi, {{ Auth::user()->first_name }} <i class="material-icons right">arrow_drop_down</i></a>
                         <ul id="user-dropdown" class="dropdown-content">
