@@ -181,22 +181,20 @@ class PagesController extends Controller
         if(strtolower($inputs['status']) == 'success' || strtolower($inputs['status']) == 'captured' ){
             $user = User::where('email', $inputs['email'])->first();
             if(isset($inputs['type']) && $inputs['type'] == 'accomodation'){
-                $payment = Auth::user()->accomodation;
-                $payment->acc_status='ack';
-                $payment->acc_mode_of_payment='online';
-                $payment->acc_payment_status='paid'; 
-                $payment->acc_transaction_id =$inputs['txnid'];     
+                $user->accomodation->acc_status='ack';
+                $user->accomodation->acc_mode_of_payment='online';
+                $user->accomodation->acc_payment_status='paid'; 
+                $user->accomodation->acc_transaction_id =$inputs['txnid'];     
                 $user->accomodation->save();
             }
             else{
-                $payment = Auth::user()->payment;
-                $payment->status='ack';
-                $payment->mode_of_payment='online';
-                $payment->payment_status='paid'; 
-                $payment->transaction_id =$inputs['txnid'];     
+                $user->payment->status='ack';
+                $user->payment->mode_of_payment='online';
+                $user->payment->payment_status='paid'; 
+                $user->payment->transaction_id =$inputs['txnid'];     
                 //$user->doPayment($inputs['txnid']);
-                $payment->amount=$user->getTotalAmountForOnline();
-                $user->save();
+                $user->payment->amount=$user->getTotalAmountForOnline();
+                $user->payment->save();
                // $this->rejectOtherRegistrations($user->id);
             }
             return view('user_pages.payment.success')->with('info', 'Your payment was successful!');
