@@ -68,19 +68,19 @@
     <div class="col s6 input-field">
         <i class="material-icons prefix">card_membership</i>
         {!! Form::label('SAE ID*(SAE MEMEBER ID IF APPILCABLE)') !!}
-        {!! Form::text('sae') !!}
+        {!! Form::text('sae_id') !!}
     </div>
 
     <div class="col s6 input-field">
         <i class="material-icons prefix">card_membership</i>
         {!! Form::label('IE ID*(IE MEMEBER ID IF APPILCABLE)') !!}
-        {!! Form::text('ie') !!}
+        {!! Form::text('ie_id') !!}
     </div>
-<div class="row"
+<div class="row">
     <div class="col s6 input-field">
         <i class="material-icons prefix">card_membership</i>
         {!! Form::label('IETE ID*(IETE MEMEBER ID IF APPILCABLE)') !!}
-        {!! Form::text('iete') !!}
+        {!! Form::text('iete_id') !!}
     </div>
 </div>
 <div class="row">

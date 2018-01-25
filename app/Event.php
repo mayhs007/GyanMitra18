@@ -8,7 +8,7 @@ class Event extends Model
 {
     // 
     
-    protected $fillable =  ['title', 'category_id','department_id', 'description', 'image_name', 'rules', 'event_date', 'start_time', 'end_time', 'min_members', 'max_members', 'max_limit', 'contact_email', 'allow_gender_mixing','venue','prelims','round1','round2','finals','pg_amount','amount','resource_person','sae_amount','ie_amount'];
+    protected $fillable =  ['title', 'category_id','department_id', 'description', 'image_name', 'rules', 'event_date', 'start_time', 'end_time', 'min_members', 'max_members', 'max_limit', 'contact_email', 'allow_gender_mixing','venue','prelims','round1','round2','finals','pg_amount','amount','resource_person','sae_amount','ie_amount','iete_amount'];
     protected $image_path = '/images/events/';
     function category(){
         return $this->belongsTo('App\Category');

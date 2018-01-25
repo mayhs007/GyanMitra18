@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','college_id','level_of_study','gender','mobile','type','email', 'password', 'activated', 'activation_code','confirmation','Accomodation_Confirmation','present','ie_id','sae_id','iete_id'
+        'first_name','last_name','college_id','level_of_study','gender','mobile','type','email', 'password', 'activated', 'activation_code','confirmation','Accomodation_Confirmation','present','sae_id','ie_id','iete_id'
     ];
 
     /**
@@ -380,31 +380,31 @@ class User extends Authenticatable
             $workshops=$this->events()->where('category_id',1)->get(); 
             foreach($workshops as $workshop)
             {
-               if($workshop->hasPgAmount())
-               {    
-                    if($this->isPg())
-                    {
-                        $amount+=$workshop->pg_amount;
-                    }
-                }
-                else if($workshop->hasSaeAmount())
-                {
-                    if($this->isSaeMemeber())
-                    {
-                        $amount+=$workshop->sae_amount;
-                    }
-                }
-                else if($workshop->hasIeAmount())
-                {
-                    if($this->isIeMemeber())
-                    {
-                        $amount+=$workshop->ie_amount;
-                    }
-                }
-                else{
-                    $amount+=$workshop->amount;
-                }
-                
+                if($workshop->hasPgAmount())
+                {    
+                     if($this->isPg())
+                     {
+                         $amount+=$workshop->pg_amount;
+                     }
+                 }
+                 else if($workshop->hasSaeAmount())
+                 {
+                     if($this->isSaeMemeber())
+                     {
+                         $amount+=$workshop->sae_amount;
+                     }
+                 }
+                 else if($workshop->hasIeAmount())
+                 {
+                     if($this->isIeMemeber())
+                     {
+                         $amount+=$workshop->ie_amount;
+                     }
+                 }
+                 else 
+                 {
+                     $amount+=$workshop->amount;
+                 } 
             }
             $workshop_amount+=$amount;
         }
@@ -458,13 +458,6 @@ class User extends Authenticatable
                     if($this->isIeMemeber())
                     {
                         $amount+=$workshop->ie_amount;
-                    }
-                }
-                elseif($workshop->hasIeteAmount())
-                {
-                    if($this->isIeteMemeber())
-                    {
-                        $amount+=$workshop->iete_amount;
                     }
                 }
                 else
