@@ -155,15 +155,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($user->payments as $index => $payment)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $payment->user->first_name }}</td>
-                        <td>{{ $payment->user->email }}</td>
-                        <td>{{ $payment->user->mobile }}</td>
-                        <td><i class="fa fa-inr"></i> {{ App\Payment::getEventAmount() }}</td>
-                    </tr>
-                @endforeach
+                hello
             </tbody>
             <tfoot>
                 <tr>

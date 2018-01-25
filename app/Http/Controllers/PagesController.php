@@ -177,7 +177,7 @@ class PagesController extends Controller
     }
 
     function paymentSuccess(Request $request){
-        $inputs = $request::all();
+        $inputs = $request->all();
         if(strtolower($inputs['status']) == 'success' || strtolower($inputs['status']) == 'captured' ){
             $user = User::where('email', $inputs['email'])->first();
             if(isset($inputs['type']) && $inputs['type'] == 'accomodation'){
