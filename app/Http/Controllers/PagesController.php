@@ -183,6 +183,7 @@ class PagesController extends Controller
             if(isset($inputs['type']) && $inputs['type'] == 'accomodation'){
                 $user->accomodation->acc_status='ack';
                 $user->accomodation->acc_mode_of_payment='online';
+                $user->accomodation->acc_file_name='none';
                 $user->accomodation->acc_payment_status='paid'; 
                 $user->accomodation->acc_transaction_id =$inputs['txnid'];     
                 $user->accomodation->save();
@@ -191,6 +192,7 @@ class PagesController extends Controller
                 $user->payment->status='ack';
                 $user->payment->mode_of_payment='online';
                 $user->payment->payment_status='paid'; 
+                $user->payment->file_name='none';
                 $user->payment->transaction_id =$inputs['txnid'];     
                 //$user->doPayment($inputs['txnid']);
                 $user->payment->amount=$user->getTotalAmountForOnline();
