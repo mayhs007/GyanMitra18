@@ -16,14 +16,18 @@
                 <p>  {!! $resource !!}</p>
             @endforeach 
             <p><i class="fa fa-calendar"></i> {{ $event->getDate() }} &nbsp &nbsp &nbsp &nbsp
-            <i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
+            <p>START TIME:&nbsp &nbsp<i class="fa fa-clock-o"></i>&nbsp {{ $event->getStartTime() }} 
+            <P>END TIME:&nbsp &nbsp<i class="fa fa-clock-o"></i>&nbsp{{ $event->getEndTime() }}</p>
             <p><i class="fa fa-map-marker"></i> {{$event->venue}}</p>
-            <p>NON-MEMBER:  <i class="fa fa-inr"></i>{{$event->amount}}./-&nbsp &nbsp
+            <p>AMOUNT:&nbsp  <i class="fa fa-inr"></i>&nbsp{{$event->amount}}./-&nbsp &nbsp
             @if($event->hasSaeAmount())
-                 SAE MEMEBER:  <i class="fa fa-inr"></i> {{ $event->sae_amount}}./-&nbsp &nbsp
+                 SAE MEMEBER:&nbsp  <i class="fa fa-inr"></i>&nbsp  {{ $event->sae_amount}}./-&nbsp &nbsp
             @endif
             @if($event->hasIeAmount())
-                 IE MEMEBER:   <i class="fa fa-inr"></i> {{ $event->ie_amount}}./-
+                 IE MEMEBER: &nbsp  <i class="fa fa-inr"></i>&nbsp {{ $event->ie_amount}}./-
+            @endif
+            @if($event->hasPgAmount())
+                 PG STUDENT: &nbsp  <i class="fa fa-inr"></i>&nbsp {{ $event->pg_amount}}./-
             @endif
             </p>
             <i class="fa fa-graduation-cap"></i>

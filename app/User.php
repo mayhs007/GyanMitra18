@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','college_id','level_of_study','gender','mobile','type','email', 'password', 'activated', 'activation_code','confirmation','Accomodation_Confirmation','present'
+        'first_name','last_name','college_id','level_of_study','gender','mobile','type','email', 'password', 'activated', 'activation_code','confirmation','Accomodation_Confirmation','present','ie_id','sae_id','iete_id'
     ];
 
     /**
@@ -460,10 +460,18 @@ class User extends Authenticatable
                         $amount+=$workshop->ie_amount;
                     }
                 }
+                elseif($workshop->hasIeteAmount())
+                {
+                    if($this->isIeteMemeber())
+                    {
+                        $amount+=$workshop->iete_amount;
+                    }
+                }
                 else
                 {
                     $amount+=$workshop->amount;
-                }
+                } 
+    
                 
             }
             $workshop_amount+=$amount;
@@ -661,6 +669,17 @@ class User extends Authenticatable
     function isIeMemeber()
     {
         if($this->ie_id!='none')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    function isIeteMemeber()
+    {
+        if($this->iete_id!='none')
         {
             return true;
         }

@@ -4,7 +4,7 @@
 <div class="row">
 
   <div class="section">
-    <h5>WORKSHOP SCHEDULE</h5>
+    <h5>WORKSHOP SCHEDULE &nbsp(16-02-2018)</h5>
 </div>
 <div class="divider"></div>
 <div class="divider"></div>
@@ -53,8 +53,7 @@
       
 
   <div class="section">
-    <h5>EVENT SCHEDULE</h5>
-    <h6 class="right">FOR EVENT PARTICIPATION THE AMOUNT IS <i class="fa fa-inr">200./-</i></h6>
+    <h5>EVENT SCHEDULE&nbsp(17-02-2018)</h5>
 </div>
 <div class="divider"></div>
 <div class="divider"></div>

@@ -11,7 +11,8 @@
                 <li><a href="{{ route('user_pages.event') }}"><i class="fa fa-2x fa-tasks"></i> Domain</a></li>
                 <li><a href="{{ route('user_pages.about') }}"><i class="fa fa-2x fa-child"></i> About</a></li>
                 <li><a href="{{ route('user_pages.schedule') }}"> Schedule</a></li>
-                <li><a href="{{ route('user_pages.guestLecture') }}">GuestLecture</a></li>    
+                <li><a href="{{ route('user_pages.guestLecture') }}">Special Lecture</a></li>
+                <li><a href="{{ route('user_pages.help') }}">Instruction</a></li>     
                 <li><a href="{{ route('user_pages.contact') }}"> Contact Us?</a></li> 
                 
                 @if(Auth::Check())
@@ -41,7 +42,8 @@
                 <li><a href="{{ route('user_pages.event') }}"> Domain</a></li>
                 <li><a href="{{ route('user_pages.about') }}"> About</a></li>
                 <li><a href="{{ route('user_pages.schedule') }}"> Schedule</a></li> 
-                <li><a href="{{ route('user_pages.guestLecture') }}">GuestLecture</a></li> 
+                <li><a href="{{ route('user_pages.guestLecture') }}">Special Lecture</a></li> 
+                <li><a href="{{ route('user_pages.help') }}">Instruction</a></li> 
                 <li><a href="{{ route('user_pages.contact') }}"> Contact Us?</a></li> 
    
                 @if(Auth::Check())

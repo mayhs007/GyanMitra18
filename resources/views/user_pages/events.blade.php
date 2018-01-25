@@ -16,7 +16,7 @@
                 <p>{!! $rul !!}<p>
             @endforeach
     <h5 class="header">Rules</h5>
-    <ul style="list-style: none">
+    <ul>
     @foreach($event->getRulesList() as $rule)
             @if($rule=="DETAILS ABOUT THE ABSTRACT")
                 <h5 class="header">{{$rule}}</h5>
@@ -27,7 +27,7 @@
     </ul>
     <p><i class="fa fa-calendar"></i> {{ $event->getDate() }} &nbsp  &nbsp  &nbsp 
    <i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
-   <i class="fa fa-inr"></i> {{ $event->amount}}</p>
+  
  
    @if($event->prelims && $event->finals)
    <p><i class="fa fa-clock-o"></i>PRELIMS {{$event->getPrelimsTime()}} &nbsp  &nbsp  &nbsp

@@ -15,7 +15,31 @@
            
             <p><i class="fa fa-calendar"></i> {{ $event->getDate() }}</p>
             <p><i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
-            {{$event->amount}}
+            @if($event->hasSaeAmount())
+                @if(Auth::user()->isSaeMemeber())
+                 SAE MEMEBER:  <i class="fa fa-inr"></i> {{ $event->sae_amount}}./-&nbsp &nbsp
+                 @else
+                  AMOUNT:   <i class="fa fa-inr"></i> {{ $event->amount}}./-
+                @endif
+            @elseif($event->hasIeAmount())
+                @if(Auth::user()->isIeMemeber())
+                 IE MEMEBER:   <i class="fa fa-inr"></i> {{ $event->ie_amount}}./-
+                 @else
+                  AMOUNT:   <i class="fa fa-inr"></i> {{ $event->amount}}./-
+                @endif
+            @elseif($event->hasPgAmount())
+                @if(Auth::user()->isPg())
+                 PG STUDENT:   <i class="fa fa-inr"></i> {{ $event->pg_amount}}./-
+                 @else
+                  AMOUNT:   <i class="fa fa-inr"></i> {{ $event->amount}}./-
+                @endif
+            @else
+                  AMOUNT:   <i class="fa fa-inr"></i> {{ $event->amount}}./-
+            @endif
+              
+              
+             
+           
             <p>
            
                 @if(Auth::check() && Auth::user()->type == 'student')

@@ -158,4 +158,15 @@ class Event extends Model
             return false;
         }
     }
+    function hasIeteAmount()
+    {
+        if($this->iete_amount!=0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
