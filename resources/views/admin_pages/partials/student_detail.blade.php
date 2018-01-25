@@ -54,10 +54,12 @@
                 </tr>
                 <tr>
                 <th>Mode Of Payment</th>
-                @if($user->accomodation)
+                @if($user->payment)
                     {{$user->payment->mode_of_payment}}
+                
                 @if($user->payment->mode_of_payment=='dd')
                 <a href="/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
+                @endif
                 @endif   
             </td>
         <tr>
