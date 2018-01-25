@@ -80,3 +80,11 @@
 </div>
 </div>
 @endsection
+@section('footer')
+<h5 class="white-text">STUDENTS PROFESSIONAL SOCIETIES</h5>
+    <div class="card">
+    <div class="card-image">
+    {!! HTML::image('image/logo.png') !!}
+    </div>
+    </div>
+@endsection

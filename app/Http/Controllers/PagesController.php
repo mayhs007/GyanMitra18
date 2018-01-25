@@ -269,5 +269,13 @@ class PagesController extends Controller
         $events=Event::all()->where('category_id',2);
         return view('user_pages.schedule')->with('workshops',$workshops)->with('events', $events);
     }
+    function contact()
+    {
+        return view('user_pages.contact');
+    }
+    function guestLecture()
+    {
+        return view('user_pages.guestLecture');
+    }
     
 }

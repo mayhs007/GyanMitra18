@@ -1,3 +1,4 @@
+<div class="navbar-fixed">
 <nav>
         <div class="nav-wrapper">
             <a href="{{ route('user_pages.home') }}" class="brand-logo"> GyanMitra18</a>
@@ -11,7 +12,7 @@
                 <li><a href="{{ route('user_pages.event') }}"><i class="fa fa-2x fa-tasks"></i> Domain</a></li>
                 <li><a href="{{ route('user_pages.about') }}"><i class="fa fa-2x fa-child"></i> About</a></li>
                 <li><a href="{{ route('user_pages.schedule') }}"> Schedule</a></li>
-                <li><a href="{{ route('user_pages.guestLecture') }}">GuestLecture</a></li>    
+                <li><a href="{{ route('user_pages.guestLecture') }}">GuestLecture</a></li>     
                 <li><a href="{{ route('user_pages.contact') }}"> Contact Us?</a></li> 
                 
                 @if(Auth::Check())
@@ -40,8 +41,8 @@
                 <li><a href="{{ route('user_pages.home') }}">Home</a></li>
                 <li><a href="{{ route('user_pages.event') }}"> Domain</a></li>
                 <li><a href="{{ route('user_pages.about') }}"> About</a></li>
-                <li><a href="{{ route('user_pages.schedule') }}"> Schedule</a></li> 
-                <li><a href="{{ route('user_pages.guestLecture') }}">GuestLecture</a></li> 
+                <li><a href="{{ route('user_pages.schedule') }}"> Schedule</a></li>
+                <li><a href="{{ route('user_pages.guestLecture') }}">GuestLecture</a></li>   
                 <li><a href="{{ route('user_pages.contact') }}"> Contact Us?</a></li> 
    
                 @if(Auth::Check())
@@ -61,3 +62,4 @@
             </ul>
         </div>
 </nav>
+</div>

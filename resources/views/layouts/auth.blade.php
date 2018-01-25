@@ -13,9 +13,9 @@
 {{ HTML::Script("js/materialize-stepper.min.js") }}    
 {{ HTML::Script("js/app.js") }}
 <body>
-@include('layouts.partials.user_nav')
+@include('layouts.partials.auth_nav')
 @include('layouts.partials.flash')
 @yield('content')
-
+@include('layouts.partials.footer')
 </body>
 </html>

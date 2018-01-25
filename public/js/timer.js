@@ -23,6 +23,10 @@ var x = setInterval(function() {
     document.getElementById("hours").innerHTML = hours;
     document.getElementById("minutes").innerHTML = minutes;
     document.getElementById("seconds").innerHTML = seconds;
+    document.getElementById("dayss").innerHTML = days;
+    document.getElementById("hourss").innerHTML = hours;
+    document.getElementById("minutess").innerHTML = minutes;
+    document.getElementById("secondss").innerHTML = seconds;
     // If the count down is over, write some text 
     if (distance < 0) {
         clearInterval(x);

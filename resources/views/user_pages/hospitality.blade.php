@@ -118,6 +118,13 @@
                                                         <td><td><i class="fa fa-inr"></i>{{ App\Payment::getAccomodationAmount() }}</td></td>
                                                     </tr>
                                                 </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>DD DETAILS</th>
+                                                    <th>IN FAVOUR OF "THE PRINCIPAL,MEPCO SCHLENK ENGINEERING COLLEGE"</th>
+                                                    <th>PAYABLE AT SIVAKASI</th>
+                                                </tr>
+                                            </tfoot>
                                             </table>
                                             @if($user->hasConfirmedAccomodation())
                                             <p>

@@ -4,8 +4,6 @@
 {{ HTML::Style("css/home.css") }}
 {{ HTML::Style("css/materialize.min.css") }}
 {{ HTML::Style("css/font-awesome.min.css") }} 
-
-
 </head>
 <body>
 @yield('content')

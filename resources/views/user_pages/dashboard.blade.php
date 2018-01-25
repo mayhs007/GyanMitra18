@@ -147,7 +147,7 @@
                                    <tr>
                                        <th>DD DETAILS</th>
                                        <th>IN FAVOUR OF "THE PRINCIPAL,MEPCO SCHLENK ENGINEERING COLLEGE"</th>
-                                       <th>PAYABLE AT SIVAKSI</th>
+                                       <th>PAYABLE AT SIVAKASI</th>
                                    </tr>
                                 </tfoot>
                             </table>
@@ -203,27 +203,7 @@
     </form>
 @endif
 
-<footer class="page-footer blue-grey darken-3">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">CONTACT US</h5>
-                <p class="grey-text text-lighten-4">ANY QUERIES REGARDING PAYMENT PROCESS CONTACT US 24X7</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">MAil id</h5>
-                <ul>
-                  <li>gyanmitra18@mepcoeng.ac.in</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2018 MEPCO SCHLENK ENGG COLLEGE
-            </div>
-          </div>
-        </footer>
+
 <script>
     $('#btn-upload-ticket').on('click', function(){
         $('#file-ticket').trigger('click');
@@ -250,4 +230,15 @@ $(function(){
 </script>
 
 @endsection
+@section('footer')
 
+<h5 class="white-text">CONTACT US</h5>
+<p class="grey-text text-lighten-4">ANY QUERIES REGARDING PAYMENT PROCESS CONTACT US 24X7</p>
+
+@endsection
+
+
+
+
+
+              

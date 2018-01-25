@@ -20,7 +20,7 @@ class CollegesController extends Controller
     public function store(CollegeRequest $request){
         $inputs = $request->all();
         College::create($inputs);
-        Session::flash('info', 'College was added!');
+        Session::flash('success', 'College was added!');
         return redirect()->route('admin::colleges.create');
     }
     public function edit($college_id){
@@ -31,17 +31,17 @@ class CollegesController extends Controller
         $inputs = $request->all();
         $college = College::find($college_id);        
         $college->update($inputs);
-        Session::flash('info', 'College was Updated!');
+        Session::flash('success', 'College was Updated!');
         return redirect()->route('admin::colleges.index');
     }
     public function destroy($college_id){
         $college = College::find($college_id);
         if($college->users->count() > 0){
-            Session::flash('info', "The college has registered users and can't be deleted!");
+            Session::flash('success', "The college has registered users and can't be deleted!");
         }
         else{
             College::destroy($college_id);
-            Session::flash('info', "College was deleted!");            
+            Session::flash('success', "College was deleted!");            
         }
         return redirect()->back();         
     }
