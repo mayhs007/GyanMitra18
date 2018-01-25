@@ -160,7 +160,7 @@
                         <input type="hidden" name="firstname" value="{{ $user->first_name }}">
                         <input type="hidden" name="email" value="{{ $user->email }}">
                         <input type="hidden" name="phone" value="{{ $user->mobile }}">            
-                        <input type="hidden" name="surl" value="{{ route('pages.payment.success', ['type' => 'accomodation']) }}">   
+                        <input type="hidden" name="surl" value="{{ route('user_pages.payment.success', ['type' => 'accomodation']) }}">   
                         <input type="hidden" name="furl" value="{{ route('user_pages.payment.failure') }}">
                         <input type="hidden" name="hash" value="{{ Auth::user()->getHash(Auth::user()->getAccomodationAmount()) }}">
                     </form>
