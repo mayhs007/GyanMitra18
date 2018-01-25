@@ -17,9 +17,6 @@
               <th>START TIME</th>
               <th>END TIME</th>
               <th>AMOUNT</th>
-              <th>IE MEMBER</th>
-              <th>SAE MEMBER</th>
-              <th>PG STUDENTS</th>
           </tr>
         </thead>
         <tbody>
@@ -31,21 +28,6 @@
             <td>{{$workshop->getStartTime() }}</td>
             <td> {{$workshop->getEndTime()}}</td>
             <td>{{$workshop->amount }}</td>
-            @if($workshop->hasSaeAmount())
-              <td>{{$workshop->sae_amount }}</td>
-            @else
-              <td>-</td>
-            @endif
-            @if($workshop->hasIeAmount())
-              <td>{{$workshop->ie_amount }}</td>
-            @else
-              <td>-</td>
-            @endif
-            @if($workshop->hasPgAmount())
-              <td>{{$workshop->pg_amount }}</td>
-            @else
-              <td>-</td>
-            @endif
           </tr>
         @endforeach
         </tbody>
@@ -63,7 +45,8 @@
               <th>EVENT NAME</th>
               <th>DOMAIN</th>
               <th>VENUE</th>
-              <th>START TIME&END TIME</th>
+              <th>START TIME</th>
+              <th>END TIME</th>
               
           </tr>
         </thead>
@@ -73,7 +56,8 @@
             <td>{{$event->title }}</td>
             <td>{{App\Department::all()->where('id',$event->department_id)->first()->name}}</td>
             <td>{{$event->venue }}</td>
-            <td>{{$event->getStartTime() }} to {{$workshop->getEndTime()}}</td>
+            <td>{{$workshop->getStartTime() }}</td>
+            <td> {{$workshop->getEndTime()}}</td>
           </tr>
         @endforeach
         </tbody>

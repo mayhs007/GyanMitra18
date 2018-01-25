@@ -29,6 +29,9 @@
             @if($event->hasPgAmount())
                  PG STUDENT: &nbsp  <i class="fa fa-inr"></i>&nbsp {{ $event->pg_amount}}./-
             @endif
+            @if($event->hasIeteAmount())
+                 IETE: &nbsp  <i class="fa fa-inr"></i>&nbsp {{ $event->iete_amount}}./-
+            @endif
             </p>
             <i class="fa fa-graduation-cap"></i>
             @foreach($event->getResourcePersonList() as $resource)
