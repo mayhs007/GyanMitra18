@@ -15,6 +15,7 @@
            
             <p><i class="fa fa-calendar"></i> {{ $event->getDate() }}</p>
             <p><i class="fa fa-clock-o"></i> {{ $event->getStartTime() }} to {{ $event->getEndTime() }}</p>
+            <p>
             @if($event->hasSaeAmount())
                 @if(Auth::user()->isSaeMemeber())
                  SAE MEMEBER:  <i class="fa fa-inr"></i> {{ $event->sae_amount}}./-&nbsp &nbsp
@@ -39,11 +40,11 @@
                  @else
                   AMOUNT:   <i class="fa fa-inr"></i> {{ $event->amount}}./-
                 @endif
-            
+            @else
+                AMOUNT:   <i class="fa fa-inr"></i> {{ $event->amount}}./-
             @endif
               
-              
-             
+             </p>
            
             <p>
            

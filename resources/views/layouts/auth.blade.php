@@ -1,6 +1,9 @@
-<!DOCTYPE Html>
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GyanMitra18</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 {{ HTML::Script("js/jquery.min.js") }} 
 {{ HTML::Style("css/materialize.min.css") }}
 {{ HTML::Style("css/font-awesome.min.css") }}

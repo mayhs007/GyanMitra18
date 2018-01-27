@@ -33,9 +33,9 @@
                                         </ul>
                                     </p>
                                     @if(!$user->hasConfirmedAccomodation() && $user->hasPaid() )
-                                        <a class="btn waves-effect waves-light green modal-trigger" href="#modal-confirm">Confirm and generate ticket</a>
+                                        <a class="btn waves-effect waves-light green modal-trigger" href="#modal-confirm">CONFIRM AND PROCCED TO PAYMENT</a>
                                     @else
-                                        <a class="btn waves-effect waves-light green modal-trigger disabled">Confirm and generate ticket</a>
+                                        <a class="btn waves-effect waves-light green modal-trigger disabled">CONFIRM AND PROCCED TO PAYMENT</a>
                                     @endif       
                                 </div>
                             </li>

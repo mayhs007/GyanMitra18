@@ -40,7 +40,7 @@ class UsersController extends Controller
         foreach($roles as $role){
             $user->roles()->save($role);
         }
-        Session::flash('info', 'The user was created!');
+        Session::flash('success', 'The user was created!');
         return redirect()->route('admin::users.create');
     }
     function update(UserRequest $request, $user_id){
@@ -58,7 +58,7 @@ class UsersController extends Controller
         foreach($roles as $role){
             $user->roles()->save($role);
         }
-        Session::flash('info', 'The user was updated!');
+        Session::flash('success', 'The user was updated!');
         return redirect()->route('admin::users.index');
     }
     function destroy($user_id){
@@ -66,10 +66,10 @@ class UsersController extends Controller
         if($user->type == 'admin'){
             $user->roles()->detach();
             User::destroy($user_id);               
-            Session::flash('info', 'The User was Removed!');
+            Session::flash('success', 'The User was Removed!');
         }
         else{
-            Session::flash('info', 'You cannot remove this user!');            
+            Session::flash('success', 'You cannot remove this user!');            
         }
         return redirect()->route('admin::users.index');
     }
