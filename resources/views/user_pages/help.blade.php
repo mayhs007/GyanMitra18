@@ -28,6 +28,9 @@
                     <li>
                         <p>MEMBERSHIP CARD MUST BE BOUGHT ON THE DAY OF GYANMITRA(if any)</p>
                     </li>
+                    <li>
+                        <p>ACCOMODATION WILL BE ENABLED ONLY IF YOU PARTICIPATE IN BOTH WORKSHOP AND EVENT</p>
+                    </li>
                 
             </p>
             <h5 class="red-text">OTHERS WILL BE UPLOADED SOON</h5>
