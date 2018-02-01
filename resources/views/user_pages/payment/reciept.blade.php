@@ -19,12 +19,10 @@
     
         }
     </style>    
-                                        
-           
     </head>
     <body>
     
-        <p class="heade text-uppercase">Participation Details</p>
+        <p class="header text-uppercase">Participation Details</p>
         <table>
             <tbody>
                 <tr>
@@ -65,7 +63,6 @@
                     <tr>
                         <th>Mode Of Payment</th>
                         <td>{{ $user->payment->mode_of_payment}} 
-                        
                     </tr>
                 @endif
                 <tr>
@@ -87,6 +84,15 @@
                         
                     </td>
                 </tr>
+                <tr>
+                    <th>Amount Paid</th>
+                    @if($user->payment->mode_of_payment == 'online')
+                    <td>{{$user->getTotalAmountForOnline()}}</td>
+                    @else
+                       <td>{{$user->payment->amount}}</td>
+                    @endif
+                </tr>    
+
                 @if($user->accomodation)
                     <tr>
                         <th>Accomodation Request</th>
@@ -142,27 +148,5 @@
         @endforeach
 @endif
 
-        <p class="header text-uppercase">Payment Details</p>
-        <p>You have paid for the following student(s)</p>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                hello
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="4">Total Amount Paid (Includes 4% transaction fee)</th>
-                    <th><i class="fa fa-inr"></i> {{ Auth::user()->getTotalAmountForOnline() }}</th>
-                </tr>
-            </tfoot>
-        </table>
-    </body>
+     </body>
 </html>

@@ -90,7 +90,7 @@ class PagesController extends Controller
                 $accomodation->acc_payment_status='notpaid';
                 $accomodation->acc_file_name='none';
                 $accomodation->acc_mode_of_payment='unkown';
-                $accomodation->acc_amount=0;
+                $accomodation->acc_amount=Payment::getAccomodationAmount();
                 $user->accomodation()->save($accomodation);
                 $user->update();
                 Session::flash('success', 'You have confirmed your hospitality!');           
@@ -186,6 +186,7 @@ class PagesController extends Controller
                 $user->accomodation->acc_file_name='none';
                 $user->accomodation->acc_payment_status='paid'; 
                 $user->accomodation->acc_transaction_id =$inputs['txnid'];     
+                $user->accomodation->acc_amount =104;
                 $user->accomodation->save();
             }
             else{
@@ -256,6 +257,7 @@ class PagesController extends Controller
         $payment->acc_status='nack';
         $payment->acc_mode_of_payment='dd';
         $payment->acc_payment_status='notpaid';
+        $payment->acc_amount=Payment::getAccomodationAmount();
         $payment->user_id=Auth::User()->id;
    
         $payment->save();

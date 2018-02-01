@@ -39,7 +39,7 @@
         {!! Form::close() !!}    
     </div>
 @endif
-@if(Auth::user()->hasRole('hospitality'))
+@if(Auth::user()->hasRole('hospitality') || Auth::user()->hasRole('root'))
     <div class="row">
         <div class="col s12">
             <h4 class="center-align">Accomodations Report</h4>

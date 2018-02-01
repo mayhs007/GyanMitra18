@@ -24,7 +24,15 @@
         </thead>
         <tbody>
           <tr>
-              <td>DR. T.P.D. RAJAN,
+          <td>MR.R.S.KANNU, DEPUTY MANAGER, ISRO PROPULSION COMPLEX (IPRC) MAHENDRAGIRI</td>
+            <td>SPACE TECHNOLOGY</td>
+            <td></td>
+            <td>9:00AM <br>–<br> 10:30PM</td>
+            <td>MCC</td>
+          </tr>
+          <tr>
+         
+            <td>DR. T.P.D. RAJAN,
                     SENIOR SCIENTIST,
                     MATERIALS SCIENCE & TECHNOLOGY DIVISION,
                     CSIR-NATIONAL INSTITUTE FOR INTERDISCIPLINARY RESEARCH,
@@ -32,16 +40,9 @@
                     THIRUVANANTHAPURAM-695019.
               </td>
               <td>METAL MATRIX COMPOSITES</td>
-              <td>METAL MATRIX COMPOSITES</td>
-              <td>9:30 AM – 11:00 PM</td>
+              <td>EVOLUTION AND REVOLUTION OF COMPOSITE MATERIAL TECHNOLOGIES</td>
+              <td>11:00AM<br> –<br> 12:30PM</td>
               <td>MCC</td>
-          </tr>
-          <tr>
-            <td>MR.R.S.KANNU, DEPUTY MANAGER, ISRO PROPULSION COMPLEX (IPRC) MAHENDRAGIRI</td>
-            <td>SPACE TECHNOLOGY</td>
-            <td></td>
-            <td>11:15 AM – <br>12:45 PM</td>
-            <td>MCC</td>
           </tr>
         </tbody>
 @endsection

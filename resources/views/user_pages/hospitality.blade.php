@@ -171,12 +171,13 @@
                         <p>
                             After confimration you want HOSPITALITY?
                         </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn-flat waves-effect waves-red modal-action modal-close">No not now!</a>
+                            {{ link_to_route('user_pages.hospitality.request', 'Got it!', null, ['class' => 'btn-flat waves-effect waves-green modal-action modal-close']) }}        
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <a class="btn-flat waves-effect waves-red modal-action modal-close">No not now!</a>
-                        {{ link_to_route('user_pages.hospitality.request', 'Got it!', null, ['class' => 'btn-flat waves-effect waves-green modal-action modal-close']) }}        
-                    </div>
-                
+                    
             @else
             <p class="red-text">ACCOMODATION REGISTERATION WILL BE OPENING SOON </p>
             @endif

@@ -42,7 +42,7 @@
                                         @endif
                                         @foreach(App\Event::all() as $event)
                                             @if(Auth::user()->isOrganizing($event->id) || Auth::user()->hasRole('root'))
-                                                <li>{{ link_to_route('admin::event.registrations',  $event->title, ['event_id' => $event->id]) }}</li>
+                                                <li class="truncate">{{ link_to_route('admin::event.registrations',  $event->title, ['event_id' => $event->id]) }}</li>
                                             @endif
                                         @endforeach
                                     </ul>
@@ -101,12 +101,6 @@
                                 <div class="collapsible-body">
                                     <ul>
                                         <li>{{ link_to_route('admin::accomodations.all', 'All Requests') }}</li> 
-                                        <li>
-                                            <a href="{{ route('admin::accomodations') }}">
-                                                New Requests
-                                                <span class="new badge green">{{ 0 }}</span> 
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </li>

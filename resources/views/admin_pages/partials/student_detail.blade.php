@@ -55,19 +55,41 @@
                 <tr>
                 <th>Mode Of Payment</th>
                 @if($user->payment)
-                    {{$user->payment->mode_of_payment}}
-                
-                @if($user->payment->mode_of_payment=='dd')
-                <a href="/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
-                @endif
+                   <td> {{$user->payment->mode_of_payment}}</td>
+                    @if($user->payment->mode_of_payment=='dd')
+                    <a href="/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
+                    @endif
                 @endif   
             </td>
-        <tr>
-            <th>Payment Status</th>
-            <td>
-                
-                   
-               
+    
+             @if($user->payment)
+                    <tr>
+                        <th>Payment Request</th>
+                        <td>
+                            @if($user->payment->status == 'ack')
+                                <span class="green-text">Accepted</span>
+                            @elseif($user->payment->status == 'nack')
+                                <span class="red-text">Rejected</span>    
+                            @else
+                                Yet to be acknowledged
+                            @endif
+                        </td>
+                    </tr>
+                @endif
+            </td>
+        </tr>
+        @if($user->payment && $user->payment->status == 'ack')
+                    <tr>
+                        <th>Payment Status</th>
+                        <td>
+                            @if($user->payment->payment_status =='paid')
+                                <span class="green-text">Paid</span>
+                            @else
+                                <span class="red-text">Not Paid</span>                                
+                            @endif
+                        </td>
+                    </tr>
+                @endif
                 @if($user->accomodation)
                     <tr>
                         <th>Accomodation Request</th>

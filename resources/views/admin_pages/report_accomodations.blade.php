@@ -12,7 +12,7 @@
                 <thead>
                     <tr>
                         <th>
-                            LG ID
+                            GM ID
                         </th>
                         <th>
                             Full Name
@@ -32,9 +32,7 @@
                         <th>
                             Status
                         </th>
-                        <th>
-                            Days
-                        </th>
+                       
                         <th>
                             Payment
                         </th>
@@ -44,7 +42,7 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->GMId() }}</td>
-                            <td>{{ $user->full_name }}</td>
+                            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->college->name }}</td>
                             <td>{{ $user->gender }}</td>                            
@@ -56,7 +54,6 @@
                                     Not yet acknwoledged
                                 @endif
                             </td> 
-                            <td>{{ $user->accomodation->days  }}</td> 
                             <td>
                                 {{ $user->accomodation->paid?'Paid': 'Not Paid' }}
                             </td>                       

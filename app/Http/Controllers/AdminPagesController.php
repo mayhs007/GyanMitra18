@@ -29,7 +29,7 @@ class AdminPagesController extends Controller
     function root(){
         $registered_count = User::where('type', 'student')->count();
         $present_count = User::where('type', 'student')->where('present', true)->count();        
-        $confirmed_registrations = 0;
+        $confirmed_registrations =User::where('type', 'student')->where('confirmation', true)->count();
         $users = User::all()->where('type', 'student')->where('activated', true); 
         foreach($users as $user){
             if($user->hasConfirmed()){
@@ -79,7 +79,7 @@ class AdminPagesController extends Controller
         $user = User::findOrFail($user_id);
         $accomodation = new Accomodation();
         $accomodation->acc_status = 'ack';
-        $accomodation->paid = true;
+        $accomodation->acc_payment_status= 'paid';
         $user->accomodation()->save($accomodation);
         return redirect()->route('admin::registrations.edit', ['user_id' => $user->id]);
     }
@@ -232,7 +232,7 @@ class AdminPagesController extends Controller
     }
     function updateRegistration($user_id, RegistrationRequest $request){
         $user = User::findOrFail($user_id);
-        $inputs = Request::all();
+        $inputs = $request->all();
         $user->first_name = $inputs['first_name'];
         $user->last_name = $inputs['last_name'];
         $user->email = $inputs['email'];
@@ -296,12 +296,12 @@ class AdminPagesController extends Controller
         $type = Input::get('type', '');        
         if($type == 'accomodation'){
             if($user->accomodation && $user->accomodation->acc_status == 'ack'){
-                if($user->accomodation->acc_paid){
-                    $user->accomodation->acc_paid = false;                    
+                if($user->accomodation->acc_paid=='paid'){
+                    $user->accomodation->acc_paid = 'notpaid';                    
                     $user->accomodation->save();
                 }
                 else{
-                    $user->accomodation->acc_paid = true;
+                    $user->accomodation->acc_paid = 'paid';
                     Session('success', 'User has not paid for accomodation');                                    
                 }
             }
@@ -415,17 +415,7 @@ class AdminPagesController extends Controller
                 $userArray['College'] = $user->college->name;                
                 $userArray['Gender'] = $user->gender;                
                 $userArray['Mobile'] = $user->mobile;
-                if(!$user->hasConfirmed()){
-                    $userArray['Status'] = 'Not yet confirmed';
-                }
-                else{
-                    if($user->isAcknowledged()){
-                        $userArray['Status'] = $user->confirmation->status == 'ack'? 'Accepted':'Rejected';  
-                    }
-                    else{
-                        $userArray['Status'] = 'Yet to be acknowledged';                          
-                    }
-                }
+              
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
             }
@@ -441,7 +431,7 @@ class AdminPagesController extends Controller
             Session::flash('success', 'You dont have rights to view this report!');
             return redirect()->route('admin::root');
         }
-        $inputs = Request::all();
+        $inputs = $request->all();
         $college_id = $inputs['college_id'];
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
@@ -475,7 +465,7 @@ class AdminPagesController extends Controller
         else if($inputs['report_type'] == 'Download Excel'){
             $usersArray = [];
             foreach($users as $user){
-                $userArray['LGID'] = $user->id;                
+                $userArray['GMID'] = $user->id;                
                 $userArray['FirstName'] = $user->first_name;
                 $userArray['lastName'] = $user->last_name;
                 $userArray['Email'] = $user->email;
@@ -579,9 +569,12 @@ class AdminPagesController extends Controller
         $user = User::find($user_id);
         if($inputs['submit'] == 'Accept'){
             $user->accomodation->acc_status = 'ack';
+            $user->accomodation->acc_payment_status = 'paid';
         }
         else if($inputs['submit'] == 'Reject'){
             $user->accomodation->acc_status = 'nack';
+            $user->accomodation->acc_payment_status = 'notpaid';
+            
         }
         $user->accomodation->save();
         return redirect()->back();
