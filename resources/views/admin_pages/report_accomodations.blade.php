@@ -48,8 +48,8 @@
                             <td>{{ $user->gender }}</td>                            
                             <td>{{ $user->mobile }}</td>    
                             <td>
-                                @if($user->accomodation->status != null)
-                                    {{ $user->accomodation->status == 'ack'?'Accepted':'Rejected' }}
+                                @if($user->accomodation->acc_status != null)
+                                    {{ $user->accomodation->acc_status == 'ack'?'Accepted':'Rejected' }}
                                 @else
                                     Not yet acknwoledged
                                 @endif

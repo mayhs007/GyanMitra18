@@ -12,7 +12,7 @@
                 <thead>
                     <tr>
                         <th>
-                            LG ID
+                            GM ID
                         </th>
                         <th>
                             Full Name
@@ -41,18 +41,14 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->GMId() }}</td>
-                            <td>{{ $user->full_name }}</td>
+                            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->college->name }}</td>
                             <td>{{ $user->gender }}</td>                            
                             <td>{{ $user->mobile }}</td>  
                             <td>
                                 @if($user->hasConfirmed())
-                                    @if($user->confirmation->status != null)
-                                        {{ $user->confirmation->status == 'ack'?'Accepted': 'Rejected' }}
-                                    @else
-                                        Not yet acknowledged
-                                    @endif
+                                    Confirmed
                                 @else
                                     Not yet cofirmed                                    
                                 @endif

@@ -427,11 +427,11 @@ class AdminPagesController extends Controller
         }
     }
     function reportAccomodations(Request $request){
-        if(!Auth::user()->hasRole('hospitality')){
+        if(!Auth::user()->hasRole('hospitality') && !Auth::user()->hasRole('root')){
             Session::flash('success', 'You dont have rights to view this report!');
             return redirect()->route('admin::root');
         }
-        $inputs = $request->all();
+        $inputs = Request::all();
         $college_id = $inputs['college_id'];
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
