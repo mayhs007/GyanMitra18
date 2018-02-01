@@ -14,7 +14,10 @@
                     <div class="col s12">
                         <ul class="collection with-header">
                             <li class="collection-header"><strong>Note</strong></li>
-                            <li class="collection-item">You are the team leader and you are already included, dont enter your email id in team members list</li>                            
+                            <li class="collection-item">You are the team leader and you are already included, dont enter your email id in team members list</li>
+                            <li class="collection-item">The Team member must also register.Then only the EmailId will be displayed in the team member list</li> 
+                            <li class="collection-item">You are team member must also pay for the event in his login or else he/she will not be allowed to participate</li>  
+                            <li class="collection-item">The team member must be of same college</li>                           
                         </ul>
                     </div>
                 </div>
