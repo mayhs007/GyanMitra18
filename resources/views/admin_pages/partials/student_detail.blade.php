@@ -120,12 +120,27 @@
         </table>
     </li>
 </ul>
-@if($user->events()->count())
+
+@if($user->hasWorkshop())
+    <ul class="collection with-header">
+        <li class="collection-header">
+            <h5>Workshop Details</h5>                            
+        </li>
+        @foreach($user->events->where('category_id',1) as $event)
+            <span class="new badge blue" data-badge-caption="From Same college">{{ $user->college->noOfParticipantsForEvent($event->id) }}</span> 
+            <span class="new badge green" data-badge-caption="Total Confirmed">{{   $event->noOfConfirmedRegistration() }}</span>
+            <li class="collection-item">
+                {{ $event->title }}
+            </li>
+        @endforeach
+    </ul>
+@endif
+@if($user->hasEvents())
     <ul class="collection with-header">
         <li class="collection-header">
             <h5>Events Details</h5>                            
         </li>
-        @foreach($user->events as $event)
+        @foreach($user->events->where('category_id',2) as $event)
             <span class="new badge blue" data-badge-caption="From Same college">{{ $user->college->noOfParticipantsForEvent($event->id) }}</span> 
             <span class="new badge green" data-badge-caption="Total Confirmed">{{   $event->noOfConfirmedRegistration() }}</span>
             <li class="collection-item">
