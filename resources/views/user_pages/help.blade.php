@@ -17,6 +17,9 @@
                         <p>ONE TIME REGISTRATION IS FOR ALL EVENTS</p>
                     </li>
                     <li>
+                        <p>THE AMOUNT FOR EVENTS IS 200 PER HEAD</p>
+                    </li>
+                    <li>
                         <p>YOU NEED TO REGISTER FOR WORKSHOP SEPARATELY</p>
                     </li>
                     <li>
