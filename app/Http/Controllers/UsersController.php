@@ -19,7 +19,7 @@ class UsersController extends Controller
     function edit($user_id){
         $user = User::findOrFail($user_id);
         $roles = Role::all();
-        return view('admin_pages.users.users.edit')->with('user', $user)->with('roles', $roles);        
+        return view('admin_pages.users.edit')->with('user', $user)->with('roles', $roles);        
     }
     public function create(){
         $user = new User();
