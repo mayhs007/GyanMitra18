@@ -32,7 +32,7 @@
                 <td>gyanmitra18.cse.it@mepcoeng.ac.in</td>
             </tr>
             <tr><td>MECH:</td>
-                <td>96779 13395 </td>
+                <td>96779 13395,98429 92802 </td>
                 <td>gyanmitra18.mech@mepcoeng.ac.in</td>
             </tr>
             <tr><td>BIO-TECH:</td>

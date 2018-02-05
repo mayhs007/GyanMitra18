@@ -106,6 +106,12 @@
     </div>
     <div class="row">
         <div class="col-s12 input-field">
+            {!! Form::label('IETE Amount') !!}
+            {!! Form::text('iete_amount') !!}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-s12 input-field">
             {!! Form::label('min_members', 'Minimum Participants') !!}
             {!! Form::text('min_members') !!}
         </div>

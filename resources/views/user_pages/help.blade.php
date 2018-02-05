@@ -33,7 +33,31 @@
                     </li>
                 
             </p>
-            <h5 class="red-text">OTHERS WILL BE UPLOADED SOON</h5>
+</ol>
+<div class="section">
+    <h5>TEAM REGISTRATION INSTRUCTION</h5>
+</div>
+<div class="divider"></div>
+<div class="divider"></div>
+<div class="divider"></div>
+<ol>
+        <p>
+               
+            <li>
+                <p>YOU ARE THE TEAM LEADER AND YOU ARE ALREADY INCLUDED, DON'T ENTER YOUR EMAIL ID IN TEAM MEMBERS LIST.</p>
+            </li>
+            <li>
+                <p>YOUR TEAM MEMBER MUST ALSO ALREADY REGISTERED.THEN ONLY THE EMAIL ID OF YOUR TEAM MEMBERS WILL BE DISPLAYED IN "EMAIL IDS OF ALL TEAM MEMBERS"</p>
+            </li>
+            <li>
+                <p> YOUR TEAM MEMBER MUST ALSO PAY FOR THE EVENT IN HIS LOGIN OR ELSE HE/SHE WILL NOT BE ALLOWED TO PARTICIPATE.</p>
+            </li>
+            <li>
+            <p> THE TEAM MEMBER MUST BE OF SAME COLLEGE.</p>
+            </li>
+            <li>
+            <p>TO ENROLL YOUR TEAM MEMBER JUST TYPE FIRST LETTER OF YOUR MEMBER EMAIL ID IN THE BOX "EMAIL IDS OF ALL TEAM MEMBERS".</p>
+            </li>
 
 
 
