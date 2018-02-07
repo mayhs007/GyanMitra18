@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-  
+    @endif
     <div class="row">
         <div class="col s6">
             <div class="card hoverable">
@@ -69,35 +69,35 @@
                 @endif
             </div>
         </div>
-        
         <div class="col s6">
             <div class="card hoverable">
                 <div class="card-content green lighten-1">
                     <div class="card-title">
-                        <h5 class="white-text"><i class="fa fa-bed"></i> {{ $accomodation_count }} {{ str_plural('Accomodation Request', $accomodation_count) }}</h5>
+                        <h5 class="white-text"><i class="fa fa-thumbs-up"></i> {{ $confirmed_registrations }} Confirmed</h5>
                     </div>
                 </div>
-                @if(Auth::user()->hasRole('hospitality'))
+                @if(Auth::user()->hasRole('root'))
+                    <div class="card-action">
+                        {{ link_to_route('admin::requests.all', 'View all Requests') }}                        
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="card hoverable">
+                <div class="card-content green lighten-1">
+                    <div class="card-title">
+                        <h5 class="white-text"><i class="fa fa-bed"></i> {{ $accomodation_count }} {{ str_plural('Accomodation Confirmation', $accomodation_count) }}</h5>
+                    </div>
+                </div>
+                @if(Auth::user()->hasRole('hospitality') || Auth::user()->hasRole('root') )
                     <div class="card-action">
                         {{ link_to_route('admin::accomodations.all', 'View all Accomodations') }}
                     </div>
                 @endif
             </div>
         </div>
-        <div class="col s6">
-            <div class="card hoverable">
-                <div class="card-content green lighten-1">
-                    <div class="card-title">
-                        <h5 class="white-text"><i class="fa fa-bed"></i> {{ $confirmed_accomodation }} {{ str_plural('Confirmed Accomodation', $confirmed_accomodation) }}</h5>
-                    </div>
-                </div>
-                @if(Auth::user()->hasRole('hospitality'))
-                    <div class="card-action">
-                        {{ link_to_route('admin::accomodations', 'View New Accomodation Requests') }}
-                    </div>
-                @endif
-            </div>
-        </div>
+ 
         <div class="col s6">
             <div class="card hoverable">
                 <div class="card-content green lighten-1">
@@ -118,5 +118,5 @@
         </div>
     </div>
 
-@endif
+
 @endsection
