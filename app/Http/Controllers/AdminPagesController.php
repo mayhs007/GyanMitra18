@@ -350,15 +350,17 @@ class AdminPagesController extends Controller
             $colleges = ['all' => 'All'];
             $events = ['all' => 'All'];
             $departments=['all' => 'All'];
-            $workshops=['all' => 'All'];        
+            $workshops=['all' => 'All','none'=>'NONE'];
+            $events=['all' => 'All','none'=>'NONE'];        
             $events += Event::where('category_id',2)->pluck('title', 'id')->toArray();
             $workshops += Event::where('category_id',1)->pluck('title', 'id')->toArray();                    
         }else{
-            $colleges = [];
-            $events = [];
+            $colleges = ['all' => 'All'];
+            $events = ['none'=>'NONE'];
+            $workshops=['none'=>'NONE'];
             $departments = [];
-            $events = Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->toArray();
-            $workshops=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->toArray();         
+            $events += Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->toArray();
+            $workshops +=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->toArray();         
         }
           $colleges += College::pluck('name', 'id')->toArray();
           $departments += Department::pluck('name', 'id')->toArray();
@@ -366,15 +368,27 @@ class AdminPagesController extends Controller
     }
     function reportRegistrations(Request $request){
         $inputs = Request::all();
-        $event_id = $inputs['event_id'];
+        if( $inputs['event_id'] != "none")
+        {
+            $event_id = $inputs['event_id'];
+        }
+        else
+        {
+            if( $inputs['workshop_id']!='none')
+            {
+                $event_id = $inputs['workshop_id'];
+            }
+        }
         $college_id = $inputs['college_id'];
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
         // Get the registered users in the given event
-        if($event_id == "all"){
+        if($event_id != "none")
+        {
             $users = User::all()->where('type', 'student');
         }
-        else{
+        else
+        {
             if(!Auth::user()->isOrganizing($event_id) && !Auth::user()->hasRole('root')){
                 Session::flash('success', 'You dont have rights to view this report!');
                 return redirect()->route('admin::root');
