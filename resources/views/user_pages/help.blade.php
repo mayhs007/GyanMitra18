@@ -74,7 +74,7 @@
             <li>
                 <p>UPLOAD THE PHOTOCOPY OF YOUR DD SO THAT WE CAN RESERVE A SEAT FOR YOU ,LATER SEND THE DD TO THE FOLLOWING ADDRESS</p>
             </li>
-            <p class="red-text text-darken-2">The Convener,<br>
+            <p class=" center red-text text-darken-2">The Convener,<br>
              GYANMITRA'18,<br>
              Mepco Schlenk Engg. College,<br>
             Sivakasi - 626 005.<br>
