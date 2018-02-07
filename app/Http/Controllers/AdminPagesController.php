@@ -36,7 +36,7 @@ class AdminPagesController extends Controller
                 $confirmed_registrations++;
             }
         }
-        $payment_count = Payment::count();
+        $payment_count = Payment::where('payment_status','paid')->count();
         $accomodation_count = Accomodation::count();
         $confirmed_accomodation = Accomodation::where('acc_status', 'ack')->count();
         $accomodation_payment = Accomodation::where('acc_payment_status', 'paid')->count();

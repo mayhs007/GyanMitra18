@@ -4,8 +4,13 @@
 <div class="row">
 <div class="divider"></div>
   <div class="section">
-    <h5>CONTACT US BASE ON DOMAIN</h5>
+    <h5>CONTACT US BASED ON DOMAIN</h5>
   </div>
+  <div class="divider"></div>
+<div class="divider"></div>
+<div class="divider"></div>
+<br>
+<br>
 <table class="highlight responsive-table bordered centered">
         <thead>
           <tr>
@@ -32,7 +37,7 @@
                 <td>gyanmitra18.cse.it@mepcoeng.ac.in</td>
             </tr>
             <tr><td>MECH:</td>
-                <td>96779 13395,98429 92802 </td>
+                <td>96779 13395<br>98429 92802 </td>
                 <td>gyanmitra18.mech@mepcoeng.ac.in</td>
             </tr>
             <tr><td>BIO-TECH:</td>

@@ -124,6 +124,16 @@
                                                     <th>IN FAVOUR OF "THE PRINCIPAL,MEPCO SCHLENK ENGINEERING COLLEGE"</th>
                                                     <th>PAYABLE AT SIVAKASI</th>
                                                 </tr>
+                                                <tr>
+                                     
+                                     <th>DD Should be sent to the following address:</th>
+                                           <td class="center">  The Convener, <br>
+                                             GYANMITRA'18,<br>
+                                             Mepco Schlenk Engg. College,<br>
+                                             Sivakasi - 626 005.<br>
+                                             Virudhunagar (Dist.)<br>
+                                             Tamilnadu</td>
+                                         </tr>
                                             </tfoot>
                                             </table>
                                             @if($user->hasConfirmedAccomodation())

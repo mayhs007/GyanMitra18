@@ -24,9 +24,9 @@
         </thead>
         <tbody>
           <tr>
-          <td>MR.R.S.KANNU, DEPUTY MANAGER, ISRO PROPULSION COMPLEX (IPRC) MAHENDRAGIRI</td>
+          <td>ISRO PROPULSION COMPLEX (IPRC) MAHENDRAGIRI</td>
             <td>SPACE TECHNOLOGY</td>
-            <td></td>
+            <td>SPACE TECHNOLOGY</td>
             <td>9:00AM <br>–<br> 10:30PM</td>
             <td>MCC</td>
           </tr>

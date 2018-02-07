@@ -58,6 +58,30 @@
             <li>
             <p>TO ENROLL YOUR TEAM MEMBER JUST TYPE FIRST LETTER OF YOUR MEMBER EMAIL ID IN THE BOX "EMAIL IDS OF ALL TEAM MEMBERS".</p>
             </li>
+</ol>
+<div class="section">
+    <h5>PAYMENT INSTRUCTION</h5>
+</div>
+<div class="divider"></div>
+<div class="divider"></div>
+<div class="divider"></div>
+<ol>
+        <p>
+               
+            <li>
+                <p>YOU CAN PAY EITHER BY ONLINE OR BY TAKING DD</p>
+            </li>
+            <li>
+                <p>UPLOAD THE PHOTOCOPY OF YOUR DD SO THAT WE CAN RESERVE A SEAT FOR YOU ,LATER SEND THE DD TO THE FOLLOWING ADDRESS</p>
+            </li>
+            <p class="red-text text-darken-2">The Convener,<br>
+             GYANMITRA'18,<br>
+             Mepco Schlenk Engg. College,<br>
+            Sivakasi - 626 005.<br>
+             Virudhunagar (Dist.)<br>
+            Tamilnadu</p>
+                    
+</ol>
 
 
 

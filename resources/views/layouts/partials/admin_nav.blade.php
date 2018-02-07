@@ -36,9 +36,9 @@
                                 </i></a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <li>{{ link_to_route('admin::registrations.create', 'New Registration') }}</li>
                                         @if(Auth::user()->hasRole('root') || Auth::user()->hasRole('registration'))
-                                            <li>{{ link_to_route('admin::registrations', 'All Registrations') }}</li>
+                                        <li>{{ link_to_route('admin::registrations.create', 'New Registration') }}</li>
+                                        <li>{{ link_to_route('admin::registrations', 'All Registrations') }}</li>
                                         @endif
                                         @foreach(App\Event::all() as $event)
                                             @if(Auth::user()->isOrganizing($event->id) || Auth::user()->hasRole('root'))
