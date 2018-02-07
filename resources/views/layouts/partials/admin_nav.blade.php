@@ -51,7 +51,7 @@
                         </ul>
                     </li>   
                 @endif
-                @if(Auth::user()->hasRole('root') )
+                @if(Auth::user()->hasRole('root') || Auth::user()->organizings->count()!=0)
                     
                     <li><a href="{{ route('admin::reports') }}"><i class="fa fa-2x fa-bar-chart-o"></i> Reports</a></li>
                 @endif

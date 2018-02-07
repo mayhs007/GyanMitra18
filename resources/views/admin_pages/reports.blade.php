@@ -10,28 +10,40 @@
     </div>
     <div class="row">
         {!! Form::open(['url' => route('admin::reports.registrations'), 'method' => 'GET']) !!}
-            <div class="col s3">
+            <div class="col s2">
                 <label>College</label>
             </div>
-            <div class="col s3">
+            <div class="col s2">
+                <label>Department</label>
+            </div>
+            <div class="col s2">
+                <label>Workshop</label>
+            </div>
+            <div class="col s2">
                 <label>Event</label>                       
             </div>
-            <div class="col s3">
+            <div class="col s2">
                 <label>Gender</label>                       
             </div>
-            <div class="col s3">
+            <div class="col s2">
                 <label>Payment</label>                       
             </div>
-            <div class="col s3">
+            <div class="col s2">
                 {!! Form::select('college_id', $colleges) !!}
             </div>
-            <div class="col s3">
+            <div class="col s2">
+                {!! Form::select('department_id', $departments) !!}
+            </div>
+            <div class="col s2">
+                {!! Form::select('workshop_id', $workshops) !!}
+            </div>
+            <div class="col s2">
                 {!! Form::select('event_id', $events) !!}            
             </div>
-            <div class="col s3">
+            <div class="col s2">
                 {!! Form::select('gender', ['all' => 'All', 'male' => 'Male', 'female' => 'Female']) !!}            
             </div>
-            <div class="col s3">
+            <div class="col s2">
                 {!! Form::select('payment', ['all' => 'All', '1' => 'Paid', '0' => 'Not Paid']) !!}            
             </div>
             {!! Form::submit('View Report',  ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}       

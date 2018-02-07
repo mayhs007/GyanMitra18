@@ -20,6 +20,7 @@ use App\Traits\Utilities;
 use App\Payment;
 use App\Config;
 use App\College;
+use App\Department;
 use Excel;
 
 class AdminPagesController extends Controller
@@ -342,20 +343,26 @@ class AdminPagesController extends Controller
         return redirect()->route('admin::registrations.edit', ['user_id' => $user_id]);
     }
     function reports(){
-        if(!Auth::user()->hasRole('root') && !Auth::user()->hasRole('hospitality') && !Auth::user()->organizings->count() == 0){
+        if(!Auth::user()->hasRole('root') && !Auth::user()->hasRole('hospitality') && !Auth::user()->organizings->count() != 0){
             return redirect()->route('admin::root');
         }
         if(Auth::user()->hasRole('root')){
             $colleges = ['all' => 'All'];
-            $events = ['all' => 'All'];        
-            $events += Event::pluck('title', 'id')->toArray();                    
+            $events = ['all' => 'All'];
+            $departments=['all' => 'All'];
+            $workshops=['all' => 'All'];        
+            $events += Event::where('category_id',2)->pluck('title', 'id')->toArray();
+            $workshops += Event::where('category_id',1)->pluck('title', 'id')->toArray();                    
         }else{
             $colleges = [];
             $events = [];
-            $events = Auth::user()->organizings->pluck('title', 'id')->toArray();        
+            $departments = [];
+            $events = Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->toArray();
+            $workshops=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->toArray();         
         }
-        $colleges += College::pluck('name', 'id')->toArray();
-        return view('admin_pages.reports')->with('colleges', $colleges)->with('events', $events);
+          $colleges += College::pluck('name', 'id')->toArray();
+          $departments += Department::pluck('name', 'id')->toArray();
+        return view('admin_pages.reports')->with('colleges', $colleges)->with('events', $events)->with('workshops', $workshops)->with('departments', $departments);
     }
     function reportRegistrations(Request $request){
         $inputs = Request::all();
