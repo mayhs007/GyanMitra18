@@ -371,24 +371,23 @@ class AdminPagesController extends Controller
         if( $inputs['event_id'] != "none")
         {
             $event_id = $inputs['event_id'];
+           // $users = User::events()->where('event_id',$event_id);
         }
         else
         {
             if( $inputs['workshop_id']!='none')
             {
                 $event_id = $inputs['workshop_id'];
+              //  $users = User::all()->events()->where('event_id',$event_id);
             }
         }
         $college_id = $inputs['college_id'];
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
         // Get the registered users in the given event
-        if($event_id != "none")
-        {
-            $users = User::all()->where('type', 'student');
-        }
-        else
-        {
+        
+       
+       
             if(!Auth::user()->isOrganizing($event_id) && !Auth::user()->hasRole('root')){
                 Session::flash('success', 'You dont have rights to view this report!');
                 return redirect()->route('admin::root');
@@ -407,7 +406,7 @@ class AdminPagesController extends Controller
             else{
                 $users = $event->users;
             }
-        }
+        
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
         }
