@@ -469,7 +469,51 @@ class AdminPagesController extends Controller
                 $userArray['LastName'] = $user->last_name;
                 $userArray['Email'] = $user->email;
                 $userArray['College'] = $user->college->name;
-                $userArray['Gender'] = $user->gender;                
+                $userArray['Gender'] = $user->gender;
+                if($user->hasWorkshop())
+                {   
+                    $workshops = $user->events()->where('category_id',1)->pluck('title');
+                    $workshopss=" ";
+                    foreach($workshops as $workshop)
+                    {
+                        
+                        $workshopss.=$workshop;    
+                    }
+                    $userArray['Workshop']=$workshopss;
+                }
+                else{
+                    $userArray['Workshop']='-';
+                }
+                if($user->hasEvents())
+                {   
+                    $events = $user->events()->where('category_id',2)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Events']='-';
+                }
+                if($user->hasTeams())
+                {   
+                    $events = $user->events()->where('max_members','>',1)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Team Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Team Events']='-';
+                }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
