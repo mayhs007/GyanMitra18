@@ -1,8 +1,14 @@
 <div class="row">
-    <div class="col s12 input-field">
+    <div class="col s6 input-field">
         <i class="material-icons prefix">account_circle</i>
-        {!! Form::label('full_name') !!}
-        {!! Form::text('full_name') !!}
+        {!! Form::label('first_name') !!}
+        {!! Form::text('first_name') !!}
+    </div>
+
+    <div class="col s6 input-field">
+        <i class="material-icons prefix">account_circle</i>
+        {!! Form::label('last_name') !!}
+        {!! Form::text('last_name') !!}
     </div>
 </div>
 <div class="row">

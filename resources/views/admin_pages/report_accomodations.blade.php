@@ -32,7 +32,7 @@
                         <th>
                             Status
                         </th>
-                       
+                        
                         <th>
                             Payment
                         </th>
@@ -46,7 +46,7 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->college->name }}</td>
                             <td>{{ $user->gender }}</td>                            
-                            <td>{{ $user->mobile }}</td>    
+                            <td>{{ $user->mobile }}</td>
                             <td>
                                 @if($user->accomodation->acc_status != null)
                                     {{ $user->accomodation->acc_status == 'ack'?'Accepted':'Rejected' }}

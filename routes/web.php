@@ -103,7 +103,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
 
        Route::get('requests/all', ['as' => 'requests.all', 'uses' => 'AdminPagesController@allRequests']);
        Route::get('requests', ['as' => 'requests', 'uses' => 'AdminPagesController@requests']);
-            
+       
        Route::post('requests', 'AdminPagesController@replyRequest');    
 
        Route::resource('users', 'UsersController', ['except' => 'show']);
@@ -117,6 +117,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
         Route::get('registrations/{user_id}/absent', ['as' => 'registrations.absent', 'uses' => 'AdminPagesController@userAbsent']);    
         // Adding new registrations onspot
         Route::get('registrations', ['as' => 'registrations', 'uses' => 'AdminPagesController@registrations']);
+        Route::get('paymentsonline', ['as' => 'paymentsonline', 'uses' => 'AdminPagesController@paymentsonline']);
+       Route::get('paymentsdd', ['as' => 'paymentsdd', 'uses' => 'AdminPagesController@paymentsdd']);
+       Route::get('accpaymentsonline', ['as' => 'accpaymentsonline', 'uses' => 'AdminPagesController@accpaymentsonline']);
+       Route::get('accpaymentsdd', ['as' => 'accpaymentsdd', 'uses' => 'AdminPagesController@accpaymentsdd']);
+        Route::get('confirmedregistrations', ['as' => 'confirmedregistrations', 'uses' => 'AdminPagesController@confirmedregistrations']);
         Route::get('registrations/create', ['as' => 'registrations.create', 'uses' => 'AdminPagesController@new_registration' ]);
         Route::post('registrations/create', 'AdminPagesController@create_registration');
         // Edit student details and registered events on the spot

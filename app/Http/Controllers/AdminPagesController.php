@@ -32,11 +32,6 @@ class AdminPagesController extends Controller
         $present_count = User::where('type', 'student')->where('present', true)->count();        
         $confirmed_registrations =User::where('type', 'student')->where('confirmation', true)->count();
         $users = User::all()->where('type', 'student')->where('activated', true); 
-        foreach($users as $user){
-            if($user->hasConfirmed()){
-                $confirmed_registrations++;
-            }
-        }
         $payment_count = Payment::where('payment_status','paid')->count();
         $accomodation_count = Accomodation::count();
         $confirmed_accomodation = Accomodation::where('acc_status', 'ack')->count();
@@ -218,6 +213,16 @@ class AdminPagesController extends Controller
         $search = Input::get('search', '');
         $search = $search . '%';
         $user_ids = User::search($search)->pluck('id')->toArray();
+        $registrations = User::whereIn('id', $user_ids)->where('activated', true)->where('type','student');
+        $registrations_count = $registrations->count();
+        $registrations = $registrations->paginate(10);
+        return view('admin_pages.registrations')->with('registrations', $registrations)->with('registrations_count', $registrations_count);
+    }
+    function confirmedRegistrations()
+    {
+        $search = Input::get('search', '');
+        $search = $search . '%';
+        $user_ids = User::search($search)->pluck('id')->toArray();
         $registrations = User::whereIn('id', $user_ids)->where('confirmation', true)->where('type','student');
         $registrations_count = $registrations->count();
         $registrations = $registrations->paginate(10);
@@ -327,15 +332,18 @@ class AdminPagesController extends Controller
             Session('success', 'User has already confirmed the registration');                      
         }
         else{
-            $confirmation = new Confirmation();
-            $user->confirmation()->save($confirmation);
+            $user->confirmation=true;
+            $user->save();
+            Session('success', 'You have Confirmed the registration');
         }
         return redirect()->route('admin::registrations.edit', ['user_id' => $user_id]);
     }
     function unconfirmRegistration($user_id){
         $user = User::findOrFail($user_id);
         if($user->hasConfirmed()){
-            $user->confirmation()->delete();
+            $user->confirmation=false;
+            $user->save();
+            Session('success', 'You have UnConfirmed the registration');
         }
         else{
             Session('success', 'User has not confirmed the registration');          
@@ -350,14 +358,14 @@ class AdminPagesController extends Controller
             $colleges = ['all' => 'All'];
             $events = ['all' => 'All'];
             $departments=['all' => 'All'];
-            $workshops=['all' => 'All','none'=>'NONE'];
-            $events=['all' => 'All','none'=>'NONE'];        
+            $workshops=['all' => 'All'];
+            $events=['all' => 'All'];        
             $events += Event::where('category_id',2)->pluck('title', 'id')->toArray();
             $workshops += Event::where('category_id',1)->pluck('title', 'id')->toArray();                    
         }else{
             $colleges = ['all' => 'All'];
-            $events = ['none'=>'NONE'];
-            $workshops=['none'=>'NONE'];
+            $events = [];
+            $workshops=[];
             $departments = [];
             $events += Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->toArray();
             $workshops +=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->toArray();         
@@ -368,44 +376,71 @@ class AdminPagesController extends Controller
     }
     function reportRegistrations(Request $request){
         $inputs = Request::all();
-        if( $inputs['event_id'] != "none")
-        {
-            $event_id = $inputs['event_id'];
-           // $users = User::events()->where('event_id',$event_id);
-        }
-        else
-        {
-            if( $inputs['workshop_id']!='none')
-            {
-                $event_id = $inputs['workshop_id'];
-              //  $users = User::all()->events()->where('event_id',$event_id);
-            }
-        }
+        $event_id=$inputs['event_id'];
+        $workshop_id=$inputs['workshop_id'];
         $college_id = $inputs['college_id'];
+        $department_id=$inputs['department_id'];
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
         // Get the registered users in the given event
-        
-       
-       
-            if(!Auth::user()->isOrganizing($event_id) && !Auth::user()->hasRole('root')){
-                Session::flash('success', 'You dont have rights to view this report!');
-                return redirect()->route('admin::root');
-            }
-            $event = Event::findOrFail($event_id);
-            if($event->isGroupEvent()){
-                $user_ids = [];
-                foreach($event->teams as $team){
-                    array_push($user_ids, $team->user_id);
-                    foreach($team->teamMembers as $teamMember){
-                        array_push($user_ids, $teamMember->user->id);
-                    }
+        $registered_user_ids=[];
+        if($event_id == "all")
+        {
+            $events = Event::all()->where('category_id',2);
+            $user_ids = User::pluck('id')->toArray();
+            foreach($events as $event)
+            {
+                if($event->isGroupEvent()){
+                    $registered_user_ids += $event->teams()->whereIn('user_id', $user_ids)->pluck('user_id')->toArray();
                 }
-                $users = User::all()->whereIn('id', $user_ids);
+                else{
+                    $registered_user_ids += $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+                }
             }
-            else{
-                $users = $event->users;
+            $users = User::all()->whereIn('id', $registered_user_ids);
+            
+        }
+        else
+        {
+            $event = Event::findorFail($event_id);
+            $user_ids = User::pluck('id')->toArray();
+            
+                if($event->isGroupEvent()){
+                    $registered_user_ids = $event->teams()->whereIn('user_id', $user_ids)->pluck('user_id')->toArray();
+                }
+                else{
+                    $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+                }
+                $users = User::all()->whereIn('id', $registered_user_ids);
+        }
+        
+        
+        
+        if($workshop_id == "all")
+        {
+            $events = Event::all()->where('category_id',1);
+            $user_ids = User::pluck('id')->toArray();
+            foreach($events as $event)
+            {
+                $registered_user_ids += $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
             }
+            $users = User::all()->whereIn('id', $registered_user_ids);
+            
+        }
+        else
+        {
+            $event = Event::findorFail($workshop_id);
+            $user_ids = User::pluck('id')->toArray();
+            $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();    
+            $users = User::all()->whereIn('id', $registered_user_ids);
+        }
+        
+        
+        
+        
+        
+        
+        
         
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
@@ -418,6 +453,7 @@ class AdminPagesController extends Controller
                 return $user->hasPaid() == $payment;
             });
         }
+       
         if($inputs['report_type'] == 'View Report'){
             $users_count = $users->count();
             $page = Input::get('page', 1);
@@ -432,10 +468,9 @@ class AdminPagesController extends Controller
                 $userArray['FirstName'] = $user->first_name;
                 $userArray['LastName'] = $user->last_name;
                 $userArray['Email'] = $user->email;
-                $userArray['College'] = $user->college->name;                
+                $userArray['College'] = $user->college->name;
                 $userArray['Gender'] = $user->gender;                
                 $userArray['Mobile'] = $user->mobile;
-              
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
             }
@@ -608,9 +643,14 @@ class AdminPagesController extends Controller
         exec($inputs['command'], $output);
         return view('admin_pages.terminal')->with('output', implode("<br>", $output));
     }
-    function ConfirmPaymentDD()
+    function paymentsonline()
     {
-
+        $search = Input::get('search', '');
+        $search = $search . '%';
+        $payments=Payment::all()->where('mode_of_payment','online');
+        $payments_count = $payments->count();
+        //$payments = $payments->paginate(10);
+        return view('admin_pages.payments')->with('registrations', $payments)->with('registrations_count',$payments_count);
     }
     
 }

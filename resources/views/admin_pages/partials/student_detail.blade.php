@@ -42,6 +42,28 @@
                     <th>Mobile</th>
                     <td>{{ $user->mobile }}</td>
                 </tr>
+                @if($user->isSaeMemeber())
+                <tr>
+                    <th>SAE ID</th>
+                    <td>{{ $user->sae_id }}</td>
+                </tr>
+                @endif
+                @if($user->isIeMemeber())
+                <tr>
+                    <th>IE ID</th>
+                    <td>{{ $user->ie_id }}</td>
+                </tr>
+                @endif
+                @if($user->isIeteMemeber())
+                <tr>
+                    <th>IETE ID</th>
+                    <td>{{ $user->iete_id }}</td>
+                </tr>
+                @endif
+                <tr>
+                    <th>Mobile</th>
+                    <td>{{ $user->mobile }}</td>
+                </tr>
                 <tr>
                     <th>Registration Confimation</th>
                     <td>
@@ -69,7 +91,7 @@
                             @if($user->payment->status == 'ack')
                                 <span class="green-text">Accepted</span>
                             @elseif($user->payment->status == 'nack')
-                                <span class="red-text">Rejected</span>    
+                                <span class="red-text">Not Yet</span>    
                             @else
                                 Yet to be acknowledged
                             @endif
@@ -149,3 +171,18 @@
         @endforeach
     </ul>
 @endif
+@if($user->hasteams())
+    <ul class="collection with-header">
+        <li class="collection-header">
+            <h5>Team Events Details</h5>                            
+        </li>
+        @foreach($user->TeamEvents() as $event)
+            <span class="new badge blue" data-badge-caption="From Same college">{{ $user->college->noOfParticipantsForEvent($event->id) }}</span> 
+            <span class="new badge green" data-badge-caption="Total Confirmed">{{   $event->noOfConfirmedRegistration() }}</span>
+            <li class="collection-item">
+                {{ $event->title }}
+            </li>
+        @endforeach
+    </ul>
+@endif
+

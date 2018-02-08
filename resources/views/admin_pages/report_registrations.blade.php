@@ -15,7 +15,10 @@
                             GM ID
                         </th>
                         <th>
-                            Full Name
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
                         </th>
                         <th>
                             Email
@@ -30,6 +33,15 @@
                             Mobile
                         </th>
                         <th>
+                            Workshop
+                        </th>
+                        <th>
+                            Event
+                        </th>
+                        <th>
+                            Team Event
+                        </th>
+                        <th>
                             Status
                         </th>
                         <th>
@@ -41,11 +53,39 @@
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->GMId() }}</td>
-                            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                            <td>{{ $user->first_name }} </td>
+                            <td>{{ $user->last_name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->college->name }}</td>
                             <td>{{ $user->gender }}</td>                            
-                            <td>{{ $user->mobile }}</td>  
+                            <td>{{ $user->mobile }}</td>
+                            @if($user->hasWorkshop())
+                                <td>
+                                @foreach($user->events->where('category_id',1) as $workshops)
+                                    {{$workshops->title}}<br>
+                                @endforeach
+                                </td>
+                            @else
+                                <td>-</td>
+                            @endif  
+                            @if($user->hasEvents())
+                                <td>
+                                @foreach($user->events->where('category_id',2) as $events)
+                                    {{$events->title}}<br>
+                                @endforeach
+                                </td>
+                            @else
+                                <td>-</td>
+                            @endif 
+                            @if($user->hasTeams())
+                                <td>
+                                @foreach($user->TeamEvents() as $events)
+                                    {{$events->title}}<br>
+                                @endforeach
+                                </td>
+                            @else
+                                <td>-</td>
+                            @endif     
                             <td>
                                 @if($user->hasConfirmed())
                                     Confirmed
