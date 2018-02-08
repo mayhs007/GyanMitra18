@@ -391,10 +391,10 @@ class AdminPagesController extends Controller
             foreach($events as $event)
             {
                 if($event->isGroupEvent()){
-                    $registered_user_ids += $event->teams()->whereIn('user_id', $user_ids)->pluck('user_id')->toArray();
+                    $registered_user_ids = $event->teams()->whereIn('user_id', $user_ids)->pluck('user_id')->toArray();
                 }
                 else{
-                    $registered_user_ids += $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+                    $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
                 }
             }
             $users = User::all()->whereIn('id', $registered_user_ids);
@@ -422,7 +422,7 @@ class AdminPagesController extends Controller
             $user_ids = User::pluck('id')->toArray();
             foreach($events as $event)
             {
-                $registered_user_ids += $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+                $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
             }
             $users = User::all()->whereIn('id', $registered_user_ids);
             
@@ -434,14 +434,11 @@ class AdminPagesController extends Controller
             $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();    
             $users = User::all()->whereIn('id', $registered_user_ids);
         }
+        if($department_id=='all' && $college_id=="all" && $gender="all" && $payment="all"  )
+        {
+            $users = User::all();
         
-        
-        
-        
-        
-        
-        
-        
+        }
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
         }
