@@ -38,16 +38,16 @@
                 {{-- Check if user has confirmed if so dont show any register buttons   --}}            
                 @if(!Auth::user()->hasRegisteredEvent($event->id) && !Auth::user()->hasConfirmed())
                     @if(!$event->isGroupEvent())
-                        {{ link_to('#', 'Register', ['class' => 'btn waves-effect waves-light green btn-register-event pulse', 'data-event' => $event->id]) }}
+                        {{ link_to('#', 'RESERVE MY SEAT', ['class' => 'btn waves-effect waves-light green btn-register-event pulse', 'data-event' => $event->id]) }}
                     @else
-                        {{ link_to_route('pages.registerteam', 'Register Team', ['event_id' => $event->id], ['class' => 'btn waves-effect waves-light green pulse btn-registerteam-event', 'data-event' => $event->id]) }}
+                        {{ link_to_route('pages.registerteam', 'RESERVE A SEAT FOR MY TEAM', ['event_id' => $event->id], ['class' => 'btn waves-effect waves-light green pulse btn-registerteam-event', 'data-event' => $event->id]) }}
                     @endif
                 @else
                     {{ link_to_route('user_pages.dashboard', 'GOTO DASHBOARD', null,  ['class' => 'btn waves-effect waves-light green pulse']) }}
                 @endif
             @endif
         @else
-            {{ link_to_route('auth.login', 'Login to Register', null,  ['class' => 'btn waves-effect waves-light red pulse']) }}
+            {{ link_to_route('auth.login', 'LOGIN TO RESERVE YOUR SEAT', null,  ['class' => 'btn waves-effect waves-light red pulse']) }}
         @endif
         </div>
     </div>

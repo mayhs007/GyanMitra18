@@ -41,12 +41,12 @@
             <br>
             @if(Auth::check())
                 @if(Auth::user()->hasRegistered($event->id))
-                    <a href="{{route('user_pages.dashboard')}}"  class="waves-effect waves-light btn green pulse">Go To Dashboard</a>
+                    <a href="{{route('user_pages.dashboard')}}"  class="waves-effect waves-light btn green pulse">GO TO DASHBOARD</a>
                 @else
-                    <a href="#"  data-event="{{ $event->id }}" class="waves-effect waves-light btn btn-register-event green pulse">Register</a>
+                    <a href="#"  data-event="{{ $event->id }}" class="waves-effect waves-light btn btn-register-event green pulse">RESERVE MY SEAT</a>
                 @endif
             @else
-                <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  red pulse">LOGIN TO REGISTER</a>
+                <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  red pulse">LOGIN TO RESERVE YOUR SEAT </a>
             @endif
         </div>
     </div>

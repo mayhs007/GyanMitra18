@@ -56,8 +56,8 @@
             <td>{{$event->title }}</td>
             <td>{{App\Department::all()->where('id',$event->department_id)->first()->name}}</td>
             <td>{{$event->venue }}</td>
-            <td>{{$workshop->getStartTime() }}</td>
-            <td> {{$workshop->getEndTime()}}</td>
+            <td>{{$event->getStartTime() }}</td>
+            <td> {{$event->getEndTime()}}</td>
           </tr>
         @endforeach
         </tbody>
