@@ -402,7 +402,7 @@ class AdminPagesController extends Controller
         }
         else
         {
-            $event = Event::findorFail($event_id);
+            $event = Event::findOrFail($event_id);
             $user_ids = User::pluck('id')->toArray();
             
                 if($event->isGroupEvent()){
@@ -429,15 +429,21 @@ class AdminPagesController extends Controller
         }
         else
         {
-            $event = Event::findorFail($workshop_id);
+            $event = Event::findOrFail($workshop_id);
             $user_ids = User::pluck('id')->toArray();
             $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();    
             $users = User::all()->whereIn('id', $registered_user_ids);
         }
-        if($department_id=='all' && $college_id=="all" && $gender="all" && $payment="all"  )
+        if($department_id!='all')
         {
-            $users = User::all();
-        
+            $events=Event::where('department_id',$department_id);
+            $user_ids = User::pluck('id')->toArray();
+            foreach($events as $event)
+            {
+                $registered_user_ids += $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+            }
+           
+            $users = User::all()->whereIn('id', $registered_user_ids);
         }
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
