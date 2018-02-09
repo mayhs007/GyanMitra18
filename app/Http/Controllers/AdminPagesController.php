@@ -377,73 +377,42 @@ class AdminPagesController extends Controller
     function reportRegistrations(Request $request){
         $inputs = Request::all();
         $event_id=$inputs['event_id'];
-        $workshop_id=$inputs['workshop_id'];
         $college_id = $inputs['college_id'];
-        $department_id=$inputs['department_id'];
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
         // Get the registered users in the given event
         $registered_user_ids=[];
+        $user_ids=[];
         if($event_id == "all")
         {
-            $events = Event::all()->where('category_id',2);
-            $user_ids = User::pluck('id')->toArray();
+           $events=Event::all()->where('category_id',2);
+           $users = User::all()->where('type','student');
             foreach($events as $event)
             {
-                if($event->isGroupEvent()){
-                    $registered_user_ids = $event->teams()->whereIn('user_id', $user_ids)->pluck('user_id')->toArray();
-                }
-                else{
-                    $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
-                }
+                $user_ids +=$event->users()->pluck('id')->toArray();
             }
-            $users = User::all()->whereIn('id', $registered_user_ids);
-            
+             
+           $users = User::all()->whereIn('id', $user_ids);
         }
-        else
-        {
+        else{
+            if(!Auth::user()->isOrganizing($event_id) && !Auth::user()->hasRole('root')){
+                Session::flash('success', 'You dont have rights to view this report!');
+                return redirect()->route('admin::root');
+            }
             $event = Event::findOrFail($event_id);
-            $user_ids = User::pluck('id')->toArray();
-            
-                if($event->isGroupEvent()){
-                    $registered_user_ids = $event->teams()->whereIn('user_id', $user_ids)->pluck('user_id')->toArray();
+            if($event->isGroupEvent()){
+                $user_ids = [];
+                foreach($event->teams as $team){
+                    array_push($user_ids, $team->user_id);
+                    foreach($team->teamMembers as $teamMember){
+                        array_push($user_ids, $teamMember->user->id);
+                    }
                 }
-                else{
-                    $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
-                }
-                $users = User::all()->whereIn('id', $registered_user_ids);
-        }
-        
-        
-        
-        if($workshop_id == "all")
-        {
-            $events = Event::all()->where('category_id',1);
-            $user_ids = User::pluck('id')->toArray();
-            foreach($events as $event)
-            {
-                $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+                $users = User::all()->whereIn('id', $user_ids);
             }
-            $users = User::all()->whereIn('id', $registered_user_ids);
-            
-        }
-        else
-        {
-            $event = Event::findOrFail($workshop_id);
-            $user_ids = User::pluck('id')->toArray();
-            $registered_user_ids = $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();    
-            $users = User::all()->whereIn('id', $registered_user_ids);
-        }
-        if($department_id!='all')
-        {
-            $events=Event::where('department_id',$department_id);
-            $user_ids = User::pluck('id')->toArray();
-            foreach($events as $event)
-            {
-                $registered_user_ids += $event->users()->whereIn('id', $user_ids)->pluck('id')->toArray();
+            else{
+                $users = $event->users;
             }
-           
-            $users = User::all()->whereIn('id', $registered_user_ids);
         }
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
@@ -456,7 +425,250 @@ class AdminPagesController extends Controller
                 return $user->hasPaid() == $payment;
             });
         }
-       
+        if($inputs['report_type'] == 'View Report'){
+            $users_count = $users->count();
+            $page = Input::get('page', 1);
+            $per_page = 10;
+            $users = $this->paginate($page, $per_page, $users);
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+        }
+        else if($inputs['report_type'] == 'Download Excel'){
+            $usersArray = [];
+            foreach($users as $user){
+                $userArray['GMID'] = $user->id;                
+                $userArray['FirstName'] = $user->first_name;
+                $userArray['LastName'] = $user->last_name;
+                $userArray['Email'] = $user->email;
+                $userArray['College'] = $user->college->name;
+                $userArray['Gender'] = $user->gender;
+                if($user->hasWorkshop())
+                {   
+                    $workshops = $user->events()->where('category_id',1)->pluck('title');
+                    $workshopss=" ";
+                    foreach($workshops as $workshop)
+                    {
+                        
+                        $workshopss.=$workshop;    
+                    }
+                    $userArray['Workshop']=$workshopss;
+                }
+                else{
+                    $userArray['Workshop']='-';
+                }
+                if($user->hasEvents())
+                {   
+                    $events = $user->events()->where('category_id',2)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Events']='-';
+                }
+                if($user->hasTeams())
+                {   
+                    $events = $user->events()->where('max_members','>',1)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Team Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Team Events']='-';
+                }
+                $userArray['Mobile'] = $user->mobile;
+                $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                array_push($usersArray, $userArray);
+            }
+            Excel::create('report', function($excel) use($usersArray){
+                $excel->sheet('Sheet1', function($sheet) use($usersArray){
+                    $sheet->fromArray($usersArray);
+                });
+            })->download('xlsx');
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function reportWorkshopRegistrations(Request $request){
+        $inputs = Request::all();
+        $workshop_id=$inputs['workshop_id'];
+        $college_id = $inputs['college_id'];
+        $gender = $inputs['gender'];
+        $payment = $inputs['payment'];
+        // Get the registered users in the given event
+        $registered_user_ids=[];
+        $user_ids=[];
+        if($workshop_id == "all")
+        {
+            $workshops=Event::all()->where('category_id',1);
+           $users = User::all()->where('type','student');
+            foreach($workshops as $workshop)
+            {
+                $user_ids +=$workshop->users()->pluck('id')->toArray();
+            }
+             
+           $users = User::all()->whereIn('id', $user_ids);
+        }
+        else{
+            if(!Auth::user()->isOrganizing($workshop_id) && !Auth::user()->hasRole('root')){
+                Session::flash('success', 'You dont have rights to view this report!');
+                return redirect()->route('admin::root');
+            }
+            $event = Event::findOrFail($workshop_id);
+            if($event->isGroupEvent()){
+                $user_ids = [];
+                foreach($event->teams as $team){
+                    array_push($user_ids, $team->user_id);
+                    foreach($team->teamMembers as $teamMember){
+                        array_push($user_ids, $teamMember->user->id);
+                    }
+                }
+                $users = User::all()->whereIn('id', $user_ids);
+            }
+            else{
+                $users = $event->users;
+            }
+        }
+        if($college_id != "all"){
+            $users = $users->where('college_id', $college_id);
+        }
+        if($gender != "all"){
+            $users = $users->where('gender', $gender);
+        }
+        if($payment != "all"){
+            $users = $users->filter(function($user) use ($payment){
+                return $user->hasPaid() == $payment;
+            });
+        }
+        if($inputs['report_type'] == 'View Report'){
+            $users_count = $users->count();
+            $page = Input::get('page', 1);
+            $per_page = 10;
+            $users = $this->paginate($page, $per_page, $users);
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+        }
+        else if($inputs['report_type'] == 'Download Excel'){
+            $usersArray = [];
+            foreach($users as $user){
+                $userArray['GMID'] = $user->id;                
+                $userArray['FirstName'] = $user->first_name;
+                $userArray['LastName'] = $user->last_name;
+                $userArray['Email'] = $user->email;
+                $userArray['College'] = $user->college->name;
+                $userArray['Gender'] = $user->gender;
+                if($user->hasWorkshop())
+                {   
+                    $workshops = $user->events()->where('category_id',1)->pluck('title');
+                    $workshopss=" ";
+                    foreach($workshops as $workshop)
+                    {
+                        
+                        $workshopss.=$workshop;    
+                    }
+                    $userArray['Workshop']=$workshopss;
+                }
+                else{
+                    $userArray['Workshop']='-';
+                }
+                if($user->hasEvents())
+                {   
+                    $events = $user->events()->where('category_id',2)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Events']='-';
+                }
+                if($user->hasTeams())
+                {   
+                    $events = $user->events()->where('max_members','>',1)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Team Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Team Events']='-';
+                }
+                $userArray['Mobile'] = $user->mobile;
+                $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                array_push($usersArray, $userArray);
+            }
+            Excel::create('report', function($excel) use($usersArray){
+                $excel->sheet('Sheet1', function($sheet) use($usersArray){
+                    $sheet->fromArray($usersArray);
+                });
+            })->download('xlsx');
+        }
+    }
+   
+   
+   
+    function reportDomainRegistrations(Request $request){
+        $inputs = Request::all();
+        $department_id=$inputs['department_id'];
+        $college_id = $inputs['college_id'];
+        $gender = $inputs['gender'];
+        $payment = $inputs['payment'];
+        // Get the registered users in the given event
+        $registered_user_ids=[];
+        $user_ids=[];
+        if($department_id == "all")
+        {
+            $users = User::all()->where('type', 'student');
+            $events=Event::all();
+            foreach($events as $event)
+            {
+                $user_ids +=$event->users()->pluck('id')->toArray();
+            }     
+            $users = User::all()->whereIn('id', $user_ids);
+            
+        }
+        else{
+            $events = Event::all()->where('department_id',$department_id);
+            foreach($events as $event)
+            {
+                $user_ids +=$event->users()->pluck('id')->toArray();
+            }     
+            $users = User::all()->whereIn('id', $user_ids);
+        }
+        if($college_id != "all"){
+            $users = $users->where('college_id', $college_id);
+        }
+        if($gender != "all"){
+            $users = $users->where('gender', $gender);
+        }
+        if($payment != "all"){
+            $users = $users->filter(function($user) use ($payment){
+                return $user->hasPaid() == $payment;
+            });
+        }
         if($inputs['report_type'] == 'View Report'){
             $users_count = $users->count();
             $page = Input::get('page', 1);
