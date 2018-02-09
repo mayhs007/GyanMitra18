@@ -471,7 +471,7 @@ class AdminPagesController extends Controller
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
             }
-            Excel::create('report', function($excel) use($usersArray){
+            Excel::create('Event_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
                     $sheet->fromArray($usersArray);
                 });
@@ -584,7 +584,7 @@ class AdminPagesController extends Controller
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
             }
-            Excel::create('report', function($excel) use($usersArray){
+            Excel::create('Workshop_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
                     $sheet->fromArray($usersArray);
                 });
@@ -695,7 +695,82 @@ class AdminPagesController extends Controller
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
             }
-            Excel::create('report', function($excel) use($usersArray){
+            Excel::create('Domain_report', function($excel) use($usersArray){
+                $excel->sheet('Sheet1', function($sheet) use($usersArray){
+                    $sheet->fromArray($usersArray);
+                });
+            })->download('xlsx');
+        }
+    }
+    function reportallRegistrations(Request $request){
+        $inputs = Request::all();
+        $users=User::all()->where('type','student');
+        if($inputs['report_type'] == 'View Report'){
+            
+            $users_count = $users->count();
+            $page = Input::get('page', 1);
+            $per_page = 10;
+            $users = $this->paginate($page, $per_page, $users);
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+        }
+        else if($inputs['report_type'] == 'Download Excel'){
+            $usersArray = [];
+            foreach($users as $user){
+                $userArray['GMID'] = $user->id;                
+                $userArray['FirstName'] = $user->first_name;
+                $userArray['LastName'] = $user->last_name;
+                $userArray['Email'] = $user->email;
+                $userArray['College'] = $user->college->name;
+                $userArray['Gender'] = $user->gender;
+                if($user->hasWorkshop())
+                {   
+                    $workshops = $user->events()->where('category_id',1)->pluck('title');
+                    $workshopss=" ";
+                    foreach($workshops as $workshop)
+                    {
+                        
+                        $workshopss.=$workshop;    
+                    }
+                    $userArray['Workshop']=$workshopss;
+                }
+                else{
+                    $userArray['Workshop']='-';
+                }
+                if($user->hasEvents())
+                {   
+                    $events = $user->events()->where('category_id',2)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Events']='-';
+                }
+                if($user->hasTeams())
+                {   
+                    $events = $user->events()->where('max_members','>',1)->pluck('title');
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event;
+                        $evente.=',';
+                    }
+                    $userArray['Team Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Team Events']='-';
+                }
+                $userArray['Mobile'] = $user->mobile;
+                $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                array_push($usersArray, $userArray);
+            }
+            Excel::create('All_Registration_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
                     $sheet->fromArray($usersArray);
                 });
@@ -758,7 +833,7 @@ class AdminPagesController extends Controller
                 $userArray['Payment'] = $user->accomodation->paid? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
             }
-            Excel::create('report', function($excel) use($usersArray){
+            Excel::create('accomodation_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
                     $sheet->fromArray($usersArray);
                 });

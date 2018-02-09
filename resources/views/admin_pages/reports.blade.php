@@ -3,6 +3,27 @@
 @section('content')
 
 @if(Auth::user()->hasRole('root') || Auth::user()->organizings->count() != 0)
+<div class="row">
+        <div class="col s12">
+            <h4 class="center-align">GET ALL REGISTRATION DETAILS</h4>
+        </div>
+    </div>
+    <div class="row">
+        {!! Form::open(['url' => route('admin::reports.allregistrations'), 'method' => 'GET']) !!}
+        <div class="col s3">
+            {!! Form::submit('View Report',  ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}       
+            </div>
+            <div class="col s3">
+            {!! Form::submit('Download Excel', ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}  
+        {!! Form::close() !!}   
+            </div> 
+    </div>
+    
+    
+    
+    
+    
+    
     <div class="row">
         <div class="col s12">
             <h4 class="center-align">Report Based on Events</h4>
@@ -121,6 +142,7 @@
             </div> 
     </div>
 @endif
+
 @if(Auth::user()->hasRole('hospitality') || Auth::user()->hasRole('root'))
     <div class="row">
         <div class="col s12">

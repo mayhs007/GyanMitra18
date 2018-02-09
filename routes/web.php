@@ -184,6 +184,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
         // Report generation for events and accomodations
         Route::get('reports', ['as' => 'reports', 'uses' => 'AdminPagesController@reports']);      
         Route::get('reports/registrations', ['as' => 'reports.registrations', 'uses' => 'AdminPagesController@reportRegistrations']);
+        Route::get('reports/allregistrations', ['as' => 'reports.allregistrations', 'uses' => 'AdminPagesController@reportallRegistrations']);
         Route::get('reports/workshopregistrations', ['as' => 'reports.workshopregistrations', 'uses' => 'AdminPagesController@reportWorkshopRegistrations']);   
         Route::get('reports/domainregistrations', ['as' => 'reports.domainregistrations', 'uses' => 'AdminPagesController@reportDomainRegistrations']);   
         Route::get('reports/accomodations', ['as' => 'reports.accomodations', 'uses' => 'AdminPagesController@reportAccomodations']);    
