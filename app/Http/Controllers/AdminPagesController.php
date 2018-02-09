@@ -387,12 +387,9 @@ class AdminPagesController extends Controller
         {
            $events=Event::all()->where('category_id',2);
            $users = User::all()->where('type','student');
-           // foreach($events as $event)
-           // {
-         //       $user_ids +=$event->users()->pluck('id')->toArray();
-           // }
-             
-           //$users = User::all()->whereIn('id', $user_ids);
+           $users = $users->filter(function($user) use ($events){
+                    return $user->hasParticipating();
+                });
         }
         else{
             if(!Auth::user()->isOrganizing($event_id) && !Auth::user()->hasRole('root')){
@@ -470,21 +467,6 @@ class AdminPagesController extends Controller
                 else{
                     $userArray['Events']='-';
                 }
-                if($user->hasTeams())
-                {   
-                    $events = $user->events()->where('max_members','>',1)->pluck('title');
-                    $evente=" ";
-                    foreach($events as $event)
-                    {
-                        $evente.=$event;
-                        $evente.=',';
-                    }
-                    $userArray['Team Events']=$evente;
-                        
-                }
-                else{
-                    $userArray['Team Events']='-';
-                }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
@@ -518,12 +500,9 @@ class AdminPagesController extends Controller
         {
             $workshops=Event::all()->where('category_id',1);
            $users = User::all()->where('type','student');
-            foreach($workshops as $workshop)
-            {
-                $user_ids +=$workshop->users()->pluck('id')->toArray();
-            }
-             
-           $users = User::all()->whereIn('id', $user_ids);
+           $users = $users->filter(function($user) use ($workshops){
+            return $user->hasWorkshop();
+        });
         }
         else{
             if(!Auth::user()->isOrganizing($workshop_id) && !Auth::user()->hasRole('root')){
@@ -601,21 +580,6 @@ class AdminPagesController extends Controller
                 else{
                     $userArray['Events']='-';
                 }
-                if($user->hasTeams())
-                {   
-                    $events = $user->events()->where('max_members','>',1)->pluck('title');
-                    $evente=" ";
-                    foreach($events as $event)
-                    {
-                        $evente.=$event;
-                        $evente.=',';
-                    }
-                    $userArray['Team Events']=$evente;
-                        
-                }
-                else{
-                    $userArray['Team Events']='-';
-                }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 array_push($usersArray, $userArray);
@@ -643,11 +607,9 @@ class AdminPagesController extends Controller
         {
             $users = User::all()->where('type', 'student');
             $events=Event::all();
-            foreach($events as $event)
-            {
-                $user_ids +=$event->users()->pluck('id')->toArray();
-            }     
-            $users = User::all()->whereIn('id', $user_ids);
+            $users = $users->filter(function($user) use ($events){
+                return $user->isParticipating();
+            });
             
         }
         else{
