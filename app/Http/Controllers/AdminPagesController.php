@@ -381,18 +381,18 @@ class AdminPagesController extends Controller
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
         // Get the registered users in the given event
-        $registered_user_ids=[];
+
         $user_ids=[];
         if($event_id == "all")
         {
            $events=Event::all()->where('category_id',2);
            $users = User::all()->where('type','student');
-            foreach($events as $event)
-            {
-                $user_ids +=$event->users()->pluck('id')->toArray();
-            }
+           // foreach($events as $event)
+           // {
+         //       $user_ids +=$event->users()->pluck('id')->toArray();
+           // }
              
-           $users = User::all()->whereIn('id', $user_ids);
+           //$users = User::all()->whereIn('id', $user_ids);
         }
         else{
             if(!Auth::user()->isOrganizing($event_id) && !Auth::user()->hasRole('root')){
