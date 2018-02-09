@@ -84,7 +84,7 @@
                                 @endforeach
                                 </td>
                             @else
-                                <td>-</td>
+                                <td>TeamMate</td>
                             @endif     
                             <td>
                                 @if($user->hasConfirmed())
