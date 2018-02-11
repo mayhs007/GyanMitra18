@@ -386,12 +386,20 @@ class User extends Authenticatable
                      {
                          $amount+=$workshop->pg_amount;
                      }
+                     else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                  }
                  else if($workshop->hasSaeAmount())
                  {
                      if($this->isSaeMemeber())
                      {
                          $amount+=$workshop->sae_amount;
+                     }
+                     else
+                     {
+                        $amount+=$workshop->amount;
                      }
                  }
                  else if($workshop->hasIeAmount())
@@ -400,6 +408,10 @@ class User extends Authenticatable
                      {
                          $amount+=$workshop->ie_amount;
                      }
+                     else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                  }
                  else if($workshop->hasIeteAmount())
                  {
@@ -407,10 +419,15 @@ class User extends Authenticatable
                      {
                          $amount+=$workshop->iete_amount;
                      }
+                     else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                  }
                  else
                  {
                      $amount+=$workshop->amount;
+                     
                  } 
             }
             $workshop_amount+=$amount;
@@ -452,6 +469,10 @@ class User extends Authenticatable
                     {
                         $amount+=$workshop->pg_amount;
                     }
+                    else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                 }
                 else if($workshop->hasSaeAmount())
                 {
@@ -459,6 +480,10 @@ class User extends Authenticatable
                     {
                         $amount+=$workshop->sae_amount;
                     }
+                    else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                 }
                 else if($workshop->hasIeAmount())
                 {
@@ -466,13 +491,21 @@ class User extends Authenticatable
                     {
                         $amount+=$workshop->ie_amount;
                     }
+                    else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                 }
-                elseif($workshop->hasIeteAmount())
+                else if($workshop->hasIeteAmount())
                 {
                     if($this->isIeteMemeber())
                     {
                         $amount+=$workshop->iete_amount;
                     }
+                    else
+                     {
+                        $amount+=$workshop->amount;
+                     }
                 }
                 else
                 {

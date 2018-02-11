@@ -64,6 +64,9 @@
         {!! Form::label('PG') !!}
     </div>
 </div>
+<div class="col s12">
+    <p class="red-text">(IF YOUU DONOT HAVE ANY IETE,IE,SAE MEMBERSHIP DONT FILL THE FIELDS EVEN NO OR NIL JUST LEAVE EMPTY)
+</div>
 <div class="row">
     <div class="col s6 input-field">
         <i class="material-icons prefix">card_membership</i>
@@ -83,6 +86,7 @@
         {!! Form::text('iete_id') !!}
     </div>
 </div>
+
 <div class="row">
     <div class="col s12 input-field">
         <i class="material-icons prefix">call</i>

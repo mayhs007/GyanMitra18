@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.adminreport')
 
 @section('content')
 
@@ -42,10 +42,25 @@
                             Team Event
                         </th>
                         <th>
+                            SAE 
+                        </th>
+                        <th>
+                            IE 
+                        </th>
+                        <th>
+                            IETE 
+                        </th>
+                        <th>
                             Status
                         </th>
                         <th>
                             Payment
+                        </th>
+                        <th>
+                            Mode
+                        </th>
+                        <th>
+                            AMOUNT
                         </th>
                     </tr>
                 </thead>
@@ -66,7 +81,7 @@
                                 @endforeach
                                 </td>
                             @else
-                                <td>-</td>
+                                <td class="center">-</td>
                             @endif  
                             @if($user->hasEvents())
                                 <td>
@@ -75,7 +90,7 @@
                                 @endforeach
                                 </td>
                             @else
-                                <td>-</td>
+                                <td class="center">-</td>
                             @endif 
                             @if($user->hasTeams())
                                 <td>
@@ -84,8 +99,23 @@
                                 @endforeach
                                 </td>
                             @else
-                                <td>-</td>
-                            @endif     
+                                <td class="center">-</td>
+                            @endif
+                            @if($user->isSaeMemeber())
+                                <td>{{ $user->sae_id }}</td>
+                            @else
+                                <td class="center">-</td>
+                            @endif
+                            @if($user->isIeMemeber())
+                                <td>{{ $user->sae_id }}</td>
+                            @else
+                                <td class="center">-</td>
+                            @endif
+                            @if($user->isIeteMemeber())
+                                <td>{{ $user->sae_id }}</td>
+                            @else
+                                <td class="center">-</td>
+                            @endif    
                             <td>
                                 @if($user->hasConfirmed())
                                     Confirmed
@@ -95,7 +125,17 @@
                             </td>    
                             <td>
                                 {{ $user->hasPaid()?'Paid': 'Not Paid' }}
-                            </td>                       
+                            </td>
+                                @if($user->hasConfirmed())
+                                    <td>{{ $user->payment->mode_of_payment }}</td>
+                                @else
+                                    <td class="center">-</td>
+                                @endif
+                                @if($user->hasPaid())
+                                <td>{{$user->payment->amount}}</td>
+                                @else
+                                <td class="center">-</td>
+                                @endif 
                         </tr>
                     @endforeach
                 </tbody>
