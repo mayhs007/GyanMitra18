@@ -13,7 +13,9 @@
                 <li><a href="{{ route('user_pages.about') }}"><i class="fa fa-2x fa-child"></i> About</a></li>
                 <li><a href="{{ route('user_pages.schedule') }}"><i class="fa fa-2x fa-calendar"></i>Schedule</a></li>
                 <li><a href="{{ route('user_pages.guestLecture') }}"><i class="fa fa-2x fa-graduation-cap"></i>Special Lecture</a></li>
-                <li><a href="{{ route('user_pages.help') }}"><i class="fa fa-2x fa-info-circle"></i>Instruction</a></li>     
+                <li><a href="{{ route('user_pages.how') }}"><i class="fa fa-2x fa-info-circle"></i>How to Register?</a></li>
+                <li><a href="{{ route('user_pages.help') }}"><i class="fa fa-2x fa-info-circle"></i>Instruction</a></li>
+                     
                 <li><a href="{{ route('user_pages.contact') }}"><i class="fa fa-2x fa-phone"></i> Contact Us</a></li> 
                 @if(Auth::Check())
                     <li><a href="{{ route('user_pages.dashboard') }}"><i class="fa fa-2x fa-tachometer"></i> Dashboard</a></li>  
@@ -43,7 +45,8 @@
                 <li><a href="{{ route('user_pages.about') }}"> About</a></li>
                 <li><a href="{{ route('user_pages.schedule') }}"> Schedule</a></li>
                 <li><a href="{{ route('user_pages.guestLecture') }}">Special Lecture</a></li> 
-                <li><a href="{{ route('user_pages.help') }}">Instruction</a></li>    
+                <li><a href="{{ route('user_pages.help') }}">Instruction</a></li>
+                <li><a href="{{ route('user_pages.how') }}">How to Register?</a></li>    
                 <li><a href="{{ route('user_pages.contact') }}"> Contact Us</a></li> 
    
                 @if(Auth::Check())

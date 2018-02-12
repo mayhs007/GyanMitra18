@@ -34,6 +34,10 @@ class PagesController extends Controller
         $events=Event::where('deparment_id');
         return view('user_pages.home')->with('departments',$departments)->with('events', $events);
     }
+    function how()
+    {
+        return view('user_pages.how');
+    }
     function dashboard(){
         $events = Auth::user()->events;
         $user = Auth::user();

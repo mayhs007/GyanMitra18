@@ -299,7 +299,7 @@ class AdminPagesController extends Controller
             }
             else{
                 $user->doPayment(null);
-                $this->rejectOtherRegistrations($user->id);
+               // $this->rejectOtherRegistrations($user->id);
             }
         }
         
@@ -325,7 +325,7 @@ class AdminPagesController extends Controller
         }
         else{
             if($user->hasPaid()){
-                $user->payments()->delete();
+                $user->payment->delete();
             }
             else{
                 Session('success', 'User has not done his payment');                                              
@@ -351,6 +351,7 @@ class AdminPagesController extends Controller
         if($user->hasConfirmed()){
             $user->confirmation=false;
             $user->save();
+            $user->payment->delete();
             Session('success', 'You have UnConfirmed the registration');
         }
         else{

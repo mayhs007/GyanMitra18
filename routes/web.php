@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth.redirect_admin'], function(){
     Route::get('event', ['as' => 'user_pages.event', 'uses' => 'PagesController@event']);
     Route::get('schedule', ['as' => 'user_pages.schedule', 'uses' => 'PagesController@schedule']);
     Route::get('contact', ['as' => 'user_pages.contact', 'uses' => 'PagesController@contact']);
+    Route::get('howtoRegister', ['as' => 'user_pages.how', 'uses' => 'PagesController@how']);
     Route::get('guestLecture', ['as' => 'user_pages.guestLecture', 'uses' => 'PagesController@guestLecture']);
     Route::get('events/{department_id}', ['as' => 'user_pages.events', 'uses' => 'PagesController@events']);
     Route::get('workshop/{department_id}', ['as' => 'user_pages.workshop', 'uses' => 'PagesController@workshop']);
