@@ -40,6 +40,7 @@
                             </div>
                         </div>
                     {!! Form::close() !!}
+                    {{ link_to_route('password.request', 'Forget Password') }}
                 </div>
             </div>
         </div>

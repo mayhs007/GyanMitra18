@@ -140,7 +140,7 @@
                                     @endforeach
                                          <tr>
                                             <td><td>TOTAL AMOUNT:- </td></td>
-                                            <td><td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td></td>
+                                            <td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td>
                                         </tr>
                                 </tbody>
                                 <tfoot>

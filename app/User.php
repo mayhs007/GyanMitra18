@@ -8,6 +8,7 @@ use App\team;
 use App\TeamMember;
 use App\Event;
 use Auth;
+use App\Notifications\ResetPassword;
 //use App\Registration;
 
 class User extends Authenticatable
@@ -22,6 +23,17 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name','last_name','college_id','level_of_study','gender','mobile','type','email', 'password', 'activated', 'activation_code','confirmation','Accomodation_Confirmation','present','sae_id','ie_id','iete_id'
     ];
+
+    /**
+ * Send the password reset notification.
+ *
+ * @param  string  $token
+ * @return void
+ */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
 
     /**
      * The attributes that should be hidden for arrays.

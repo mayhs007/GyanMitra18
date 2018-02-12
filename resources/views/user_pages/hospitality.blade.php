@@ -115,7 +115,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><td>TOTAL AMOUNT:- </td></td>
-                                                        <td><td><i class="fa fa-inr"></i>{{ App\Payment::getAccomodationAmount() }}</td></td>
+                                                        <td><i class="fa fa-inr"></i>{{ App\Payment::getAccomodationAmount() }}</td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>

@@ -198,7 +198,7 @@ class PagesController extends Controller
                 //$user->doPayment($inputs['txnid']);
                 $user->payment->amount=$user->getTotalAmountForOnline();
                 $user->payment->save();
-               // $this->rejectOtherRegistrations($user->id);
+                //$this->rejectOtherRegistrations($user->id);
             }
             return view('user_pages.payment.success')->with('info', 'Your payment was successful!');
         }

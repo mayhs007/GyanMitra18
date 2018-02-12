@@ -45,7 +45,7 @@
 <div class="row">
     <?php
         $college_list = [];
-        foreach(App\College::all() as $college){
+        foreach(App\College::all()->sortBy('name') as $college){
             $college_list[$college->id] = $college->getQualifiedName();
         }
         ?>
