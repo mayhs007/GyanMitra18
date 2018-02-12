@@ -78,9 +78,7 @@
                                     <div class="row">
                                     <br>
                                     <br>
-                                    <h5 class="header deep-orange-text  text-accent-3">THE ONLINE PAYMENT DATE HAS BEEN EXTENDED TO 14/02/2018</h5>
-                                    <br>
-                                    <h5 class="header deep-orange-text text-accent-3">LAST DATE FOR PAYMENT THROUGH DD IS 12/02/2018</h5>
+                                    <h5 class="header deep-orange-text  text-accent-3">THE ONLINE PAYMENT DATE HAS BEEN EXTENDED TO 15/02/2018 11:30 AM</h5>
                                     </div>
                               </div>
                         </div>
