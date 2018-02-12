@@ -57,121 +57,172 @@
                     @if($user->hasTeams())
                         <i class="fa {{ $user->hasConfirmedTeams()?'fa-check':'fa-times' }}"></i> All your team members have confirmed their registration
                     @endif
-                    <div class="container">
-                        <p>
-                            <input name="mode_of_payment" type="radio" id="online" />
-                            <label for="online">ONLINE PAYMENT</label>
-                            <input name="mode_of_payment" type="radio" id="DD" />
-                            <label for="DD">DEMAND DRAFT</label>
-                        </p>
-                    </div>       
-                    <div id="payu">
-                       
-                            <p><strong>You will be paying for the following!</strong></p>
-                            <table class="bordered highlight responsive-table">     
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Registration Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Get all users to pay   --}}
-                                    @foreach($user->getUsersToPay() as $userToPay)
-                                        <tr>
-                                            <td>{{ $userToPay->first_name }}  {{ $userToPay->last_name }}</td>
-                                            <td>{{ $userToPay->email }}</td>
-                                            <td>
-                                                @if($userToPay->hasConfirmed())
-                                                    <span class="green-text">Confirmed</span>
-                                                @else
-                                                    <span class="red-text">Not Confirmed</span>
-                                                @endif
-                                             </td>    
-                                         </tr>
-                                    @endforeach
-                                         <tr>
-                                            <td><td>TOTAL AMOUNT:- </td></td>
-                                            <td><td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td></td>
-                                        </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="3">Total Amount (Includes 4% transaction fee)</th>
-                                        <th><i class="fa fa-inr"></i> {{ $user->getTotalAmountForOnline() }}</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        @if($user->hasConfirmedTeams())
-                            @if($user->hasConfirmed())
-                                <button type="button" onclick="$('#frm-payment').submit()" class="btn waves-effect waves-light green"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
-                            @else
-                                <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>                       
-                            @endif
-                            @else
-                                <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
-                        @endif
-                        </div>
-                        <div id="draft">
-                        <p><strong>You will be paying for the following!</strong></p>
-                            <table class="bordered highlight responsive-table">     
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Registration Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Get all users to pay   --}}
-                                    @foreach($user->getUsersToPay() as $userToPay)
-                                        <tr>
-                                            <td>{{ $userToPay->first_name }}  {{ $userToPay->last_name }}</td>
-                                            <td>{{ $userToPay->email }}</td>
-                                            <td>
-                                                @if($userToPay->hasConfirmed())
-                                                    <span class="green-text">Confirmed</span>
-                                                @else
-                                                    <span class="red-text">Not Confirmed</span>
-                                                @endif
-                                             </td>    
-                                         </tr>
-                                    @endforeach
-                                         <tr>
-                                            <td><td>TOTAL AMOUNT:- </td></td>
-                                            <td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td>
-                                        </tr>
-                                </tbody>
-                                <tfoot>
-                                   <tr>
-                                       <th>DD DETAILS</th>
-                                       <th>IN FAVOUR OF "THE PRINCIPAL,MEPCO SCHLENK ENGINEERING COLLEGE"</th>
-                                       <th>PAYABLE AT SIVAKASI</th>
-                                   </tr>
-                                   <tr>
-                                     
-                                        <th>DD SHOULD BE SENT TO THE FOLLOWING ADDRESS:</th>
-                                              <td class="center">  The Convener, <br>
-                                                GYANMITRA'18,<br>
-                                                Mepco Schlenk Engg. College,<br>
-                                                Sivakasi - 626 005.<br>
-                                                Virudhunagar (Dist.)<br>
-                                                Tamilnadu</td>
+                    @if(App\Config::getConfig('dd_payment_open'))
+                            <div class="container">
+                                <p>
+                                    <input name="mode_of_payment" type="radio" id="online" />
+                                    <label for="online">ONLINE PAYMENT</label>
+                                    <input name="mode_of_payment" type="radio" id="DD" />
+                                    <label for="DD">DEMAND DRAFT</label>
+                                </p>
+                            </div>       
+                            <div id="payu">
+                            
+                                    <p><strong>You will be paying for the following!</strong></p>
+                                    <table class="bordered highlight responsive-table">     
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Registration Status</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{-- Get all users to pay   --}}
+                                            @foreach($user->getUsersToPay() as $userToPay)
+                                                <tr>
+                                                    <td>{{ $userToPay->first_name }}  {{ $userToPay->last_name }}</td>
+                                                    <td>{{ $userToPay->email }}</td>
+                                                    <td>
+                                                        @if($userToPay->hasConfirmed())
+                                                            <span class="green-text">Confirmed</span>
+                                                        @else
+                                                            <span class="red-text">Not Confirmed</span>
+                                                        @endif
+                                                    </td>    
+                                                </tr>
+                                            @endforeach
+                                                <tr>
+                                                    <td><td>TOTAL AMOUNT:- </td></td>
+                                                    <td><td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td></td>
+                                                </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="3">Total Amount (Includes 4% transaction fee)</th>
+                                                <th><i class="fa fa-inr"></i> {{ $user->getTotalAmountForOnline() }}</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                @if($user->hasConfirmedTeams())
+                                    @if($user->hasConfirmed())
+                                        <button type="button" onclick="$('#frm-payment').submit()" class="btn waves-effect waves-light green"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
+                                    @else
+                                        <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>                       
+                                    @endif
+                                    @else
+                                        <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
+                                @endif
+                                </div>
+                                <div id="draft">
+                                <p><strong>You will be paying for the following!</strong></p>
+                                    <table class="bordered highlight responsive-table">     
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Registration Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{-- Get all users to pay   --}}
+                                            @foreach($user->getUsersToPay() as $userToPay)
+                                                <tr>
+                                                    <td>{{ $userToPay->first_name }}  {{ $userToPay->last_name }}</td>
+                                                    <td>{{ $userToPay->email }}</td>
+                                                    <td>
+                                                        @if($userToPay->hasConfirmed())
+                                                            <span class="green-text">Confirmed</span>
+                                                        @else
+                                                            <span class="red-text">Not Confirmed</span>
+                                                        @endif
+                                                    </td>    
+                                                </tr>
+                                            @endforeach
+                                                <tr>
+                                                    <td><td>TOTAL AMOUNT:- </td></td>
+                                                    <td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td>
+                                                </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>DD DETAILS</th>
+                                            <th>IN FAVOUR OF "THE PRINCIPAL,MEPCO SCHLENK ENGINEERING COLLEGE"</th>
+                                            <th>PAYABLE AT SIVAKASI</th>
+                                        </tr>
+                                        <tr>
+                                            
+                                                <th>DD SHOULD BE SENT TO THE FOLLOWING ADDRESS:</th>
+                                                    <td class="center">  The Convener, <br>
+                                                        GYANMITRA'18,<br>
+                                                        Mepco Schlenk Engg. College,<br>
+                                                        Sivakasi - 626 005.<br>
+                                                        Virudhunagar (Dist.)<br>
+                                                        Tamilnadu</td>
+                                                    </tr>
 
-                                </tfoot>
-                            </table>
-                            @if($user->hasConfirmedTeams())
-                            <p>
-                                @include('partials.error')                        
-                                    {!! Form::open(['url' => route('user_pages.ticket.upload'), 'files' => true, 'id' => 'form-upload-ticket', 'style' => 'display:inline']) !!}
-                                    {!! Form::file('demand_draft', ['class' => 'hide', 'id' => 'file-ticket']) !!}
-                                    {!! Form::close() !!}
-                                    <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload PhotoCopy Of DD</button>
-                            </p>
-                            @endif
-                        </div>
+                                        </tfoot>
+                                    </table>
+                                    @if($user->hasConfirmedTeams())
+                                    <p>
+                                        @include('partials.error')                        
+                                            {!! Form::open(['url' => route('user_pages.ticket.upload'), 'files' => true, 'id' => 'form-upload-ticket', 'style' => 'display:inline']) !!}
+                                            {!! Form::file('demand_draft', ['class' => 'hide', 'id' => 'file-ticket']) !!}
+                                            {!! Form::close() !!}
+                                            <button type="button" class="btn waves-effect waves-light green {{ $user->hasConfirmed()?'':'disabled' }}" id="btn-upload-ticket">Upload PhotoCopy Of DD</button>
+                                    </p>
+                                    @endif
+                                </div>
+                        @else
+                        <p><strong>You will be paying for the following!</strong></p>
+                                    <table class="bordered highlight responsive-table">     
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Registration Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{-- Get all users to pay   --}}
+                                            @foreach($user->getUsersToPay() as $userToPay)
+                                                <tr>
+                                                    <td>{{ $userToPay->first_name }}  {{ $userToPay->last_name }}</td>
+                                                    <td>{{ $userToPay->email }}</td>
+                                                    <td>
+                                                        @if($userToPay->hasConfirmed())
+                                                            <span class="green-text">Confirmed</span>
+                                                        @else
+                                                            <span class="red-text">Not Confirmed</span>
+                                                        @endif
+                                                    </td>    
+                                                </tr>
+                                            @endforeach
+                                                <tr>
+                                                    <td><td>TOTAL AMOUNT:- </td></td>
+                                                    <td><td><i class="fa fa-inr"></i>{{ $user->getTotalAmount() }}</td></td>
+                                                </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="3">Total Amount (Includes 4% transaction fee)</th>
+                                                <th><i class="fa fa-inr"></i> {{ $user->getTotalAmountForOnline() }}</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                @if($user->hasConfirmedTeams())
+                                    @if($user->hasConfirmed())
+                                        <button type="button" onclick="$('#frm-payment').submit()" class="btn waves-effect waves-light green"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
+                                    @else
+                                        <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>                       
+                                    @endif
+                                    @else
+                                        <button type="submit"  class="btn waves-effect waves-light green disabled"><i class="fa fa-credit-card"></i> Pay by PayUmoney</button>
+                                @endif
+                                </div>
+                        
+                        
+                        @endif
                     @else
                         @if($user->payment->payment_status=='paid')
                         <p class="green-text"><i class="fa fa-check"></i> Hurray! your payment is confirmed, we are excited to see you at GyanMitra18</p>
@@ -181,7 +232,7 @@
                         @else
                             <p> WAIT YOUR PAYMENT WILL VERIFIED BY US AND THEN YOU CAN DOWNLOAD THE RECPIET</p>
                         @endif
-                    @endif
+                @endif
                 </div>
             </div>
         </li>

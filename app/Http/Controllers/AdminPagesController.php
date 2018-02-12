@@ -180,6 +180,14 @@ class AdminPagesController extends Controller
         Config::setConfig('Accomodation_registration_open', false);
         return redirect()->route('admin::root');
     }
+    function openDDPayments(){
+        Config::setConfig('dd_payment_open', true);
+        return redirect()->route('admin::root');
+    }
+    function closeDDPayments(){
+        Config::setConfig('dd_payment_open', false);
+        return redirect()->route('admin::root');
+    }
     function enableOfflineRegistration(){
         Config::setConfig('offline_link', true);
         return redirect()->route('admin::root');
@@ -469,6 +477,27 @@ class AdminPagesController extends Controller
                 }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                if($user->hasPaid())
+                {
+                    if($user->payment->mode_of_payment=='online')
+                    {
+                        $userArray['Mode of Payment']="Online";
+                        $userArray['Amount'] = $user->getTotalAmountForOnline();
+                    }
+                    elseif($user->payment->mode_of_payment=='dd')
+                    {
+                        $userArray['Mode of Payment']="DD";
+                        $userArray['Amount'] = $user->getTotalAmount();
+                    }
+                    else
+                    {   $userArray['Mode of Payment']="-";
+                        $userArray['Amount'] = "NOT PAID";
+                    }
+                }
+                else
+                {
+                    $userArray['Amount'] = "NOT PAID";
+                }
                 array_push($usersArray, $userArray);
             }
             Excel::create('Event_report', function($excel) use($usersArray){
@@ -582,6 +611,27 @@ class AdminPagesController extends Controller
                 }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                if($user->hasPaid())
+                {
+                    if($user->payment->mode_of_payment=='online')
+                    {
+                        $userArray['Mode of Payment']="Online";
+                        $userArray['Amount'] = $user->getTotalAmountForOnline();
+                    }
+                    elseif($user->payment->mode_of_payment=='dd')
+                    {
+                        $userArray['Mode of Payment']="DD";
+                        $userArray['Amount'] = $user->getTotalAmount();
+                    }
+                    else
+                    {   $userArray['Mode of Payment']="-";
+                        $userArray['Amount'] = "NOT PAID";
+                    }
+                }
+                else
+                {
+                    $userArray['Amount'] = "NOT PAID";
+                }
                 array_push($usersArray, $userArray);
             }
             Excel::create('Workshop_report', function($excel) use($usersArray){
@@ -693,6 +743,27 @@ class AdminPagesController extends Controller
                 }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                if($user->hasPaid())
+                {
+                    if($user->payment->mode_of_payment=='online')
+                    {
+                        $userArray['Mode of Payment']="Online";
+                        $userArray['Amount'] = $user->getTotalAmountForOnline();
+                    }
+                    elseif($user->payment->mode_of_payment=='dd')
+                    {
+                        $userArray['Mode of Payment']="DD";
+                        $userArray['Amount'] = $user->getTotalAmount();
+                    }
+                    else
+                    {   $userArray['Mode of Payment']="-";
+                        $userArray['Amount'] = "NOT PAID";
+                    }
+                }
+                else
+                {
+                    $userArray['Amount'] = "NOT PAID";
+                }
                 array_push($usersArray, $userArray);
             }
             Excel::create('Domain_report', function($excel) use($usersArray){
@@ -768,6 +839,27 @@ class AdminPagesController extends Controller
                 }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
+                if($user->hasPaid())
+                {
+                    if($user->payment->mode_of_payment=='online')
+                    {
+                        $userArray['Mode of Payment']="Online";
+                        $userArray['Amount'] = $user->getTotalAmountForOnline();
+                    }
+                    elseif($user->payment->mode_of_payment=='dd')
+                    {
+                        $userArray['Mode of Payment']="DD";
+                        $userArray['Amount'] = $user->getTotalAmount();
+                    }
+                    else
+                    {   $userArray['Mode of Payment']="-";
+                        $userArray['Amount'] = "NOT PAID";
+                    }
+                }
+                else
+                {
+                    $userArray['Amount'] = "NOT PAID";
+                }
                 array_push($usersArray, $userArray);
             }
             Excel::create('All_Registration_report', function($excel) use($usersArray){

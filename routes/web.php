@@ -100,17 +100,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
         Route::get('registrations/close', ['as' => 'registrations.close', 'uses' => 'AdminPagesController@closeRegistrations']);
         Route::get('Accomodation/open', ['as' => 'Accomodation.open', 'uses' => 'AdminPagesController@openAccomodations']);
         Route::get('Accomodation/close', ['as' => 'Accomodation.close', 'uses' => 'AdminPagesController@closeAccomodations']);
+        Route::get('DD/open', ['as' => 'dd_payment.open', 'uses' => 'AdminPagesController@openDDpayments']);
+        Route::get('DD/close', ['as' => 'dd_payment.close', 'uses' => 'AdminPagesController@closeDDpayments']);
         // Enable or disable offline registration forms
         Route::get('registrations/offline/enable', ['as' => 'registrations.offline.enable', 'uses' => 'AdminPagesController@enableOfflineRegistration']);
         Route::get('registrations/offline/disable', ['as' => 'registrations.offline.disable', 'uses' => 'AdminPagesController@disableOfflineRegistration']);
        // Route to get the list of admins emails in json
        Route::get('get_admins', ['as' =>'admins', 'uses' => 'AdminPagesController@getAdmins']);
-
        Route::get('requests/all', ['as' => 'requests.all', 'uses' => 'AdminPagesController@allRequests']);
        Route::get('requests', ['as' => 'requests', 'uses' => 'AdminPagesController@requests']);
-       
        Route::post('requests', 'AdminPagesController@replyRequest');    
-
        Route::resource('users', 'UsersController', ['except' => 'show']);
 
                     
