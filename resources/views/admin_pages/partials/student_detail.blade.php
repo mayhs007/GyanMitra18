@@ -79,7 +79,7 @@
                 @if($user->payment)
                    <td> {{$user->payment->mode_of_payment}}</td>
                     @if($user->payment->mode_of_payment=='dd')
-                    <a href="/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
+                    <a href="{{APP_URL}}/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
                     @endif
                 @endif   
             </td>
