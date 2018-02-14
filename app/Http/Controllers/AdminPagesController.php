@@ -390,7 +390,6 @@ class AdminPagesController extends Controller
         $gender = $inputs['gender'];
         $payment = $inputs['payment'];
         // Get the registered users in the given event
-
         $user_ids=[];
         if($event_id == "all")
         {
@@ -436,6 +435,8 @@ class AdminPagesController extends Controller
             $page = Input::get('page', 1);
             $per_page = 10;
             $users = $this->paginate($page, $per_page, $users);
+            $event_check=true;
+            $workshop_check=false;
             return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
         }
         else if($inputs['report_type'] == 'Download Excel'){
@@ -447,20 +448,6 @@ class AdminPagesController extends Controller
                 $userArray['Email'] = $user->email;
                 $userArray['College'] = $user->college->name;
                 $userArray['Gender'] = $user->gender;
-                if($user->hasWorkshop())
-                {   
-                    $workshops = $user->events()->where('category_id',1)->pluck('title');
-                    $workshopss=" ";
-                    foreach($workshops as $workshop)
-                    {
-                        
-                        $workshopss.=$workshop;    
-                    }
-                    $userArray['Workshop']=$workshopss;
-                }
-                else{
-                    $userArray['Workshop']='-';
-                }
                 if($user->hasEvents())
                 {   
                     $events = $user->events()->where('category_id',2)->pluck('title');
@@ -496,7 +483,8 @@ class AdminPagesController extends Controller
                     }
                 }
                 else
-                {
+                {   
+                    $userArray['Mode of Payment']="-";
                     $userArray['Amount'] = "NOT PAID";
                 }
                 array_push($usersArray, $userArray);
@@ -559,7 +547,9 @@ class AdminPagesController extends Controller
             $page = Input::get('page', 1);
             $per_page = 10;
             $users = $this->paginate($page, $per_page, $users);
-            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+            $event_check=false;
+            $workshop_check=true;
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count)->with('event_check',$event_check)->with('workshop_check',$workshop_check);            
         }
         else if($inputs['report_type'] == 'Download Excel'){
             $usersArray = [];
@@ -577,27 +567,13 @@ class AdminPagesController extends Controller
                     foreach($workshops as $workshop)
                     {
                         
-                        $workshopss.=$workshop;    
+                        $workshopss.=$workshop; 
+                        $workshopss.=',';    
                     }
                     $userArray['Workshop']=$workshopss;
                 }
                 else{
                     $userArray['Workshop']='-';
-                }
-                if($user->hasEvents())
-                {   
-                    $events = $user->events()->where('category_id',2)->pluck('title');
-                    $evente=" ";
-                    foreach($events as $event)
-                    {
-                        $evente.=$event;
-                        $evente.=',';
-                    }
-                    $userArray['Events']=$evente;
-                        
-                }
-                else{
-                    $userArray['Events']='-';
                 }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
@@ -620,6 +596,7 @@ class AdminPagesController extends Controller
                 }
                 else
                 {
+                    $userArray['Mode of Payment']="-";
                     $userArray['Amount'] = "NOT PAID";
                 }
                 array_push($usersArray, $userArray);
@@ -642,22 +619,36 @@ class AdminPagesController extends Controller
         $payment = $inputs['payment'];
         // Get the registered users in the given event
         $registered_user_ids=[];
-        $user_ids=[];
+        $user_ids=[];    
+        $users = User::all()->where('type', 'student');
+        $events=Event::all();
         if($department_id == "all")
         {
-            $users = User::all()->where('type', 'student');
-            $events=Event::all();
-            $users = $users->filter(function($user) use ($events){
+            $users = $users->filter(function($user) use ($payment){
                 return $user->isParticipating();
-            });   
+            });
         }
-        else{
-            $events = Event::all()->where('department_id',$department_id);
+        else
+        {
+            $event_ids=[];
+            $events = $events->where('department_id',$department_id);
             foreach($events as $event)
             {
-                $user_ids +=$event->users()->pluck('id')->toArray();
-            }     
-            $users = User::all()->whereIn('id', $user_ids);
+                array_push($event_ids,$event->id);
+            }
+            foreach($event_ids as $event_id)
+            {
+                $event=Event::findOrFail($event_id);
+                
+                    foreach($event->users as $user)
+                    {
+                     array_push($user_ids,$user->id);
+                    }
+                    
+                
+            }
+            $users=User::all()->whereIn('id',$user_ids);
+        
         }
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
@@ -675,7 +666,9 @@ class AdminPagesController extends Controller
             $page = Input::get('page', 1);
             $per_page = 10;
             $users = $this->paginate($page, $per_page, $users);
-            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+            $event_check=true;
+            $workshop_check=true;
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count)->with('event_check',$event_check)->with('workshop_check',$workshop_check);       
         }
         else if($inputs['report_type'] == 'Download Excel'){
             $usersArray = [];
@@ -751,6 +744,7 @@ class AdminPagesController extends Controller
                 }
                 else
                 {
+                    $userArray['Mode of Payment']="-";
                     $userArray['Amount'] = "NOT PAID";
                 }
                 array_push($usersArray, $userArray);
@@ -847,6 +841,7 @@ class AdminPagesController extends Controller
                 }
                 else
                 {
+                    $userArray['Mode of Payment']="-";
                     $userArray['Amount'] = "NOT PAID";
                 }
                 array_push($usersArray, $userArray);

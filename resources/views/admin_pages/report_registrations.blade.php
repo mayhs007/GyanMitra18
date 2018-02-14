@@ -74,32 +74,36 @@
                             <td>{{ $user->college->name }}</td>
                             <td>{{ $user->gender }}</td>                            
                             <td>{{ $user->mobile }}</td>
-                            @if($user->hasWorkshop())
-                                <td>
-                                @foreach($user->events->where('category_id',1) as $workshops)
-                                    {{$workshops->title}}<br>
-                                @endforeach
-                                </td>
-                            @else
-                                <td class="center">-</td>
-                            @endif  
-                            @if($user->hasEvents())
-                                <td>
-                                @foreach($user->events->where('category_id',2) as $events)
-                                    {{$events->title}}<br>
-                                @endforeach
-                                </td>
-                            @else
-                                <td class="center">-</td>
-                            @endif 
-                            @if($user->hasTeams())
-                                <td>
-                                @foreach($user->TeamEvents() as $events)
-                                    {{$events->title}}<br>
-                                @endforeach
-                                </td>
-                            @else
-                                <td class="center">-</td>
+                            @if($workshop_check)
+                                @if($user->hasWorkshop())
+                                    <td>
+                                    @foreach($user->events->where('category_id',1) as $workshops)
+                                        {{$workshops->title}}<br>
+                                    @endforeach
+                                    </td>
+                                @else
+                                    <td class="center">-</td>
+                                @endif
+                            @endif
+                            @if($event_check)
+                                @if($user->hasEvents())
+                                    <td>
+                                    @foreach($user->events->where('category_id',2) as $events)
+                                        {{$events->title}}<br>
+                                    @endforeach
+                                    </td>
+                                @else
+                                    <td class="center">-</td>
+                                @endif 
+                                @if($user->hasTeams())
+                                    <td>
+                                    @foreach($user->TeamEvents() as $events)
+                                        {{$events->title}}<br>
+                                    @endforeach
+                                    </td>
+                                @else
+                                    <td class="center">-</td>
+                                @endif
                             @endif
                             @if($user->isSaeMemeber())
                                 <td>{{ $user->sae_id }}</td>
