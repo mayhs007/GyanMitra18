@@ -379,7 +379,7 @@ class AdminPagesController extends Controller
             $events += Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->toArray();
             $workshops +=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->toArray();         
         }
-          $colleges += College::pluck('name', 'id')->toArray();
+          $colleges += College::pluck('name', 'id')->sort()->toArray();
           $departments += Department::pluck('name', 'id')->toArray();
         return view('admin_pages.reports')->with('colleges', $colleges)->with('events', $events)->with('workshops', $workshops)->with('departments', $departments);
     }
@@ -540,19 +540,7 @@ class AdminPagesController extends Controller
                 return redirect()->route('admin::root');
             }
             $event = Event::findOrFail($workshop_id);
-            if($event->isGroupEvent()){
-                $user_ids = [];
-                foreach($event->teams as $team){
-                    array_push($user_ids, $team->user_id);
-                    foreach($team->teamMembers as $teamMember){
-                        array_push($user_ids, $teamMember->user->id);
-                    }
-                }
-                $users = User::all()->whereIn('id', $user_ids);
-            }
-            else{
-                $users = $event->users;
-            }
+            $users = $event->users;
         }
         if($college_id != "all"){
             $users = $users->where('college_id', $college_id);
@@ -560,11 +548,12 @@ class AdminPagesController extends Controller
         if($gender != "all"){
             $users = $users->where('gender', $gender);
         }
-        if($payment != "all"){
+        if($payment !="all" ){
             $users = $users->filter(function($user) use ($payment){
                 return $user->hasPaid() == $payment;
             });
         }
+  
         if($inputs['report_type'] == 'View Report'){
             $users_count = $users->count();
             $page = Input::get('page', 1);
@@ -660,8 +649,7 @@ class AdminPagesController extends Controller
             $events=Event::all();
             $users = $users->filter(function($user) use ($events){
                 return $user->isParticipating();
-            });
-            
+            });   
         }
         else{
             $events = Event::all()->where('department_id',$department_id);

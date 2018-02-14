@@ -171,6 +171,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
         Route::post('requests', 'AdminPagesController@replyRequest');    
         // Resource route for users
         Route::resource('users', 'UsersController', ['except' => ['show']]);
+        Route::get('full/{event_id}', ['as' => 'events.full', 'uses' => 'EventsController@full']);
+        Route::post('full/{event_id}', ['as' => 'events.full', 'uses' => 'EventsController@full']);
 
         Route::resource('events', 'EventsController', ['except' => ['show']]);
               

@@ -8,6 +8,7 @@ use App\Http\Requests\EventRequest;
 use App\Department;
 use App\User;
 use App\Event;
+use App\Rejection;
 use App\Category;
 use Session;
 
@@ -112,5 +113,40 @@ class EventsController extends Controller
         Event::destroy($id);
         Session::flash('success', 'The event was deleted successfully!');
         return redirect()->route('admin::events.index');
+    }
+    public function full($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->isFull=true;
+        $event->save();
+        $users=User::all()->where('type','student');
+        if($event->category_id == 2)
+        {
+            $users = $users->filter(function($user) use ($event){
+                return !$user->hasPaid() && $user->hasRegisteredEvent($event->id);
+            });
+        }
+        else if($event->category_id == 1)
+        {
+            $users = $users->filter(function($user) use ($event){
+                return !$user->hasPaid() && $user->hasRegistered($event->id);
+            });
+        }
+        foreach($users as $user)
+        {
+            $rejection = new Rejection();
+            $rejection->event_id = $event->id;
+            $rejection->user_id = $user->id;
+            $user->rejections()->save($rejection);
+            $user->events()->detach($event->id);
+            $user->payment->delete();
+            $user->confirmation=false;
+            $user->save();       
+        }
+        Session::flash('success', 'The event was fulled successfully!');
+        return redirect()->route('admin::events.index');
+        
+
+
     }
 }

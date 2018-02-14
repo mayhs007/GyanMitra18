@@ -169,4 +169,15 @@ class Event extends Model
             return false;
         }
     }
+    function hasFull()
+    {
+        if($this->isFull)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

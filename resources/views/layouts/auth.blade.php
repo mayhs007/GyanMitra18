@@ -15,6 +15,7 @@
 {{ HTML::Script("js/materialize.min.js") }}
 {{ HTML::Script("js/materialize-stepper.min.js") }}    
 {{ HTML::Script("js/app.js") }}
+{{ HTML::Script("js/select.js") }}
 <body>
 @include('layouts.partials.auth_nav')
 @include('layouts.partials.flash')

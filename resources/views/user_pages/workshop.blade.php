@@ -39,14 +39,19 @@
             @endforeach  
             <br>
             <br>
-            @if(Auth::check())
-                @if(Auth::user()->hasRegistered($event->id))
-                    <a href="{{route('user_pages.dashboard')}}"  class="waves-effect waves-light btn green pulse">GO TO DASHBOARD</a>
+            @if(!$event->isFull)
+                @if(Auth::check())
+                    @if(Auth::user()->hasRegistered($event->id))
+                        <a href="{{route('user_pages.dashboard')}}"  class="waves-effect waves-light btn green pulse">GO TO DASHBOARD</a>
+                    @else
+                        <a href="#"  data-event="{{ $event->id }}" class="waves-effect waves-light btn btn-register-event green pulse">RESERVE MY SEAT</a>
+                    @endif
                 @else
-                    <a href="#"  data-event="{{ $event->id }}" class="waves-effect waves-light btn btn-register-event green pulse">RESERVE MY SEAT</a>
+                    <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  red pulse">LOGIN TO RESERVE YOUR SEAT </a>
                 @endif
             @else
-                <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  red pulse">LOGIN TO RESERVE YOUR SEAT </a>
+                <p class="red-text">Registeration Overed</p>
+            
             @endif
         </div>
     </div>

@@ -122,6 +122,7 @@
             $('.collapsible').collapsible();
             $('.btn-collapse-sidebar').sideNav();
 
+
             function pulsate($obj) {
                 var original = $obj.css('font-size');
                 $obj.css({ 'width': original });
