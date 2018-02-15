@@ -114,7 +114,7 @@ class EventsController extends Controller
         Session::flash('success', 'The event was deleted successfully!');
         return redirect()->route('admin::events.index');
     }
-    public function full($id)
+    public function fullclose($id)
     {
         $event = Event::findOrFail($id);
         $event->isFull=true;
@@ -143,10 +143,16 @@ class EventsController extends Controller
             $user->confirmation=false;
             $user->save();       
         }
-        Session::flash('success', 'The event was fulled successfully!');
+        Session::flash('success', 'The event was Closed successfully!');
         return redirect()->route('admin::events.index');
-        
-
-
     }
+    public function fullopen($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->isFull=false;
+        $event->save();
+        Session::flash('success', 'The event was Opened successfully!');
+        return redirect()->route('admin::events.index');
+    }
+    
 }

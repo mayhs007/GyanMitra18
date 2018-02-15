@@ -171,8 +171,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
         Route::post('requests', 'AdminPagesController@replyRequest');    
         // Resource route for users
         Route::resource('users', 'UsersController', ['except' => ['show']]);
-        Route::get('full/{event_id}', ['as' => 'events.full', 'uses' => 'EventsController@full']);
-        Route::post('full/{event_id}', ['as' => 'events.full', 'uses' => 'EventsController@full']);
+        Route::get('fullopen/{event_id}', ['as' => 'events.full.open', 'uses' => 'EventsController@fullopen']);
+        Route::post('fullopen/{event_id}', ['as' => 'events.full.open', 'uses' => 'EventsController@fullopen']);
+        Route::get('fullclose/{event_id}', ['as' => 'events.full.close', 'uses' => 'EventsController@fullclose']);
+        Route::post('fullclose/{event_id}', ['as' => 'events.full.close', 'uses' => 'EventsController@fullclose']);
 
         Route::resource('events', 'EventsController', ['except' => ['show']]);
               

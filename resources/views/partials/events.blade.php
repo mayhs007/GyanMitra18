@@ -77,7 +77,11 @@
             {!! Form::open(['url' => route('admin::events.destroy', ['id' => $event->id]), 'method' => 'delete', 'style' => 'display:inline']) !!}
                 {!! Form::submit('Delete', ['class' => 'btn red waves-effect waves-light btn-delete-event']) !!}
             {!! Form::close() !!}
-            <a href="{{ route('admin::events.full', ['event_id' => $event->id]) }}" class="btn red waves-effect waves-light">Close Registration</a>
+            @if($event->isFull)
+            <a href="{{ route('admin::events.full.open', ['event_id' => $event->id]) }}" class="btn green waves-effect waves-light">Open Registration</a>
+            @else
+            <a href="{{ route('admin::events.full.close', ['event_id' => $event->id]) }}" class="btn red waves-effect waves-light">Close Registration</a> 
+            @endif
             @if($event->hasPrizes())
                 <a href="#" class="btn waves-light dropdown-button waves-effect green" data-activates="prize-dropdown-{{ $event->id }}">Prizes</a>
                 <ul id="prize-dropdown-{{ $event->id }}" class="dropdown-content">

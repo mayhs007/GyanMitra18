@@ -50,7 +50,7 @@
                     <a href="{{route('auth.login')}}" class="waves-effect waves-light btn  red pulse">LOGIN TO RESERVE YOUR SEAT </a>
                 @endif
             @else
-                <p class="red-text">Registeration Overed</p>
+                <p class="red-text">Registeration CLosed</p>
             
             @endif
         </div>
