@@ -22,6 +22,7 @@ use App\Config;
 use App\College;
 use App\Department;
 use Excel;
+use PDF;
 
 class AdminPagesController extends Controller
 {
@@ -439,7 +440,8 @@ class AdminPagesController extends Controller
             $workshop_check=false;
             return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count)->with('event_check',$event_check)->with('workshop_check',$workshop_check);            
         }
-        else if($inputs['report_type'] == 'Download Excel'){
+        else if($inputs['report_type'] == 'Download Excel')
+        {
             $usersArray = [];
             foreach($users as $user){
                 $userArray['GMID'] = $user->id;                
@@ -509,6 +511,11 @@ class AdminPagesController extends Controller
                     $sheet->fromArray($usersArray);
                 });
             })->download('xlsx');
+        }
+        else if($inputs['report_type'] == 'Download Pdf')
+        {
+          $pdf = PDF::loadView('admin_pages.attendance', ['users' => $users]);
+          return $pdf->download('Attendance.pdf');
         }
     }
     
@@ -882,6 +889,27 @@ class AdminPagesController extends Controller
                     $sheet->fromArray($usersArray);
                 });
             })->download('xlsx');
+        }elseif($inputs['report_type'] == 'Download College Count')
+        {
+            $colleges=College::all()->sort();
+            $usersArray = [];
+            $usersArray["College_name"]=[];
+            $usersArray["Count"]=[];
+            $count=0;
+            foreach($colleges as $college)
+            {
+                if($college->users->count()>0)
+                {
+                    array_push($usersArray["College_name"],$college->name);
+                    array_push($usersArray['Count'],$college->users->count());
+                }
+                
+            }
+            Excel::create('College_report', function($excel) use($usersArray){
+                $excel->sheet('Sheet1', function($sheet) use($usersArray){
+                    $sheet->fromArray($usersArray);
+                });
+            })->download('xlsx');
         }
     }
     function reportAccomodations(Request $request){
@@ -1053,5 +1081,6 @@ class AdminPagesController extends Controller
         //$payments = $payments->paginate(10);
         return view('admin_pages.payments')->with('registrations', $payments)->with('registrations_count',$payments_count);
     }
+    
     
 }

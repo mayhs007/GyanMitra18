@@ -196,7 +196,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin::', 'middleware' => ['auth','a
         Route::get('reports/allregistrations', ['as' => 'reports.allregistrations', 'uses' => 'AdminPagesController@reportallRegistrations']);
         Route::get('reports/workshopregistrations', ['as' => 'reports.workshopregistrations', 'uses' => 'AdminPagesController@reportWorkshopRegistrations']);   
         Route::get('reports/domainregistrations', ['as' => 'reports.domainregistrations', 'uses' => 'AdminPagesController@reportDomainRegistrations']);   
-        Route::get('reports/accomodations', ['as' => 'reports.accomodations', 'uses' => 'AdminPagesController@reportAccomodations']);    
+        Route::get('reports/accomodations', ['as' => 'reports.accomodations', 'uses' => 'AdminPagesController@reportAccomodations']);
+        Route::get('reports/attendance', ['as' => 'events.attendance', 'uses' => 'AdminPagesController@reportRegistrations']);    
     });
     Route::resource('colleges', 'CollegesController', ['except' => 'show']);   
     // Integrated terminal for developers

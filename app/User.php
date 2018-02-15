@@ -126,15 +126,15 @@ class User extends Authenticatable
                    
                 }
             }
-            else
+            else if($this->payment->mode_of_payment=='online')
             {
-                if($this->payment->transaction_id== null){
+                if($this->payment->transaction_id== null)
+                {
                     return false;
                 }
                 else
                 {
-                   return true;
-                   
+                   return true;  
                 }
             }
            

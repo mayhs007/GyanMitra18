@@ -23,6 +23,13 @@ class CheckRegistration
     {
         // Check if user has confirmed his registrations
         $user=Auth::user();
+        $event = Event::findOrFail($event_id);
+        if($event->isFull())
+        {
+            Session::flash('success', 'Sorry! Registration Closed ');         
+            return redirect()->route('user_pages.dashboard');                                           
+        }
+        
         if($user->hasConfirmed()){
             Session::flash('success', 'Sorry! you have already confirmed your events');         
             return redirect()->route('user_pages.dashboard');                                           

@@ -38,10 +38,10 @@
         $('.attendance').on('change', function(){
             var user = $(this).attr('data-id');            
             if($(this).is(' :checked')){
-                var url = "/legacy17/public/admin/registrations/" + user + "/present";
+                var url = "/gyanmitra18/public/admin/registrations/" + user + "/present";
             }
             else{
-                var url = "/legacy17/public/admin/registrations/" + user + "/absent";                
+                var url = "/gyanmitra18/public/admin/registrations/" + user + "/absent";                
             }
             $.ajax({
                 url: url,
