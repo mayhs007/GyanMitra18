@@ -76,11 +76,13 @@
                 </tr>
                 <tr>
                 <th>Mode Of Payment</th>
-                @if($user->payment)
-                   <td> {{$user->payment->mode_of_payment}}</td>
+                @if($user->hasPaid())
+                   <td>{{$user->payment->mode_of_payment}}</td>
                     @if($user->payment->mode_of_payment=='dd')
                     <a href="{{config('app.url')}}/uploads/Event/demand_draft/{{$user->payment->file_name}}" class= "right" target="_blank">View Ticket <i class="fa fa-eye"></i></a></td>
                     @endif
+                @else
+                    <td class="red-text">NOT PAID</td>
                 @endif   
             </td>
     

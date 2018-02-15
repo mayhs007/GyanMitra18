@@ -144,13 +144,21 @@ class User extends Authenticatable
     }
     function hasConfirmedDD()
     {
-        if($this->payment->status == 'ack')
+        if($this->hasPaid())
         {
+            if($this->payment->status == 'ack')
+            {
             return true;
+            }   
+            else
+            {
+            return false;
+            }
         }
         else
         {
             return false;
+
         }
     }
     function hasPaidAccomodation(){
