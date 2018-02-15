@@ -149,7 +149,7 @@
     <li style="list-style: none">
                 {{ $event->title }}
             </li>
-        @endforeach
+    @endforeach
 @endif
 <hr>
      </body>

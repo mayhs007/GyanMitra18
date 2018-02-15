@@ -463,6 +463,21 @@ class AdminPagesController extends Controller
                 else{
                     $userArray['Events']='-';
                 }
+                if($user->TeamEvents()->count() >0 )
+                {   
+                    $events = $user->TeamEvents();
+                    $evente=" ";
+                    foreach($events as $event)
+                    {
+                        $evente.=$event->title;
+                        $evente.=',';
+                    }
+                    $userArray['Team Events']=$evente;
+                        
+                }
+                else{
+                    $userArray['Team Events']='-';
+                }
                 $userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 if($user->hasPaid())
@@ -658,10 +673,7 @@ class AdminPagesController extends Controller
                          array_push($user_ids,$user->id);
                         }
                     }
-                   
-
-                
-            }
+                }
             $users=User::all()->whereIn('id',$user_ids);
         
         }
@@ -720,16 +732,17 @@ class AdminPagesController extends Controller
                     $userArray['Events']=$evente;
                         
                 }
-                else{
+                else
+                {
                     $userArray['Events']='-';
                 }
-                if($user->hasTeams())
+                if($user->TeamEvents()->count() >0 )
                 {   
-                    $events = $user->events()->where('max_members','>',1)->pluck('title');
+                    $events = $user->TeamEvents();
                     $evente=" ";
                     foreach($events as $event)
                     {
-                        $evente.=$event;
+                        $evente.=$event->title;
                         $evente.=',';
                     }
                     $userArray['Team Events']=$evente;
@@ -773,14 +786,17 @@ class AdminPagesController extends Controller
     }
     function reportallRegistrations(Request $request){
         $inputs = Request::all();
-        $users=User::all()->where('type','student');
-        if($inputs['report_type'] == 'View Report'){
+        $users=User::all()->where('type','student')->where('activated',true);
+        if($inputs['report_type'] == 'View Report')
+        {
             
             $users_count = $users->count();
             $page = Input::get('page', 1);
             $per_page = 10;
             $users = $this->paginate($page, $per_page, $users);
-            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+            $event_check=true;
+            $workshop_check=true;
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count)->with('event_check',$event_check)->with('workshop_check',$workshop_check);            
         }
         else if($inputs['report_type'] == 'Download Excel'){
             $usersArray = [];
@@ -820,13 +836,13 @@ class AdminPagesController extends Controller
                 else{
                     $userArray['Events']='-';
                 }
-                if($user->hasTeams())
+                if($user->TeamEvents()->count() >0 )
                 {   
-                    $events = $user->events()->where('max_members','>',1)->pluck('title');
+                    $events = $user->TeamEvents();
                     $evente=" ";
                     foreach($events as $event)
                     {
-                        $evente.=$event;
+                        $evente.=$event->title;
                         $evente.=',';
                     }
                     $userArray['Team Events']=$evente;

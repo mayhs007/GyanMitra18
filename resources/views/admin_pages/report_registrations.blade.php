@@ -99,16 +99,11 @@
                                 @else
                                     <td class="center">-</td>
                                 @endif 
-                                @if($user->TeamEvents())
+                                @if($user->TeamEvents()->count() > 0)
                                     <td>
-                                    @foreach($user->events as $event)
-                                        @if($user->isTeamLeader($event->id))
-                                            {{$event->title}}<br>
-                                        @elseif($user->isTeamMember($event->id))
-                                            {{$event->title}}<br>
-                                        @endif
-                                    @endforeach 
-                                    s
+                                    @foreach($user->teamEvents() as $event)
+                                        {{ $event->title }}<br>
+                                    @endforeach
                                     </td>
                                 @else
                                     <td class="center">-</td>
