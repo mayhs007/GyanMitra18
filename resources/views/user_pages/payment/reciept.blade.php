@@ -15,13 +15,17 @@
         }
         body{
             border: 1px solid #000;
-            padding: 5px;
-    
+           
         }
+        img{
+            width:100%;
+            height:100%;
+        }
+        
     </style>    
     </head>
     <body>
-    
+        <img src="image/header.jpg" class="img-responsive" alt="Header Image">
         <p class="header text-uppercase">Participation Details</p>
         <table>
             <tbody>
@@ -147,6 +151,6 @@
             </li>
         @endforeach
 @endif
-
+<hr>
      </body>
 </html>
