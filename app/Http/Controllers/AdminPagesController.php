@@ -28,7 +28,7 @@ class AdminPagesController extends Controller
     use Utilities;
 
     function root(){
-        $registered_count = User::where('type', 'student')->count();
+        $registered_count = User::where('type', 'student')->where('activated', true)->count();
         $present_count = User::where('type', 'student')->where('present', true)->count();        
         $confirmed_registrations =User::where('type', 'student')->where('confirmation', true)->count();
         $users = User::all()->where('type', 'student')->where('activated', true); 
@@ -369,15 +369,15 @@ class AdminPagesController extends Controller
             $departments=['all' => 'All'];
             $workshops=['all' => 'All'];
             $events=['all' => 'All'];        
-            $events += Event::where('category_id',2)->pluck('title', 'id')->toArray();
-            $workshops += Event::where('category_id',1)->pluck('title', 'id')->toArray();                    
+            $events += Event::where('category_id',2)->pluck('title', 'id')->sort()->toArray();
+            $workshops += Event::where('category_id',1)->pluck('title', 'id')->sort()->toArray();                    
         }else{
             $colleges = ['all' => 'All'];
             $events = [];
             $workshops=[];
             $departments = [];
-            $events += Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->toArray();
-            $workshops +=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->toArray();         
+            $events += Auth::user()->organizings->where('category_id',2)->pluck('title', 'id')->sort()->toArray();
+            $workshops +=Auth::user()->organizings->where('category_id',1)->pluck('title', 'id')->sort()->toArray();         
         }
           $colleges += College::pluck('name', 'id')->sort()->toArray();
           $departments += Department::pluck('name', 'id')->toArray();
@@ -437,7 +437,7 @@ class AdminPagesController extends Controller
             $users = $this->paginate($page, $per_page, $users);
             $event_check=true;
             $workshop_check=false;
-            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count);            
+            return view('admin_pages.report_registrations')->with('users', $users)->with('users_count', $users_count)->with('event_check',$event_check)->with('workshop_check',$workshop_check);            
         }
         else if($inputs['report_type'] == 'Download Excel'){
             $usersArray = [];
@@ -640,11 +640,26 @@ class AdminPagesController extends Controller
             {
                 $event=Event::findOrFail($event_id);
                 
-                    foreach($event->users as $user)
+                    if($event->isGroupEvent())
                     {
-                     array_push($user_ids,$user->id);
+                        foreach($event->teams as $team)
+                        {
+                            array_push($user_ids, $team->user_id);
+                            foreach($team->teamMembers as $teamMember)
+                            {
+                                array_push($user_ids, $teamMember->user->id);
+                            }
+                        }
                     }
-                    
+                    else
+                    {
+                        foreach($event->users as $user)
+                        {
+                         array_push($user_ids,$user->id);
+                        }
+                    }
+                   
+
                 
             }
             $users=User::all()->whereIn('id',$user_ids);
@@ -920,9 +935,7 @@ class AdminPagesController extends Controller
         $search = Input::get('search', '');
         $search = $search . '%';
         $user_ids = User::search($search)->pluck('id')->toArray();
-        $requests = Confirmation::all()->where('file_name', '<>',  null)->whereIn('user_id', $user_ids)->filter(function($confirmation){
-            return $confirmation->user->needApproval();
-        });
+        $requests = User::all()->where('confirmation',true);
         $requests_count = $requests->count();
         $page = Input::get('page', 1);
         $per_page = 10;

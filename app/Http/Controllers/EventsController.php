@@ -139,7 +139,7 @@ class EventsController extends Controller
             $rejection->user_id = $user->id;
             $user->rejections()->save($rejection);
             $user->events()->detach($event->id);
-            $user->payment->delete();
+            $user->payment()->delete();
             $user->confirmation=false;
             $user->save();       
         }

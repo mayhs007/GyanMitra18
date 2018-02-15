@@ -85,11 +85,7 @@
                         <h5 class="white-text"><i class="fa fa-thumbs-up"></i> {{ $confirmed_registrations }} Confirmed</h5>
                     </div>
                 </div>
-                @if(Auth::user()->hasRole('root'))
-                    <div class="card-action">
-                        {{ link_to_route('admin::requests.all', 'View all Requests') }}                        
-                    </div>
-                @endif
+               
             </div>
         </div>
         <div class="col s6">

@@ -32,15 +32,19 @@
                         <th>
                             Mobile
                         </th>
+                        @if($workshop_check)
                         <th>
                             Workshop
                         </th>
+                        @endif
+                        @if($event_check)
                         <th>
                             Event
                         </th>
                         <th>
                             Team Event
                         </th>
+                        @endif
                         <th>
                             SAE 
                         </th>
@@ -95,11 +99,16 @@
                                 @else
                                     <td class="center">-</td>
                                 @endif 
-                                @if($user->hasTeams())
+                                @if($user->TeamEvents())
                                     <td>
-                                    @foreach($user->TeamEvents() as $events)
-                                        {{$events->title}}<br>
-                                    @endforeach
+                                    @foreach($user->events as $event)
+                                        @if($user->isTeamLeader($event->id))
+                                            {{$event->title}}<br>
+                                        @elseif($user->isTeamMember($event->id))
+                                            {{$event->title}}<br>
+                                        @endif
+                                    @endforeach 
+                                    s
                                     </td>
                                 @else
                                     <td class="center">-</td>
