@@ -82,8 +82,4 @@
             Tamilnadu</p>
                     
 </ol>
-
-
-
-
 @endsection

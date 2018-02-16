@@ -531,14 +531,6 @@ class AdminPagesController extends Controller
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
     function reportWorkshopRegistrations(Request $request){
         $inputs = Request::all();
         $workshop_id=$inputs['workshop_id'];
@@ -953,6 +945,23 @@ class AdminPagesController extends Controller
                 
             }
             Excel::create('College_report', function($excel) use($usersArray){
+                $excel->sheet('Sheet1', function($sheet) use($usersArray){
+                    $sheet->fromArray($usersArray);
+                });
+            })->download('xlsx');
+        }elseif($inputs['report_type'] == 'Download Event Count')
+        {
+            $usersArray['Event_name']=[];
+            $usersArray['Domain_name']=[];
+            $usersArray['Count']=[];
+            $events=Event::all()->where('category_id',2);
+            foreach($events as $event)
+            {
+                array_push($usersArray['Event_name'],$event->title);
+                array_push( $usersArray['Domain_name'],$event->department->name);
+                array_push( $usersArray['Count'],$event->users->count());
+            }
+            Excel::create('Event_Count_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
                     $sheet->fromArray($usersArray);
                 });

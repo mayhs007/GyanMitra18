@@ -54,7 +54,7 @@
                                     <div class="time">
                                           <span id="days" class="header red-text"></span>
                                           &nbsp
-                                          
+                                          &nbsp
                                           <span id="hours" class="header yellow-text"></span>
                                           &nbsp
                                           &nbsp
@@ -64,8 +64,9 @@
                                           <span id="seconds" class="header green-text"></span>
                                     </div>
                                     <div class="word">
-                                          <span class="header red-text">DAYS</span>
+                                          <span class="header red-text">DAY</span>
                                           &nbsp
+                                    
                                           &nbsp
                                           <span class="header yellow-text">HOURS </span>
                                           &nbsp
