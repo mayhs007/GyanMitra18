@@ -15,7 +15,7 @@
                         <div class="switch">
                             <label>
                                 Absent
-                                <input class="attendance" data-id="{{ $user->id }}" {{ $user->present? "checked":'' }}" type="checkbox">
+                                <input class="attendance" data-id="{{ $user->id }}" {{ $user->present? "checked":" " }}" type="checkbox">
                                 <span class="lever"></span>
                                 Present
                             </label>
