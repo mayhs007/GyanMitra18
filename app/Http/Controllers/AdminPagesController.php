@@ -954,13 +954,22 @@ class AdminPagesController extends Controller
             $usersArray['Event_name']=[];
             $usersArray['Domain_name']=[];
             $usersArray['Count']=[];
-            $events=Event::all()->where('category_id',2);
+            $events=Event::all()->where('category_id',2)->where('min_members',1);
+            $count=0;
             foreach($events as $event)
             {
+                
                 array_push($usersArray['Event_name'],$event->title);
                 array_push( $usersArray['Domain_name'],$event->department->name);
-                
-                array_push( $usersArray['Count'],$event->users->hasPaid()->count());
+                foreach($event->users as $user)
+                {
+                    if($user->hasPaid())
+                    {
+                        $count++;
+                    }
+                }
+                array_push( $usersArray['Count'],$count);
+                $count=0;
             }
             Excel::create('Event_Count_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
