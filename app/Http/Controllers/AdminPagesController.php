@@ -1034,8 +1034,12 @@ class AdminPagesController extends Controller
         $user_id = $inputs['user_id'];
         $user = User::find($user_id);
         if($inputs['submit'] == 'Accept'){
-            $user->payment->status = 'ack';
-            $user->payment->payment_status='paid';
+            $user->payment->mode_of_payment="spot";
+            $user->payment->payment_status="paid";
+            $user->payment->status="ack";
+            $user->payment->user_id=$user->id;
+            $user->payment->amount=$user->getTotalAmount();
+
         }
         else if($inputs['submit'] == 'Reject'){
             $user->payment->status = 'nack';
