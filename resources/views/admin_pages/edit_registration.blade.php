@@ -92,8 +92,8 @@
                         {!! Form::hidden('user_id', $registration->id) !!}
                         <div class="input-field">
                                         <?php 
-                                            $accepted = $registration->hasConfirmedDD()?'disabled':'';
-                                            $rejected = $registration->isRejected()?'disabled':'';
+                                            $accepted = $registration->hasPaid()?'disabled':'';
+                                            $rejected = !$registration->hasPaid()?'disabled':'';
                                         ?>
                                         {!! Form::submit('Accept', ['class' => "btn green $accepted", 'name' => 'submit']) !!}
                                         {!! Form::submit('Reject', ['class' => "btn red $rejected", 'name' => 'submit']) !!}

@@ -136,6 +136,9 @@ class User extends Authenticatable
                 {
                    return true;  
                 }
+            }else if($this->payment->mode_of_payment=="spot")
+            {
+                return true;
             }
            
             
@@ -564,8 +567,8 @@ class User extends Authenticatable
         return $totalAmount;
     }
     function doPayment($txnid){
-        foreach($this->getUsersToPay() as $user){
-           
+        foreach($this->getUsersToPay() as $user)
+        {
             $payment->user_id = $user->id;
             $payment->transaction_id = $txnid;
             $user->payment()->save($payment);
@@ -625,7 +628,7 @@ class User extends Authenticatable
         }
     }
     function isRejected(){
-        if($this->payment && $this->payment->status == 'nack'){
+        if($this->payment){
             return true;
         }
         return false;

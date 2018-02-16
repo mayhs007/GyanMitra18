@@ -299,7 +299,11 @@ class AdminPagesController extends Controller
                 Session('success', 'User has already done his payment');                      
             }
             else{
-                $user->doPayment(null);
+                  $user->payment->mode_of_payment="spot";
+                  $user->payment->payment_status="paid";
+                  $user->payment->status="ack";
+                  $user->payemnt->user_id=$user->id;
+                  $user->payment->amount=$user->getTotalAmount();
                // $this->rejectOtherRegistrations($user->id);
             }
         }
@@ -343,6 +347,13 @@ class AdminPagesController extends Controller
         else{
             $user->confirmation=true;
             $user->save();
+            $payment=new Payment();
+            $payment->user_id=$user->id;
+            $payment->payment_status='notpaid';
+            $payment->status='nack';
+            $payment->mode_of_payment='unknown';
+            $payment->amount=$user->getTotalAmount();
+            $payment->save();
             Session('success', 'You have Confirmed the registration');
         }
         return redirect()->route('admin::registrations.edit', ['user_id' => $user_id]);
