@@ -586,6 +586,8 @@ class AdminPagesController extends Controller
         }
         else if($inputs['report_type'] == 'Download Excel'){
             $usersArray = [];
+            //$college_id=$college_id->sort();
+            
             foreach($users as $user){
                 $userArray['GMID'] = $user->id;                
                 $userArray['FirstName'] = $user->first_name;
@@ -639,6 +641,31 @@ class AdminPagesController extends Controller
                     $sheet->fromArray($usersArray);
                 });
             })->download('xlsx');
+        }else if($inputs['report_type'] == 'Download Pdf' && $inputs['workshop_id']!="all")
+        {
+          $workshop=Event::findOrFail($inputs['workshop_id']);
+        $pdf = PDF::loadView('admin_pages.attendance', ['users' => $users,'event'=>$workshop]);
+          return $pdf->download('Attendance.pdf');
+        }
+        else
+        {
+            if($inputs['report_type'] == 'Download College')
+            {
+                $colleges=College::all()->sort();
+                //$colleges=College::all()->sort();
+                $usersArray = [];
+                //$usersArray["College_name"]=[];
+                //$usersArray["Count"]=[];
+                //$count=0;
+                foreach($colleges as $college)
+                {
+                
+                    Excel::create('College', function($excel) use($usersArray){
+                        $excel->sheet('Sheet1', function($sheet) use($usersArray){
+                            $sheet->fromArray($usersArray);
+                        });
+                    })->download('xlsx');
+                }
         }
     }
    

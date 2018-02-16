@@ -38,10 +38,10 @@
         $('.attendance').on('change', function(){
             var user = $(this).attr('data-id');            
             if($(this).is(' :checked')){
-                var url = "http://localhost:8000/admin/registrations/" + user + "/present";
+                var url = "http://www.mepcoeng.ac.in/gyanmitra18/public/admin/registrations/" + user + "/present";
             }
             else{
-                var url = "http://localhost:8000/admin/registrations/" + user + "/absent";                
+                var url = "http://www.mepcoeng.ac.in/gyanmitra18/public/admin/admin/registrations/" + user + "/absent";                
             }
             $.ajax({
                 url: url,

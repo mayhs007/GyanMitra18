@@ -99,7 +99,10 @@
             {!! Form::submit('View Report',  ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}       
             </div>
             <div class="col s3">
-            {!! Form::submit('Download Excel', ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}  
+            {!! Form::submit('Download Excel', ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}
+            </div>
+            <div class="col s3">
+            {!! Form::submit('Download Pdf', ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}  
         {!! Form::close() !!}   
             </div> 
     </div>
@@ -138,7 +141,9 @@
             {!! Form::submit('View Report',  ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}       
             </div>
             <div class="col s3">
-            {!! Form::submit('Download Excel', ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}  
+            {!! Form::submit('Download Excel', ['class' => 'btn waves-effect waves-light green', 'name' => 'report_type']) !!}
+            </div>
+            
         {!! Form::close() !!}   
             </div> 
     </div>

@@ -26,7 +26,12 @@
     </style>    
     </head>
     <body>
+        
+        
         <img src="image/header.jpg" class="img-responsive" alt="Header Image">
+        <center><h4>{{strtoupper($event->title)}}</h4></center>
+        
+        <hr>
         <table class="table table-striped">
         <thead>
         <tr>
