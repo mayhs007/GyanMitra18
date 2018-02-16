@@ -41,7 +41,7 @@
                 var url = "http://www.mepcoeng.ac.in/gyanmitra18/public/admin/registrations/" + user + "/present";
             }
             else{
-                var url = "http://www.mepcoeng.ac.in/gyanmitra18/public/admin/admin/registrations/" + user + "/absent";                
+                var url = "http://www.mepcoeng.ac.in/gyanmitra18/public/admin/registrations/" + user + "/absent";                
             }
             $.ajax({
                 url: url,
