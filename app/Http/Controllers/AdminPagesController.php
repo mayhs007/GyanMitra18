@@ -929,17 +929,27 @@ class AdminPagesController extends Controller
             })->download('xlsx');
         }elseif($inputs['report_type'] == 'Download College Count')
         {
-            $colleges=College::all()->sort();
-            $usersArray = [];
-            $usersArray["College_name"]=[];
-            $usersArray["Count"]=[];
+            
+            
+            $usersArray['College_name']=[];
+            $usersArray['Count']=[];
             $count=0;
+            $colleges=College::all()->sort();
             foreach($colleges as $college)
             {
                 if($college->users->count()>0)
                 {
-                    array_push($usersArray["College_name"],$college->name);
-                    array_push($usersArray['Count'],$college->users->count());
+                    array_push($usersArray['College_name'],$college->name);
+                    $users=$college->users;
+                    foreach($users as $user)
+                    {
+                        if($user->hasEvents())
+                        {
+                            $count++;
+                        }
+                    }
+                    array_push($usersArray['Count'],$count);
+                    $count=0;
                 }
                 
             }
