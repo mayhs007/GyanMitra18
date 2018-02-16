@@ -523,9 +523,10 @@ class AdminPagesController extends Controller
                 });
             })->download('xlsx');
         }
-        else if($inputs['report_type'] == 'Download Pdf')
+        else if($inputs['report_type'] == 'Download Pdf' && $inputs['event_id']!="all")
         {
-          $pdf = PDF::loadView('admin_pages.attendance', ['users' => $users]);
+            $event=Event::findOrFail($inputs['event_id']);
+            $pdf = PDF::loadView('admin_pages.attendance', ['users' => $users,'event'=>$event]);
           return $pdf->download('Attendance.pdf');
         }
     }
@@ -929,8 +930,6 @@ class AdminPagesController extends Controller
             })->download('xlsx');
         }elseif($inputs['report_type'] == 'Download College Count')
         {
-            
-            
             $usersArray['College_name']=[];
             $usersArray['Count']=[];
             $count=0;

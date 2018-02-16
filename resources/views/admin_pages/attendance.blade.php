@@ -15,6 +15,7 @@
         }
         body{
             border: 1px solid #000;
+            font-size:10px;
 
            
         }
@@ -32,13 +33,14 @@
         <center><h4>{{strtoupper($event->title)}}</h4></center>
         
         <hr>
-        <table class="table table-striped">
+        <table class="table table-striped ">
         <thead>
         <tr>
             <th>GMID</th>
             <th>NAME</th>
             <th>College</th>
             <th>Contact</th>
+            <th>Certificate_Name</th>
             <th>Signature</th>
         </tr>
         </thead>
@@ -49,6 +51,7 @@
             <td>{{$user->first_name}} {{$user->last_name}}</td>
             <td>{{ $user->college->getQualifiedName() }}</td>
             <td>{{$user->mobile}}</td>
+            <td> </td>
             <td> </td>
         </tr>
         @endforeach
