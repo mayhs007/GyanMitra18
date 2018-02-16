@@ -920,7 +920,7 @@ class AdminPagesController extends Controller
                     $sheet->fromArray($usersArray);
                 });
             })->download('xlsx');
-        }elseif($inputs['report_type'] == 'College Count')
+        }elseif($inputs['report_type'] == 'Download College Count')
         {
             $usersArray['College_name']=[];
             $usersArray['Count']=[];
@@ -959,7 +959,8 @@ class AdminPagesController extends Controller
             {
                 array_push($usersArray['Event_name'],$event->title);
                 array_push( $usersArray['Domain_name'],$event->department->name);
-                array_push( $usersArray['Count'],$event->users->count());
+                
+                array_push( $usersArray['Count'],$event->users->hasPaid()->count());
             }
             Excel::create('Event_Count_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
@@ -1083,7 +1084,7 @@ class AdminPagesController extends Controller
             $user->payment->payment_status="paid";
             $user->payment->status="ack";
             $user->payment->user_id=$user->id;
-            $user->payment->amount=$user->getTotalAmount();
+            $user->payment->amount=200;
 
         }
         else if($inputs['submit'] == 'Reject'){

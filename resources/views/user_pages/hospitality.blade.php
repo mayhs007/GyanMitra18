@@ -147,7 +147,7 @@
                                             @endif
                                         </div>
                                     @else
-                                        @if($user->accomodation->acc_status=='paid')
+                                        @if($user->accomodation->acc_payment_status=='paid')
                                             <p class="green-text"><i class="fa fa-check"></i> Hurray! your payment is confirmed, we are excited to see you at GyanMitra18</p>
                                             <p>
                                             {{ link_to_route('user_pages.payment.reciept', 'Download Payment Reciept', null, ['class' => 'waves-effect waves-light btn green']) }}
