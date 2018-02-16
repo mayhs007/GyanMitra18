@@ -51,14 +51,37 @@
                   <div class="row">
                         <div class="container">
                               <div class="col m12">
-                              <br>
-                              <br>
-                              <br>
-                              <br>
-                                    <h4 class="header red-text center">THE MOST AWAITED EVENT IS ONGOING</h4>
+                                    <div class="time">
+                                          <span id="days" class="header red-text"></span>
+                                          &nbsp
+                                          
+                                          <span id="hours" class="header yellow-text"></span>
+                                          &nbsp
+                                          &nbsp
+                                          <span id="minutes" class="header blue-text"></span>
+                                          &nbsp
+                                          &nbsp
+                                          <span id="seconds" class="header green-text"></span>
+                                    </div>
+                                    <div class="word">
+                                          <span class="header red-text">DAYS</span>
+                                          &nbsp
+                                          &nbsp
+                                          <span class="header yellow-text">HOURS </span>
+                                          &nbsp
+                                          &nbsp
+                                          <span class="header blue-text">MINUTES</span>
+                                          &nbsp
+                                          &nbsp
+                                          <span class="header green-text">SECONDS</span>
+                                    </div>
+                                    <div class="row">
                                     <br>
-                                    <h4 class="header yellow-text center">THANKS FOR THE OVERWHELMING SUPPORT</h4>
                                     <br>
+                                    <h4 class="header deep-orange-text  text-accent-3 center">THE MOST AWAITED EVENT IS ONGOING</h4s>
+                                    <br>
+                                    <h4 class="header cyan-text  text-lighten-1 center">THANK YOU FOR OVERWHELMING SUPPORT</h4>
+                                    </div>
                               </div>
                         </div>
                   </div>
@@ -67,11 +90,15 @@
                   <div class="row">
                         <div class="container">
                               <div class="col s4">
-                              <br>
-                              <h4 class="header red-text center">THE MOST AWAITED EVENT IS ONGOING</h4>
-                              <br>
-                              <h4 class="header yellow-text center">THANKS FOR THE OVERWHELMING SUPPORT</h4>
-                              <br>
+                                    <div class="words">
+                                          <p class="header red-text item">DAYS &nbsp<div id="dayss" class="header red-text "></div></p>
+                                    
+                                          <p class="header yellow-text item">HOURS &nbsp<div id="hourss" class="header yellow-text "></div></p>
+                                      
+                                          <p class="header blue-text item">MINUTES &nbsp<div id="minutess" class="header blue-text "></div></p>
+                                        
+                                          <p class="header green-text item">SECONDS &nbsp<div id="secondss" class="header green-text "></div></p>
+                                    </div>
                               </div>
                         </div>
                   </div>
