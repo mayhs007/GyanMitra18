@@ -920,7 +920,7 @@ class AdminPagesController extends Controller
                     $sheet->fromArray($usersArray);
                 });
             })->download('xlsx');
-        }elseif($inputs['report_type'] == 'Download College Count')
+        }elseif($inputs['report_type'] == 'College Count')
         {
             $usersArray['College_name']=[];
             $usersArray['Count']=[];
@@ -949,7 +949,7 @@ class AdminPagesController extends Controller
                     $sheet->fromArray($usersArray);
                 });
             })->download('xlsx');
-        }elseif($inputs['report_type'] == 'Download Event Count')
+        }elseif($inputs['report_type'] == 'Event Count')
         {
             $usersArray['Event_name']=[];
             $usersArray['Domain_name']=[];
