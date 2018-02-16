@@ -15,7 +15,7 @@
                         <div class="switch">
                             <label>
                                 Absent
-                                {!! Form::checkbox(' ',$user->present? true:false , 1, ['class' => 'attendance','data-id="$user->id"']) !!}
+                                {!! Form::checkbox(' ',$user->present? false:true , 1, ['class' => 'attendance','data-id="$user->id"']) !!}
                                 
                                 <span class="lever"></span>
                                 Present
