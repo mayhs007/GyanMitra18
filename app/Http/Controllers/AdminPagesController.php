@@ -666,7 +666,7 @@ class AdminPagesController extends Controller
                         });
                     })->download('xlsx');
                 }
-        }
+        }}
     }
    
    
