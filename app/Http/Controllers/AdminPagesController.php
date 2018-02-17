@@ -828,9 +828,28 @@ class AdminPagesController extends Controller
         $users = $users->filter(function($user){
                 return $user->hasPaid() == 'paid';
         });
+        $users=$users->filter(function($user){
+            return $user->hasRegisteredBoth();
+        });
+        $registered_both=$users;
+        $users=User::all()->where('type','student')->where('activated',true)->where('confirmation',true);
+        $users = $users->filter(function($user){
+            return $user->hasPaid() == 'paid';
+        });
         $users = $users->filter(function($user){
             return !$user->hasWorkshop();
         });
+        //$spot_registeration=$users;
+        $user_ids=[];
+        foreach($registered_both as $user)
+        {
+            array_push($user_ids,$user->id);
+        }
+        foreach($users as $user)
+        {
+            array_push($user_ids,$user->id);
+        }
+        $users=User::all()->whereIn('id',$user_ids);
         if($inputs['report_type'] == 'View Report')
         {
             $users_count = $users->count();
