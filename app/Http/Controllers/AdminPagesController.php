@@ -824,10 +824,15 @@ class AdminPagesController extends Controller
     }
     function reportallRegistrations(Request $request){
         $inputs = Request::all();
-        $users=User::all()->where('type','student')->where('activated',true);
+        $users=User::all()->where('type','student')->where('activated',true)->where('confirmation',true);
+        $users = $users->filter(function($user){
+                return $user->hasPaid() == 'paid';
+        });
+        $users = $users->filter(function($user){
+            return !$user->hasWorkshop();
+        });
         if($inputs['report_type'] == 'View Report')
         {
-            
             $users_count = $users->count();
             $page = Input::get('page', 1);
             $per_page = 10;
@@ -845,7 +850,7 @@ class AdminPagesController extends Controller
                 $userArray['Email'] = $user->email;
                 $userArray['College'] = $user->college->name;
                 $userArray['Gender'] = $user->gender;
-                if($user->hasWorkshop())
+            /*    if($user->hasWorkshop())
                 {   
                     $workshops = $user->events()->where('category_id',1)->pluck('title');
                     $workshopss=" ";
@@ -889,7 +894,7 @@ class AdminPagesController extends Controller
                 else{
                     $userArray['Team Events']='-';
                 }
-                $userArray['Mobile'] = $user->mobile;
+                */$userArray['Mobile'] = $user->mobile;
                 $userArray['Payment'] = $user->hasPaid()? 'Paid': 'Not Paid';
                 if($user->hasPaid())
                 {
@@ -934,7 +939,7 @@ class AdminPagesController extends Controller
                     $users=$college->users;
                     foreach($users as $user)
                     {
-                        if($user->hasEvents())
+                        if(!$user->hasWorkshop() && $user->hasPaid())
                         {
                             $count++;
                         }
@@ -942,7 +947,6 @@ class AdminPagesController extends Controller
                     array_push($usersArray['Count'],$count);
                     $count=0;
                 }
-                
             }
             Excel::create('College_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
@@ -954,22 +958,37 @@ class AdminPagesController extends Controller
             $usersArray['Event_name']=[];
             $usersArray['Domain_name']=[];
             $usersArray['Count']=[];
-            $events=Event::all()->where('category_id',2)->where('min_members',1);
+            $events=Event::all()->where('category_id',2);
             $count=0;
             foreach($events as $event)
             {
-                
-                array_push($usersArray['Event_name'],$event->title);
-                array_push( $usersArray['Domain_name'],$event->department->name);
-                foreach($event->users as $user)
+                if($event->isGroupEvent())
                 {
-                    if($user->hasPaid())
+                    array_push($usersArray['Event_name'],$event->title);
+                    array_push( $usersArray['Domain_name'],$event->department->name);
+                    foreach($event->users as $user)
                     {
-                        $count++;
+                        if($user->hasPaid())
+                        {
+                            $count++;
+                        }
                     }
+                    array_push( $usersArray['Count'],$count);
+                    $count=0;
+                }else
+                {
+                    array_push($usersArray['Event_name'],$event->title);
+                    array_push( $usersArray['Domain_name'],$event->department->name);
+                    foreach($event->users as $user)
+                    {
+                        if($user->hasPaid())
+                        {
+                            $count++;
+                        }
+                    }
+                    array_push( $usersArray['Count'],$count);
+                    $count=0;
                 }
-                array_push( $usersArray['Count'],$count);
-                $count=0;
             }
             Excel::create('Event_Count_report', function($excel) use($usersArray){
                 $excel->sheet('Sheet1', function($sheet) use($usersArray){
