@@ -908,9 +908,9 @@ class AdminPagesController extends Controller
                         $userArray['Mode of Payment']="DD";
                         $userArray['Amount'] = $user->getTotalAmount();
                     }
-                    else
-                    {   $userArray['Mode of Payment']="-";
-                        $userArray['Amount'] = "NOT PAID";
+                    elseif($user->payment->mode_of_payment="spot")
+                    {   $userArray['Mode of Payment']="SPOT";
+                        $userArray['Amount'] =200;
                     }
                 }
                 else
