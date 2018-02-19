@@ -51,36 +51,13 @@
                   <div class="row">
                         <div class="container">
                               <div class="col m12">
-                                    <div class="time">
-                                          <span id="days" class="header red-text"></span>
-                                          &nbsp
-                                          &nbsp
-                                          <span id="hours" class="header yellow-text"></span>
-                                          &nbsp
-                                          &nbsp
-                                          <span id="minutes" class="header blue-text"></span>
-                                          &nbsp
-                                          &nbsp
-                                          <span id="seconds" class="header green-text"></span>
-                                    </div>
-                                    <div class="word">
-                                          <span class="header red-text">DAY</span>
-                                          &nbsp
-                                    
-                                          &nbsp
-                                          <span class="header yellow-text">HOURS </span>
-                                          &nbsp
-                                          &nbsp
-                                          <span class="header blue-text">MINUTES</span>
-                                          &nbsp
-                                          &nbsp
-                                          <span class="header green-text">SECONDS</span>
-                                    </div>
+
                                     <div class="row">
                                     <br>
                                     <br>
-                                    <h4 class="header deep-orange-text  text-accent-3 center">THE MOST AWAITED EVENT IS ONGOING</h4s>
+                                    <h4 class="header deep-orange-text  text-accent-3 center">THE EVENT CAME TO AN END</h4>
                                     <br>
+                                    <BR>
                                     <h4 class="header cyan-text  text-lighten-1 center">THANK YOU FOR OVERWHELMING SUPPORT</h4>
                                     </div>
                               </div>
