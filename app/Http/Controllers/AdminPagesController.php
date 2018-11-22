@@ -372,10 +372,10 @@ class AdminPagesController extends Controller
         return redirect()->route('admin::registrations.edit', ['user_id' => $user_id]);
     }
     function reports(){
-        if(!Auth::user()->hasRole('root') && !Auth::user()->hasRole('hospitality') && !Auth::user()->organizings->count() != 0){
+        if(!Auth::user()->hasRole('root') && !Auth::user()->hasRole('hospitality')&&!Auth::user()->hasRole('registration') && !Auth::user()->organizings->count() != 0){
             return redirect()->route('admin::root');
         }
-        if(Auth::user()->hasRole('root')){
+        if(Auth::user()->hasRole('root') ){
             $colleges = ['all' => 'All'];
             $events = ['all' => 'All'];
             $departments=['all' => 'All'];

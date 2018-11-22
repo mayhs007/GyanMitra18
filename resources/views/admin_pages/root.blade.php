@@ -38,14 +38,7 @@
                                             {{ link_to_route('admin::registrations.offline.enable', 'Enable', null, ['class' => 'btn waves-effect waves-light green']) }}
                                         @endif
                                     </td>
-                                    <th>DD Payment</th>
-                                    <td>
-                                        @if(App\Config::getConfig('dd_payment_open'))
-                                            {{ link_to_route('admin::dd_payment.close', 'Close DD Payment', null, ['class' => 'btn waves-effect waves-light red']) }}
-                                        @else
-                                            {{ link_to_route('admin::dd_payment.open', 'Open DD Payment', null, ['class' => 'btn waves-effect waves-light green']) }}
-                                        @endif
-                                    </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
